@@ -93,34 +93,57 @@ class _DatabaseInterfaceWidgetState extends State<DatabaseInterfaceWidget>
                                           lifetimeController:
                                               _lifetimeController);
                                     })
-                                : AgeConfirmationScreen(
-                                    titleLabel:
-                                        RemainingLifetimeLocalizations.of(
-                                                context)
-                                            .setYourDayOfBirth,
-                                    submitButtonLabel:
-                                        RemainingLifetimeLocalizations.of(
-                                                context)
-                                            .continueWithThisDayOfBirth,
-                                    notOldEnoughLabel:
-                                        RemainingLifetimeLocalizations.of(
-                                                context)
-                                            .youAreNotOldEnoughToUseThisApp,
-                                    changeTheMonthLabel:
-                                        RemainingLifetimeLocalizations.of(
-                                                context)
-                                            .changeTheMonthToApplyThisDate,
-                                    monthLabel:
-                                        RemainingLifetimeLocalizations.of(
-                                                context)
-                                            .month,
-                                    yearLabel:
-                                        RemainingLifetimeLocalizations.of(
-                                                context)
-                                            .year,
-                                    onSubmitCallback: (DateTime age) {
-                                      createUserData(age, userDataBox);
-                                    },
+                                :
+                                // AgeConfirmationScreen(
+                                //     titleLabel:
+                                //         RemainingLifetimeLocalizations.of(
+                                //                 context)
+                                //             .setYourDayOfBirth,
+                                //     submitButtonLabel:
+                                //         RemainingLifetimeLocalizations.of(
+                                //                 context)
+                                //             .continueWithThisDayOfBirth,
+                                //     notOldEnoughLabel:
+                                //         RemainingLifetimeLocalizations.of(
+                                //                 context)
+                                //             .youAreNotOldEnoughToUseThisApp,
+                                //     changeTheMonthLabel:
+                                //         RemainingLifetimeLocalizations.of(
+                                //                 context)
+                                //             .changeTheMonthToApplyThisDate,
+                                //     monthLabel:
+                                //         RemainingLifetimeLocalizations.of(
+                                //                 context)
+                                //             .month,
+                                //     yearLabel:
+                                //         RemainingLifetimeLocalizations.of(
+                                //                 context)
+                                //             .year,
+                                //     onSubmitCallback: (DateTime age) {
+                                //       createUserData(age, userDataBox);
+                                //     },
+                                //   );
+                                //TODO: Implement confirm age screen
+                                Scaffold(
+                                    body: Center(
+                                      child: ElevatedButton(
+                                        child: Text("Set day of birth"),
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return LitDatePickerDialog(
+                                                    onBackCallback:
+                                                        Navigator.of(context)
+                                                            .pop,
+                                                    onSubmit: (age) {
+                                                      createUserData(
+                                                          age, userDataBox);
+                                                    });
+                                              });
+                                        },
+                                      ),
+                                    ),
                                   );
                           },
                         )

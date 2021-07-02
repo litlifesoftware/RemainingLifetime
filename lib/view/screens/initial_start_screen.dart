@@ -80,32 +80,53 @@ class _InitialStartInformationState extends State<InitialStartInformation>
     return skippedInstructions
         ? WillPopScope(
             onWillPop: handleOnPop,
-            child: PrivacyAgreementScreen(
-              agreeLabel:
-                  "${RemainingLifetimeLocalizations.of(context).iAgree}",
-              privacyText:
-                  "${RemainingLifetimeLocalizations.of(context).privacyDescription}",
-              title: "${RemainingLifetimeLocalizations.of(context).privacy}",
-              privacyTags: [
-                PrivacyTag(
-                    text: RemainingLifetimeLocalizations.of(context).private,
-                    isConform: true),
-                PrivacyTag(
-                    text: RemainingLifetimeLocalizations.of(context).noSignUp,
-                    isConform: true),
-              ],
-              launcherIconImageUrl:
-                  "assets/images/Remaining_Lifetime_App_Launcher_Icon_Rounded.png",
-              onAgreeCallback: () => createAppSettings(widget.appSettingsBox),
-            ),
-          )
+            child:
+
+                //TODO implement privacy screen
+                // PrivacyAgreementScreen(
+                //   agreeLabel:
+                //       "${RemainingLifetimeLocalizations.of(context).iAgree}",
+                //   privacyText:
+                //       "${RemainingLifetimeLocalizations.of(context).privacyDescription}",
+                //   title: "${RemainingLifetimeLocalizations.of(context).privacy}",
+                //   privacyTags: [
+                //     PrivacyTag(
+                //         text: RemainingLifetimeLocalizations.of(context).private,
+                //         isConform: true),
+                //     PrivacyTag(
+                //         text: RemainingLifetimeLocalizations.of(context).noSignUp,
+                //         isConform: true),
+                //   ],
+                //   launcherIconImageUrl:
+                //       "assets/images/Remaining_Lifetime_App_Launcher_Icon_Rounded.png",
+                //   onAgreeCallback: () => createAppSettings(widget.appSettingsBox),
+                // ),
+                Scaffold(
+              body: Center(
+                child: ElevatedButton(
+                  child: Text("Accept privacy"),
+                  onPressed: () => createAppSettings(widget.appSettingsBox),
+                ),
+              ),
+            ))
         : FutureBuilder(
             future: Future.delayed(titleScreenDuration),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               return snapshot.connectionState == ConnectionState.done
-                  ? IntroductionToRemainingLifetimeScreen(
-                      handleOnStart: handleOnStart,
-                      onStartAnimationController: _onStartAnimationController,
+                  ?
+
+                  // IntroductionToRemainingLifetimeScreen(
+                  //     handleOnStart: handleOnStart,
+                  //     onStartAnimationController: _onStartAnimationController,
+                  //   )
+                  //TODO Make Instruction screen accessible from profile screen
+                  Scaffold(
+                      body: Center(
+                        child: ElevatedButton(
+                          onPressed: handleOnStart,
+                          child: Text("Continue"),
+                        ),
+                      ),
                     )
                   : TitleScreen(
                       animationDuration: titleScreenDuration,

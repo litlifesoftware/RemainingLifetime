@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   /// required to enable the user to input text.
   AnimationController _bottomBarAnimation;
   LitSnackbarController _customSnackBarController;
-  SettingsPanelController _settingsPanelController;
+  LitSettingsPanelController _settingsPanelController;
   CollapsibleCardController _collapsibleCardController;
 
   /// [TextEditingController] to controller the user input required to create or
@@ -114,28 +114,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   /// Shows the [AboutAppDialog] as a dialog.
   void showCustomAboutDialog(bool darkMode) {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      child: AboutAppDialog(
-        websiteInfo: WebsiteInfo(
-          websiteDescription: "Click here for more apps",
-          websiteUrl: "https://litlifesoftware.github.io",
-        ),
-        title: "About",
-        subtitle: "a product of LitLifeSoftware",
-        infoLabel: "Design and development",
-        infoDescription: "Michael Grigorenko",
-        appName: "Remaining Lifetime",
-        backgroundColor: darkMode ? LitColors.darkBlue : Colors.white,
-        textStyle: LitTextStyles.sansSerif.copyWith(
-          color: darkMode ? Colors.white : LitColors.mediumGrey,
-        ),
-        accentColor: darkMode ? LitColors.mediumGrey : Colors.white,
-        launcherImageUrl:
-            "assets/images/Remaining_Lifetime_App_Launcher_Icon_Rounded.png",
-      ),
-    );
+    //TODO implement about dialog
+    print("about dialog");
+    // showDialog(
+    //   context: context,
+    //   barrierDismissible: true,
+    //   child: AboutAppDialog(
+    //     websiteInfo: WebsiteInfo(
+    //       websiteDescription: "Click here for more apps",
+    //       websiteUrl: "https://litlifesoftware.github.io",
+    //     ),
+    //     title: "About",
+    //     subtitle: "a product of LitLifeSoftware",
+    //     infoLabel: "Design and development",
+    //     infoDescription: "Michael Grigorenko",
+    //     appName: "Remaining Lifetime",
+    //     backgroundColor: darkMode ? LitColors.darkBlue : Colors.white,
+    //     textStyle: LitTextStyles.sansSerif.copyWith(
+    //       color: darkMode ? Colors.white : LitColors.mediumGrey,
+    //     ),
+    //     accentColor: darkMode ? LitColors.mediumGrey : Colors.white,
+    //     launcherImageUrl:
+    //         "assets/images/Remaining_Lifetime_App_Launcher_Icon_Rounded.png",
+    //   ),
+    // );
   }
 
   /// Dismisses the [BottomBar] by playing the [Animation] in reverse.
@@ -152,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _editingFocus = FocusNode();
-    _settingsPanelController = SettingsPanelController();
+    _settingsPanelController = LitSettingsPanelController();
     _customSnackBarController = LitSnackbarController();
     _collapsibleCardController = CollapsibleCardController();
     _goalTitleController = TextEditingController(text: "");
@@ -206,20 +208,23 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               : DummyCollapsibleCard(
                   collapsibleCardController: _collapsibleCardController,
                 ),
-      snackBar: IconSnackbar(
-        litSnackBarController: _customSnackBarController,
-        text: "${RemainingLifetimeLocalizations.of(context).achievementSaved}",
-        iconData: LitIcons.check,
-        textStyle: LitTextStyles.sansSerif.copyWith(
-          color: Colors.white,
-        ),
-      ),
-      settingsPanel: SettingsPanel(
+      //TODO IMplement lit snackbar
+      snackbars: [
+        // LitSnackbar(
+        // litSnackBarController: _customSnackBarController,
+        // text: "${RemainingLifetimeLocalizations.of(context).achievementSaved}",
+        // iconData: LitIcons.check,
+        // textStyle: LitTextStyles.sansSerif.copyWith(
+        //   color: Colors.white,
+        // ),
+        //)
+      ],
+      settingsPanel: LitSettingsPanel(
         controller: _settingsPanelController,
         darkMode: appSettings.darkMode,
         title: "${RemainingLifetimeLocalizations.of(context).settings}",
         settingsTiles: [
-          SettingsTile(
+          LitSettingsPanelTile(
             disabledLabel:
                 "${RemainingLifetimeLocalizations.of(context).turnedOff}",
             enabledLabel:
@@ -240,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             darkMode: appSettings.darkMode,
             enabled: appSettings.animated,
           ),
-          SettingsTile(
+          LitSettingsPanelTile(
             disabledLabel:
                 "${RemainingLifetimeLocalizations.of(context).turnedOff}",
             enabledLabel:
@@ -323,34 +328,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               onPressed: () => showCustomAboutDialog(appSettings.darkMode),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 8.0,
-            ),
-            child: LitRoundedOutlinedButton(
-              strokeWidth: 3.0,
-              borderColor: appSettings.darkMode
-                  ? Colors.white.withOpacity(0.7)
-                  : LitColors.mediumGrey.withOpacity(0.6),
-              child: Text(
-                "${RemainingLifetimeLocalizations.of(context).introduction}",
-                style: LitTextStyles.sansSerif.copyWith(
-                  color: appSettings.darkMode
-                      ? Colors.white.withOpacity(0.7)
-                      : LitColors.mediumGrey.withOpacity(0.8),
-                  fontSize: 14.0,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      IntroductionToRemainingLifetimeScreen(
-                        handleOnStart: () {
-                          Navigator.pop(context);
-                        },
-                      ))),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(
+          //     vertical: 8.0,
+          //   ),
+          //   child: LitRoundedOutlinedButton(
+          //     strokeWidth: 3.0,
+          //     borderColor: appSettings.darkMode
+          //         ? Colors.white.withOpacity(0.7)
+          //         : LitColors.mediumGrey.withOpacity(0.6),
+          //     child: Text(
+          //       "${RemainingLifetimeLocalizations.of(context).introduction}",
+          //       style: LitTextStyles.sansSerif.copyWith(
+          //         color: appSettings.darkMode
+          //             ? Colors.white.withOpacity(0.7)
+          //             : LitColors.mediumGrey.withOpacity(0.8),
+          //         fontSize: 14.0,
+          //       ),
+          //       textAlign: TextAlign.center,
+          //     ),
+          //     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+          //         builder: (BuildContext context) =>
+          //             IntroductionToRemainingLifetimeScreen(
+          //               handleOnStart: () {
+          //                 Navigator.pop(context);
+          //               },
+          //             ))),
+          //   ),
+          // ),
         ],
       ),
       body: AnimatedBuilder(
