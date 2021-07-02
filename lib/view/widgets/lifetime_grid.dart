@@ -8,13 +8,13 @@ import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/view/widgets/lifetime_tile.dart';
 
 class LifetimeGrid extends StatefulWidget {
-  final LifetimeController lifetimeController;
-  final bool darkMode;
+  final LifetimeController? lifetimeController;
+  final bool? darkMode;
   final void Function() showBottomBar;
   final void Function() dismissBottomBar;
   final Box<dynamic> goalsBox;
-  final LitSnackbarController customSnackBarController;
-  final FocusNode focusNode;
+  final LitSnackbarController? customSnackBarController;
+  final FocusNode? focusNode;
   final void Function(int index) handleTilePress;
 
   /// Creates a [LifetimeGrid] [StatelessWidget].
@@ -23,15 +23,15 @@ class LifetimeGrid extends StatefulWidget {
   /// a [GridView]. This will enable the user to select a specific month
   /// in order to edit the corresponding [Goal] object.
   const LifetimeGrid({
-    Key key,
-    @required this.lifetimeController,
-    @required this.darkMode,
-    @required this.showBottomBar,
-    @required this.dismissBottomBar,
-    @required this.goalsBox,
-    @required this.customSnackBarController,
-    @required this.focusNode,
-    @required this.handleTilePress,
+    Key? key,
+    required this.lifetimeController,
+    required this.darkMode,
+    required this.showBottomBar,
+    required this.dismissBottomBar,
+    required this.goalsBox,
+    required this.customSnackBarController,
+    required this.focusNode,
+    required this.handleTilePress,
   }) : super(key: key);
 
   @override
@@ -40,15 +40,15 @@ class LifetimeGrid extends StatefulWidget {
 
 class _LifetimeGridState extends State<LifetimeGrid>
     with TickerProviderStateMixin {
-  AnimationController _longPressedAnimation;
-  AnimationController _pressedAnimation;
+  late AnimationController _longPressedAnimation;
+  late AnimationController _pressedAnimation;
 
   /// The currently long pressed [Goal] object is retrieved using its
   /// index.
-  int _longPressedId;
+  int? _longPressedId;
 
-  int _pastLifetimeInMonths;
-  int _totalMonths;
+  int? _pastLifetimeInMonths;
+  int? _totalMonths;
   void initGoals(Box<Goal> goalsBox) {}
 
   /// Set the index value of the long pressed [Goal].
@@ -81,8 +81,8 @@ class _LifetimeGridState extends State<LifetimeGrid>
           milliseconds: 500,
         ));
 
-    _pastLifetimeInMonths = widget.lifetimeController.pastLifeTimeInMonths;
-    _totalMonths = widget.lifetimeController.lifeExpectancyInMonths;
+    _pastLifetimeInMonths = widget.lifetimeController!.pastLifeTimeInMonths;
+    _totalMonths = widget.lifetimeController!.lifeExpectancyInMonths;
   }
 
   @override

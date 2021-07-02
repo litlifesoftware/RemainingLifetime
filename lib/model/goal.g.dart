@@ -17,10 +17,10 @@ class GoalAdapter extends TypeAdapter<Goal> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Goal(
-      id: fields[0] as int,
-      title: fields[1] as String,
-      month: fields[2] as int,
-      year: fields[3] as int,
+      id: fields[0] as int?,
+      title: fields[1] as String?,
+      month: fields[2] as int?,
+      year: fields[3] as int?,
     );
   }
 

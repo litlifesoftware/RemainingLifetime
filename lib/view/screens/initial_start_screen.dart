@@ -14,7 +14,7 @@ class InitialStartInformation extends StatefulWidget {
   final Box<dynamic> appSettingsBox;
 
   /// Creates an [InitialStartInformation] screen.
-  const InitialStartInformation({Key key, @required this.appSettingsBox})
+  const InitialStartInformation({Key? key, required this.appSettingsBox})
       : super(key: key);
   @override
   _InitialStartInformationState createState() =>
@@ -24,8 +24,8 @@ class InitialStartInformation extends StatefulWidget {
 class _InitialStartInformationState extends State<InitialStartInformation>
     with TickerProviderStateMixin {
   final Duration titleScreenDuration = Duration(milliseconds: 3000);
-  AnimationController _onStartAnimationController;
-  bool skippedInstructions;
+  late AnimationController _onStartAnimationController;
+  late bool skippedInstructions;
   void createAppSettings(Box<dynamic> appSettingsBox) {
     AppSettings appSettings =
         AppSettings(agreedPrivacy: true, animated: true, darkMode: false);

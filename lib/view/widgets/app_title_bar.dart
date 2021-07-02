@@ -6,10 +6,10 @@ class AppTitleBar extends StatelessWidget {
   final String appName;
   final Color backgroundColor;
   const AppTitleBar({
-    Key key,
-    @required this.thisIsLabel,
-    @required this.appName,
-    @required this.backgroundColor,
+    Key? key,
+    required this.thisIsLabel,
+    required this.appName,
+    required this.backgroundColor,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {

@@ -20,9 +20,9 @@ class DatabaseInterfaceWidget extends StatefulWidget {
 
 class _DatabaseInterfaceWidgetState extends State<DatabaseInterfaceWidget>
     with TickerProviderStateMixin {
-  LifetimeController _lifetimeController;
+  LifetimeController? _lifetimeController;
 
-  void setLifetimeController(int dateOfBirthTimestamp) {
+  void setLifetimeController(int? dateOfBirthTimestamp) {
     print("lifetime controller set");
     _lifetimeController =
         LifetimeController(dayOfBirthTimestamp: dateOfBirthTimestamp);
@@ -33,7 +33,7 @@ class _DatabaseInterfaceWidgetState extends State<DatabaseInterfaceWidget>
   /// The [LifetimeController] will be used to add one entry for each
   /// expected lifetime month.
   void initializeGoalsBoxContent(goalsBox) {
-    for (int i = 0; i < _lifetimeController.lifeExpectancyInMonths; i++) {
+    for (int i = 0; i < _lifetimeController!.lifeExpectancyInMonths; i++) {
       // print(
       //     "goal date ${widget.lifetimeController.convertTotalMonthToDateTime(i)}");
       goalsBox.add(
@@ -41,8 +41,8 @@ class _DatabaseInterfaceWidgetState extends State<DatabaseInterfaceWidget>
             // Increase the index by one to create the id.
             id: i,
             title: "",
-            month: _lifetimeController.convertTotalMonthToDateTime(i).month,
-            year: _lifetimeController.convertTotalMonthToDateTime(i).year),
+            month: _lifetimeController!.convertTotalMonthToDateTime(i).month,
+            year: _lifetimeController!.convertTotalMonthToDateTime(i).year),
       );
     }
   }
@@ -69,12 +69,12 @@ class _DatabaseInterfaceWidgetState extends State<DatabaseInterfaceWidget>
             return ValueListenableBuilder(
                 valueListenable: HiveDBService().getAppSettings(),
                 builder: (BuildContext context, Box<dynamic> appSettingsBox,
-                    Widget child) {
+                    Widget? child) {
                   return appSettingsBox.isNotEmpty
                       ? ValueListenableBuilder(
                           valueListenable: HiveDBService().getUserData(),
                           builder: (BuildContext context,
-                              Box<dynamic> userDataBox, Widget child) {
+                              Box<dynamic> userDataBox, Widget? child) {
                             if (userDataBox.isNotEmpty) {
                               UserData userData = userDataBox.getAt(0);
                               setLifetimeController(userData.dayOfBirth);
@@ -83,7 +83,7 @@ class _DatabaseInterfaceWidgetState extends State<DatabaseInterfaceWidget>
                                 ? ValueListenableBuilder(
                                     valueListenable: HiveDBService().getGoals(),
                                     builder: (BuildContext context,
-                                        Box<dynamic> goalsBox, Widget child) {
+                                        Box<dynamic> goalsBox, Widget? child) {
                                       if (goalsBox.length == 0) {
                                         initializeGoalsBoxContent(goalsBox);
                                       }

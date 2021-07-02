@@ -8,15 +8,15 @@ part 'app_settings.g.dart';
 @HiveType(typeId: 2)
 class AppSettings {
   @HiveField(0)
-  final bool agreedPrivacy;
+  final bool? agreedPrivacy;
   @HiveField(1)
-  final bool darkMode;
+  final bool? darkMode;
   @HiveField(2)
-  final bool animated;
+  final bool? animated;
 
   const AppSettings({
-    @required this.agreedPrivacy,
-    @required this.darkMode,
-    @required this.animated,
+    required this.agreedPrivacy,
+    required this.darkMode,
+    required this.animated,
   });
 }

@@ -4,10 +4,10 @@ import 'dart:math' as Math;
 
 class PercentIndicatorPainter extends CustomPainter {
   final double progressRatio;
-  final AnimationController animationController;
+  final AnimationController? animationController;
   const PercentIndicatorPainter({
-    @required this.progressRatio,
-    @required this.animationController,
+    required this.progressRatio,
+    required this.animationController,
   });
   @override
   void paint(Canvas canvas, Size size) {
@@ -30,7 +30,7 @@ class PercentIndicatorPainter extends CustomPainter {
     /// The total radian of the circle is calculated by multiplying
     /// the full circle (2 PI) by the provided [progressRatio].
     final double radian =
-        animationController.value * (2 * Math.pi) * (progressRatio);
+        animationController!.value * (2 * Math.pi) * (progressRatio);
 
     /// The [Offset] used to draw the ending indicator of the progress
     /// bar.
@@ -71,7 +71,7 @@ class PercentIndicatorPainter extends CustomPainter {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(
           text:
-              "${(progressRatio * 100.0 * animationController.value).toInt()}",
+              "${(progressRatio * 100.0 * animationController!.value).toInt()}",
           style: LitTextStyles.sansSerif.copyWith(
             color: Colors.white,
             fontSize: 12.0,

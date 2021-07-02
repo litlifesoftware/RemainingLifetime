@@ -7,7 +7,7 @@ import 'package:lit_ui_kit/lit_ui_kit.dart';
 class LoadingScreen extends StatelessWidget {
   /// Creates a [LoadingScreen] [Widget].
   const LoadingScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

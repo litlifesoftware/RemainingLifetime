@@ -11,22 +11,22 @@ import 'package:remaining_lifetime/controller/lifetime_controller.dart';
 /// In order to extract the information necessary to calculate the
 /// month and year, a [LifetimeController] must be provided.
 class LifetimeTile extends StatefulWidget {
-  final LifetimeController lifetimeController;
+  final LifetimeController? lifetimeController;
   final int index;
-  final int longPressedId;
-  final int pastLifeTimeInMonths;
-  final bool darkMode;
+  final int? longPressedId;
+  final int? pastLifeTimeInMonths;
+  final bool? darkMode;
 
   /// Creates a [LifetimeTile].
   ///
   /// Change the appearance using the [darkMode] value.
   const LifetimeTile({
-    Key key,
-    @required this.lifetimeController,
-    @required this.index,
-    @required this.longPressedId,
-    @required this.pastLifeTimeInMonths,
-    @required this.darkMode,
+    Key? key,
+    required this.lifetimeController,
+    required this.index,
+    required this.longPressedId,
+    required this.pastLifeTimeInMonths,
+    required this.darkMode,
   }) : super(key: key);
 
   @override
@@ -35,31 +35,31 @@ class LifetimeTile extends StatefulWidget {
 
 class _LifetimeTileState extends State<LifetimeTile> {
   /// The month value of the tile.
-  int tileMonth;
+  int? tileMonth;
 
   /// The year value of the tile.
-  int tileYear;
+  int? tileYear;
 
   /// State whether or not this [LifetimeTile] has
   /// already been spent.
   bool get isPast {
-    return widget.pastLifeTimeInMonths >= widget.index;
+    return widget.pastLifeTimeInMonths! >= widget.index;
   }
 
   @override
   void initState() {
     super.initState();
     tileMonth = DateTime.fromMillisecondsSinceEpoch(
-            widget.lifetimeController.dayOfBirthDateTime.millisecondsSinceEpoch)
+            widget.lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
         .add(Duration(
             milliseconds: widget.index *
-                widget.lifetimeController.millisecondsPerMonth.toInt()))
+                widget.lifetimeController!.millisecondsPerMonth.toInt()))
         .month;
     tileYear = DateTime.fromMillisecondsSinceEpoch(
-            widget.lifetimeController.dayOfBirthDateTime.millisecondsSinceEpoch)
+            widget.lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
         .add(Duration(
             milliseconds: widget.index *
-                widget.lifetimeController.millisecondsPerMonth.toInt()))
+                widget.lifetimeController!.millisecondsPerMonth.toInt()))
         .year;
   }
 
@@ -70,7 +70,7 @@ class _LifetimeTileState extends State<LifetimeTile> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: isPast
-              ? widget.darkMode
+              ? widget.darkMode!
                   ? LitColors.mediumGrey.withOpacity(0.55)
                   : LitColors.lightRed.withOpacity(0.35)
               : Colors.grey.withOpacity(0.2)),

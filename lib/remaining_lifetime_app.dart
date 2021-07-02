@@ -16,7 +16,7 @@ class RemainingLifetimeApp extends StatefulWidget {
 
 class _RemainingLifetimeAppState extends State<RemainingLifetimeApp> {
   /// The set of [Image]s used throughout the app.
-  List<String> assetImages;
+  late List<String> assetImages;
 
   @override
   void initState() {

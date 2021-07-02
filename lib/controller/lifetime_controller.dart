@@ -4,19 +4,19 @@ import 'package:flutter/foundation.dart';
 /// operations using the provided [dayOfBirthTimestamp].
 class LifetimeController {
   /// The user's day of birth provided as an unix timestamp.
-  final int dayOfBirthTimestamp;
+  final int? dayOfBirthTimestamp;
 
   /// The user's day of birth returned as [DateTime]
   /// used to calculate various statistical values.
   DateTime get dayOfBirthDateTime {
-    return DateTime.fromMillisecondsSinceEpoch(dayOfBirthTimestamp);
+    return DateTime.fromMillisecondsSinceEpoch(dayOfBirthTimestamp!);
   }
 
   /// Creates a new [LifetimeController].
   ///
   /// Providing the [dayOfBirthTimestamp] will be required for various operations.
 
-  LifetimeController({@required this.dayOfBirthTimestamp});
+  LifetimeController({required this.dayOfBirthTimestamp});
 
   /// The current [DateTime] provided by the system.
   DateTime now = DateTime.now();

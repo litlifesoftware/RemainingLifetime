@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 class AnimatedArtwork extends StatefulWidget {
   final AnimationController onStartAnimationController;
   const AnimatedArtwork({
-    Key key,
-    @required this.onStartAnimationController,
+    Key? key,
+    required this.onStartAnimationController,
   }) : super(key: key);
   @override
   _AnimatedArtworkState createState() => _AnimatedArtworkState();
@@ -14,8 +14,8 @@ class AnimatedArtwork extends StatefulWidget {
 
 class _AnimatedArtworkState extends State<AnimatedArtwork>
     with TickerProviderStateMixin {
-  AnimationController _appearAnimationController;
-  AnimationController _repeatAnimationController;
+  late AnimationController _appearAnimationController;
+  late AnimationController _repeatAnimationController;
   void initAnimation() {
     _appearAnimationController = AnimationController(
       vsync: this,
@@ -55,7 +55,7 @@ class _AnimatedArtworkState extends State<AnimatedArtwork>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _appearAnimationController,
-      builder: (BuildContext context, Widget _) {
+      builder: (BuildContext context, Widget? _) {
         return Stack(
           children: [
             Align(
@@ -67,7 +67,7 @@ class _AnimatedArtworkState extends State<AnimatedArtwork>
                     width: MediaQuery.of(context).size.width * 1.3,
                     child: AnimatedBuilder(
                       animation: _repeatAnimationController,
-                      builder: (BuildContext context, Widget _) {
+                      builder: (BuildContext context, Widget? _) {
                         return Transform(
                             transform: Matrix4.translationValues(
                               120.0,
@@ -76,7 +76,7 @@ class _AnimatedArtworkState extends State<AnimatedArtwork>
                             ),
                             child: AnimatedBuilder(
                               animation: widget.onStartAnimationController,
-                              builder: (BuildContext context, Widget _) {
+                              builder: (BuildContext context, Widget? _) {
                                 return Transform.scale(
                                   scale: 1.0 +
                                       (widget.onStartAnimationController.value *
@@ -102,7 +102,7 @@ class _AnimatedArtworkState extends State<AnimatedArtwork>
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: AnimatedBuilder(
                     animation: _repeatAnimationController,
-                    builder: (BuildContext context, Widget _) {
+                    builder: (BuildContext context, Widget? _) {
                       return Transform(
                         transform: Matrix4.translationValues(
                           25.0,
@@ -114,7 +114,7 @@ class _AnimatedArtworkState extends State<AnimatedArtwork>
                                 (1 - _repeatAnimationController.value),
                             child: AnimatedBuilder(
                               animation: widget.onStartAnimationController,
-                              builder: (BuildContext context, Widget _) {
+                              builder: (BuildContext context, Widget? _) {
                                 return Transform.rotate(
                                   angle: (((2 * pi / 360) * 80) *
                                       widget.onStartAnimationController.value),

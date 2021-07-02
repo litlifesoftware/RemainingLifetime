@@ -8,18 +8,18 @@ part 'goal.g.dart';
 @HiveType(typeId: 1)
 class Goal {
   @HiveField(0)
-  final int id;
+  final int? id;
   @HiveField(1)
-  final String title;
+  final String? title;
   @HiveField(2)
-  final int month;
+  final int? month;
   @HiveField(3)
-  final int year;
+  final int? year;
 
   const Goal({
-    @required this.id,
-    @required this.title,
-    @required this.month,
-    @required this.year,
+    required this.id,
+    required this.title,
+    required this.month,
+    required this.year,
   });
 }

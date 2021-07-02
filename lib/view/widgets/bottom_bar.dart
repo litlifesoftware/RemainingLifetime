@@ -6,14 +6,14 @@ import 'package:remaining_lifetime/controller/localization/remaining_lifetime_lo
 import 'package:remaining_lifetime/view/widgets/percent_indicator_painter.dart';
 
 class BottomBar extends StatefulWidget {
-  final LifetimeController lifetimeController;
+  final LifetimeController? lifetimeController;
   final void Function() onSettingsPressCallback;
-  final bool darkMode;
+  final bool? darkMode;
   const BottomBar({
-    Key key,
-    @required this.lifetimeController,
-    @required this.onSettingsPressCallback,
-    @required this.darkMode,
+    Key? key,
+    required this.lifetimeController,
+    required this.onSettingsPressCallback,
+    required this.darkMode,
   }) : super(key: key);
 
   @override
@@ -21,23 +21,23 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
-  AnimationController _appearAnimation;
+  AnimationController? _appearAnimation;
 
   int get animatedSpentMonths {
-    return (widget.lifetimeController.pastLifeTimeInMonths *
-            _appearAnimation.value)
+    return (widget.lifetimeController!.pastLifeTimeInMonths *
+            _appearAnimation!.value)
         .toInt();
   }
 
   int get animatedRemainingMonths {
-    return (widget.lifetimeController.remainingLifeTimeInMonths *
-            _appearAnimation.value)
+    return (widget.lifetimeController!.remainingLifeTimeInMonths *
+            _appearAnimation!.value)
         .toInt();
   }
 
   double get spendMonthsRatio {
-    return (widget.lifetimeController.pastLifeTimeInMonths /
-        widget.lifetimeController.lifeExpectancyInMonths);
+    return (widget.lifetimeController!.pastLifeTimeInMonths /
+        widget.lifetimeController!.lifeExpectancyInMonths);
   }
 
   @override
@@ -49,7 +49,7 @@ class _BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _appearAnimation.dispose();
+    _appearAnimation!.dispose();
     super.dispose();
   }
 
@@ -74,9 +74,9 @@ class _BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
                   sigmaY: 8.0,
                 ),
                 child: AnimatedBuilder(
-                  animation: _appearAnimation,
+                  animation: _appearAnimation!,
                   builder: (context, child) {
-                    _appearAnimation.forward();
+                    _appearAnimation!.forward();
                     return Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
@@ -98,8 +98,8 @@ class _BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     ScaledDownText(
-                                      RemainingLifetimeLocalizations.of(context)
-                                          .spent
+                                      RemainingLifetimeLocalizations.of(context)!
+                                          .spent!
                                           .toUpperCase(),
                                       style: LitTextStyles.sansSerif.copyWith(
                                         color: Colors.white70,
@@ -109,8 +109,8 @@ class _BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     ScaledDownText(
-                                      RemainingLifetimeLocalizations.of(context)
-                                          .remaining
+                                      RemainingLifetimeLocalizations.of(context)!
+                                          .remaining!
                                           .toUpperCase(),
                                       style: LitTextStyles.sansSerif.copyWith(
                                         color: Colors.white70,

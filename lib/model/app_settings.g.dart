@@ -17,9 +17,9 @@ class AppSettingsAdapter extends TypeAdapter<AppSettings> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return AppSettings(
-      agreedPrivacy: fields[0] as bool,
-      darkMode: fields[1] as bool,
-      animated: fields[2] as bool,
+      agreedPrivacy: fields[0] as bool?,
+      darkMode: fields[1] as bool?,
+      animated: fields[2] as bool?,
     );
   }
 

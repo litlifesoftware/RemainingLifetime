@@ -3,9 +3,9 @@ import 'package:lit_ui_kit/lit_ui_kit.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 
 class GoalPreviewCardActionButton extends StatefulWidget {
-  final Goal goal;
-  final bool darkMode;
-  final TextEditingController textEditingController;
+  final Goal? goal;
+  final bool? darkMode;
+  final TextEditingController? textEditingController;
   final void Function() saveGoalCallback;
 
   /// Create a [GoalPreviewCardActionButton] used to conditionally render the
@@ -14,11 +14,11 @@ class GoalPreviewCardActionButton extends StatefulWidget {
   /// If the provided [Goal] title and the currently entered text are different,
   /// allow the User to save his input.
   const GoalPreviewCardActionButton({
-    Key key,
-    @required this.goal,
-    @required this.darkMode,
-    @required this.textEditingController,
-    @required this.saveGoalCallback,
+    Key? key,
+    required this.goal,
+    required this.darkMode,
+    required this.textEditingController,
+    required this.saveGoalCallback,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class GoalPreviewCardActionButton extends StatefulWidget {
 
 class _GoalPreviewCardActionButtonState
     extends State<GoalPreviewCardActionButton> with TickerProviderStateMixin {
-  AnimationController _saveButtonAnimation;
+  late AnimationController _saveButtonAnimation;
 
   @override
   void initState() {
@@ -52,8 +52,8 @@ class _GoalPreviewCardActionButtonState
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _saveButtonAnimation,
-      builder: (BuildContext context, Widget child) {
-        return widget.goal.title != widget.textEditingController.text
+      builder: (BuildContext context, Widget? child) {
+        return widget.goal!.title != widget.textEditingController!.text
             ? Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 4.0,
@@ -93,7 +93,7 @@ class _GoalPreviewCardActionButtonState
                 child: Container(
                   decoration: BoxDecoration(
                     color:
-                        Colors.white.withOpacity(widget.darkMode ? 0.5 : 0.8),
+                        Colors.white.withOpacity(widget.darkMode! ? 0.5 : 0.8),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: Padding(
@@ -103,10 +103,10 @@ class _GoalPreviewCardActionButtonState
                     ),
                     child: Text(
                       // Increase the id by one to display the month number.
-                      "# ${widget.goal.id + 1}",
+                      "# ${widget.goal!.id! + 1}",
                       style: LitTextStyles.sansSerif.copyWith(
                         fontSize: 16.5,
-                        color: widget.darkMode ? Colors.white : Colors.black45,
+                        color: widget.darkMode! ? Colors.white : Colors.black45,
                       ),
                     ),
                   ),

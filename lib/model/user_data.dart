@@ -7,9 +7,9 @@ part 'user_data.g.dart';
 @HiveType(typeId: 0)
 class UserData {
   @HiveField(0)
-  final int dayOfBirth;
+  final int? dayOfBirth;
 
   UserData({
-    @required this.dayOfBirth,
+    required this.dayOfBirth,
   });
 }

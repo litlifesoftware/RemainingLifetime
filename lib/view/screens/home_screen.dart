@@ -19,15 +19,15 @@ import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 class HomeScreen extends StatefulWidget {
   final Box<dynamic> appSettingsBox;
   final Box<dynamic> goalsBox;
-  final LifetimeController lifetimeController;
+  final LifetimeController? lifetimeController;
 
   /// Creates a [HomeScreen] [Widget].
 
   const HomeScreen({
-    Key key,
-    @required this.appSettingsBox,
-    @required this.goalsBox,
-    @required this.lifetimeController,
+    Key? key,
+    required this.appSettingsBox,
+    required this.goalsBox,
+    required this.lifetimeController,
   }) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -36,25 +36,25 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   /// The [FocusNode] used on the [TextField] corresponding to the goals
   /// title input.
-  FocusNode _editingFocus;
+  FocusNode? _editingFocus;
 
   /// [AnimatinonController] used to animate the appear animatinon on start of the
   /// displayed [Widgets] on start of the app.
-  AnimationController _appearAnimation;
+  late AnimationController _appearAnimation;
 
   /// [AnimationController] used to translate the [BottomBar] on start and whenever
   /// required to enable the user to input text.
-  AnimationController _bottomBarAnimation;
-  LitSnackbarController _customSnackBarController;
-  LitSettingsPanelController _settingsPanelController;
-  CollapsibleCardController _collapsibleCardController;
+  late AnimationController _bottomBarAnimation;
+  LitSnackbarController? _customSnackBarController;
+  late LitSettingsPanelController _settingsPanelController;
+  CollapsibleCardController? _collapsibleCardController;
 
   /// [TextEditingController] to controller the user input required to create or
   /// edit a [Goal].
-  TextEditingController _goalTitleController;
+  TextEditingController? _goalTitleController;
 
   /// The currently selected [Goal] object on the [LifetimeGrid].
-  Goal _selectedGoal;
+  Goal? _selectedGoal;
   Future<bool> privacyOnPress() async {
     return await UrlLauncher.launch(
         "https://litlifesoftware.github.io/privacy");
@@ -63,12 +63,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   /// Sets the [_selectedGoal] value using the provided [Goal].
   /// After setting the value, the [TitledCollapsibleCard] will be
   /// transformed using the [_pressedAnimation] [AnimationController].
-  void setPressedGoal(Goal value) {
-    _collapsibleCardController.expandCard(() {
+  void setPressedGoal(Goal? value) {
+    _collapsibleCardController!.expandCard(() {
       setState(() {
         _selectedGoal = value;
         _goalTitleController =
-            TextEditingController(text: "${_selectedGoal.title}");
+            TextEditingController(text: "${_selectedGoal!.title}");
       });
     });
     _bottomBarAnimation.reverse(from: 1.0);
@@ -93,27 +93,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   /// selected [Goal] attributes and the [TextEditingController]'s text value.
   void handleGoalSave(Box<dynamic> goalsBox) {
     goalsBox.putAt(
-        _selectedGoal.id,
+        _selectedGoal!.id!,
         Goal(
-            id: _selectedGoal.id,
-            title: _goalTitleController.text,
-            month: _selectedGoal.month,
-            year: _selectedGoal.year));
+            id: _selectedGoal!.id,
+            title: _goalTitleController!.text,
+            month: _selectedGoal!.month,
+            year: _selectedGoal!.year));
     resetPressedGoal();
-    _customSnackBarController.showSnackBar();
+    _customSnackBarController!.showSnackBar();
   }
 
   /// Sets or resets the [_selectedGoal] object depending on its current value.
   void handleTilePress(int index) {
     _selectedGoal == null
         ? setPressedGoal(widget.goalsBox.getAt(index))
-        : _collapsibleCardController.collapseCard(() {
+        : _collapsibleCardController!.collapseCard(() {
             resetPressedGoal();
           });
   }
 
   /// Shows the [AboutAppDialog] as a dialog.
-  void showCustomAboutDialog(bool darkMode) {
+  void showCustomAboutDialog(bool? darkMode) {
     //TODO implement about dialog
     print("about dialog");
     // showDialog(
@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       collapsibleCard:
 
           /// Ensure the [GoalPreviewCard] is only rendered if required.
-          _selectedGoal != null
+          (_selectedGoal != null
               ? GoalPreviewCard(
                   lifetimeController: widget.lifetimeController,
                   saveGoalCallback: () => handleGoalSave(widget.goalsBox),
@@ -206,8 +206,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   darkMode: appSettings.darkMode,
                 )
               : DummyCollapsibleCard(
-                  collapsibleCardController: _collapsibleCardController,
-                ),
+                  collapsibleCardController: _collapsibleCardController!,
+                )) as CollapsibleCard?,
       //TODO IMplement lit snackbar
       snackbars: [
         // LitSnackbar(
@@ -221,14 +221,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       ],
       settingsPanel: LitSettingsPanel(
         controller: _settingsPanelController,
-        darkMode: appSettings.darkMode,
-        title: "${RemainingLifetimeLocalizations.of(context).settings}",
+        darkMode: appSettings.darkMode!,
+        title: "${RemainingLifetimeLocalizations.of(context)!.settings}",
         settingsTiles: [
           LitSettingsPanelTile(
             disabledLabel:
-                "${RemainingLifetimeLocalizations.of(context).turnedOff}",
+                "${RemainingLifetimeLocalizations.of(context)!.turnedOff}",
             enabledLabel:
-                "${RemainingLifetimeLocalizations.of(context).turnedOn}",
+                "${RemainingLifetimeLocalizations.of(context)!.turnedOn}",
             iconData: LitIcons.animation,
             onValueToggled: (toggledValue) {
               widget.appSettingsBox.putAt(
@@ -241,15 +241,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               );
             },
             optionName:
-                "${RemainingLifetimeLocalizations.of(context).animations}",
-            darkMode: appSettings.darkMode,
-            enabled: appSettings.animated,
+                "${RemainingLifetimeLocalizations.of(context)!.animations}",
+            darkMode: appSettings.darkMode!,
+            enabled: appSettings.animated!,
           ),
           LitSettingsPanelTile(
             disabledLabel:
-                "${RemainingLifetimeLocalizations.of(context).turnedOff}",
+                "${RemainingLifetimeLocalizations.of(context)!.turnedOff}",
             enabledLabel:
-                "${RemainingLifetimeLocalizations.of(context).turnedOn}",
+                "${RemainingLifetimeLocalizations.of(context)!.turnedOn}",
             onValueToggled: (toggledValue) {
               widget.appSettingsBox.putAt(
                 0,
@@ -260,10 +260,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               );
             },
-            darkMode: appSettings.darkMode,
-            enabled: appSettings.darkMode,
+            darkMode: appSettings.darkMode!,
+            enabled: appSettings.darkMode!,
             optionName:
-                "${RemainingLifetimeLocalizations.of(context).darkMode}",
+                "${RemainingLifetimeLocalizations.of(context)!.darkMode}",
             iconData: LitIcons.moon,
           ),
         ],
@@ -273,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: LitRoundedFlatButton(
               color: LitColors.lightBlue.withOpacity(0.7),
               child: Text(
-                "${RemainingLifetimeLocalizations.of(context).licenses}",
+                "${RemainingLifetimeLocalizations.of(context)!.licenses}",
                 style: LitTextStyles.sansSerif.copyWith(
                   color: Colors.white,
                   fontSize: 14.0,
@@ -284,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ApplicationLicensesScreen(
-                      darkMode: appSettings.darkMode,
+                      darkMode: appSettings.darkMode!,
                     ),
                   ),
                 );
@@ -296,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: LitRoundedFlatButton(
               color: LitColors.lightBlue.withOpacity(0.7),
               child: Text(
-                "${RemainingLifetimeLocalizations.of(context).privacy}",
+                "${RemainingLifetimeLocalizations.of(context)!.privacy}",
                 style: LitTextStyles.sansSerif.copyWith(
                   color: Colors.white,
                   fontSize: 14.0,
@@ -312,13 +312,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
             child: LitRoundedOutlinedButton(
               strokeWidth: 3.0,
-              borderColor: appSettings.darkMode
+              borderColor: appSettings.darkMode!
                   ? Colors.white.withOpacity(0.7)
                   : LitColors.mediumGrey.withOpacity(0.6),
               child: Text(
-                "${RemainingLifetimeLocalizations.of(context).aboutThisApp}",
+                "${RemainingLifetimeLocalizations.of(context)!.aboutThisApp}",
                 style: LitTextStyles.sansSerif.copyWith(
-                  color: appSettings.darkMode
+                  color: appSettings.darkMode!
                       ? Colors.white.withOpacity(0.7)
                       : LitColors.mediumGrey.withOpacity(0.8),
                   fontSize: 14.0,
@@ -363,7 +363,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         builder: (context, child) {
           _appearAnimation.forward();
           return AnimatedOpacity(
-            duration: _appearAnimation.duration,
+            duration: _appearAnimation.duration!,
             opacity: _appearAnimation.value < 0.5
                 ? _appearAnimation.value + 0.5
                 : _appearAnimation.value,
@@ -388,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
                 AnimatedBuilder(
                   animation: _bottomBarAnimation,
-                  builder: (BuildContext context, Widget child) {
+                  builder: (BuildContext context, Widget? child) {
                     print(_bottomBarAnimation.value);
                     return Transform(
                       child: BottomBar(

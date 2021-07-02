@@ -17,7 +17,7 @@ class UserDataAdapter extends TypeAdapter<UserData> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserData(
-      dayOfBirth: fields[0] as int,
+      dayOfBirth: fields[0] as int?,
     );
   }
 
