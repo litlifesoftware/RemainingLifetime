@@ -371,15 +371,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               children: [
                 Stack(
                   children: [
-                    LitStarfieldBackground(
-                      travelVelocity: 0.30,
-                      spaceDepth: 75.0,
-                      starCount: 3500,
-                      animated: appSettings.animated,
-                      showNebulaBackground: !appSettings.darkMode,
-                      // Ensure the foreground is displayed in any case.
-                      showNebulaForeground: true,
-                    ),
+                    LitStarfieldContainer(),
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 0.0),
                         child: LifetimeGrid(
