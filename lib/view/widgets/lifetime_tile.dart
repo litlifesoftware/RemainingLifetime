@@ -16,6 +16,12 @@ class LifetimeTile extends StatefulWidget {
   final int? longPressedId;
   final int? pastLifeTimeInMonths;
   final bool? darkMode;
+  final void Function() handleTilePress;
+  final void Function(int index) setLongPressedId;
+  final void Function() resetLongPressedId;
+  final AnimationController animation;
+  final double width;
+  final double height;
 
   /// Creates a [LifetimeTile].
   ///
@@ -27,6 +33,12 @@ class LifetimeTile extends StatefulWidget {
     required this.longPressedId,
     required this.pastLifeTimeInMonths,
     required this.darkMode,
+    required this.handleTilePress,
+    required this.setLongPressedId,
+    required this.animation,
+    required this.resetLongPressedId,
+    this.height = 64.0,
+    this.width = 64.0,
   }) : super(key: key);
 
   @override
@@ -49,14 +61,14 @@ class _LifetimeTileState extends State<LifetimeTile> {
   @override
   void initState() {
     super.initState();
-    tileMonth = DateTime.fromMillisecondsSinceEpoch(
-            widget.lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
+    tileMonth = DateTime.fromMillisecondsSinceEpoch(widget
+            .lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
         .add(Duration(
             milliseconds: widget.index *
                 widget.lifetimeController!.millisecondsPerMonth.toInt()))
         .month;
-    tileYear = DateTime.fromMillisecondsSinceEpoch(
-            widget.lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
+    tileYear = DateTime.fromMillisecondsSinceEpoch(widget
+            .lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
         .add(Duration(
             milliseconds: widget.index *
                 widget.lifetimeController!.millisecondsPerMonth.toInt()))
@@ -65,30 +77,56 @@ class _LifetimeTileState extends State<LifetimeTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(3.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: isPast
-              ? widget.darkMode!
-                  ? LitColors.mediumGrey.withOpacity(0.55)
-                  : LitColors.lightRed.withOpacity(0.35)
-              : Colors.grey.withOpacity(0.2)),
-      child: Center(
-        child: Text(
-          widget.index == widget.longPressedId
-              ? "$tileMonth\n$tileYear"
-              // Increase the index by one to display the month number.
-              : "${widget.index + 1}",
-          style: LitTextStyles.sansSerif.copyWith(
-            color: isPast
-                ? Colors.white.withOpacity(0.3)
-                : Colors.white.withOpacity(0.8),
-            fontSize: 12.0,
-            fontWeight: FontWeight.w800,
-          ),
-          textAlign: TextAlign.center,
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: SizedBox(
+        width: widget.width,
+        height: widget.height,
+        child: GestureDetector(
+            onLongPressEnd: (details) => widget.resetLongPressedId(),
+            onLongPressStart: (details) =>
+                widget.setLongPressedId(widget.index),
+            onTap: widget.handleTilePress,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                AnimatedBuilder(
+                    animation: widget.animation,
+                    builder: (context, child) {
+                      return Transform.scale(
+                          scale: widget.index == widget.longPressedId
+                              ? (1 + widget.animation.value)
+                              : 1.0,
+                          child: Container(
+                            margin: const EdgeInsets.all(3.0),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(widget.width / 3),
+                                color: isPast
+                                    ? widget.darkMode!
+                                        ? LitColors.mediumGrey.withOpacity(0.55)
+                                        : LitColors.lightRed.withOpacity(0.35)
+                                    : Colors.grey.withOpacity(0.2)),
+                            child: Center(
+                              child: Text(
+                                widget.index == widget.longPressedId
+                                    ? "$tileMonth\n$tileYear"
+                                    // Increase the index by one to display the month number.
+                                    : "${widget.index + 1}",
+                                style: LitTextStyles.sansSerif.copyWith(
+                                  color: isPast
+                                      ? Colors.white.withOpacity(0.3)
+                                      : Colors.white.withOpacity(0.8),
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ));
+                    }),
+              ],
+            )),
       ),
     );
   }

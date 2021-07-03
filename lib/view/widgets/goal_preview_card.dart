@@ -11,8 +11,8 @@ import 'package:remaining_lifetime/view/widgets/goal_preview_card_action_button.
 ///
 /// The [GoalPreviewCard] allows the user to create an [Goal] or to view and
 /// edit an existing [Goal].
-class GoalPreviewCard extends StatelessWidget implements CollapsibleCard {
-  final CollapsibleCardController? collapsibleCardController;
+class GoalPreviewCard extends StatefulWidget implements CollapsibleCard {
+  final CollapsibleCardController collapsibleCardController;
   final LifetimeController? lifetimeController;
   final Goal? goal;
   final void Function() onCloseCallback;
@@ -37,33 +37,48 @@ class GoalPreviewCard extends StatelessWidget implements CollapsibleCard {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    DateTime dateTime = DateTime(
-      goal!.year!,
-      goal!.month!,
-    );
+  _GoalPreviewCardState createState() => _GoalPreviewCardState();
 
+  @override
+  // TODO: implement controller
+  CollapsibleCardController get controller => collapsibleCardController;
+}
+
+class _GoalPreviewCardState extends State<GoalPreviewCard> {
+  DateTime get _dateTime {
+    return widget.goal != null
+        ? DateTime(
+            widget.goal!.year!,
+            widget.goal!.month!,
+          )
+        : DateTime.now();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // Ensure the provided Goal is initialized.
-    return goal != null
+    return widget.goal != null
         ? TitledCollapsibleCard(
-            collapsibleCardController: collapsibleCardController!,
+            collapsibleCardController: widget.collapsibleCardController,
             closeButtonBorderColor:
-                darkMode! ? LitColors.mintGreen : LitColors.lightRed,
-            closeButtonColor:
-                darkMode! ? Colors.white : LitColors.lightRed.withOpacity(0.8),
-            backgroundColor: goal!.id == 0
-                ? darkMode!
+                widget.darkMode! ? LitColors.mintGreen : LitColors.lightRed,
+            closeButtonColor: widget.darkMode!
+                ? Colors.white
+                : LitColors.lightRed.withOpacity(0.8),
+            backgroundColor: widget.goal!.id == 0
+                ? widget.darkMode!
                     ? LitColors.darkBeige
                     : LitColors.beigeGrey
-                : goal!.id == lifetimeController!.lifeExpectancyInMonths - 1
-                    ? darkMode!
+                : widget.goal!.id ==
+                        widget.lifetimeController!.lifeExpectancyInMonths - 1
+                    ? widget.darkMode!
                         ? LitColors.darkOliveGreen
                         : LitColors.lightPink
-                    : darkMode!
+                    : widget.darkMode!
                         ? LitColors.darkBlue
                         : Colors.white,
-            onCloseCallback: onCloseCallback,
-            topBarColor: darkMode!
+            onCloseCallback: widget.onCloseCallback,
+            topBarColor: widget.darkMode!
                 ? LitColors.mediumGrey
                 : LitColors.lightMintGreen.withOpacity(0.5),
             title: Stack(
@@ -77,11 +92,11 @@ class GoalPreviewCard extends StatelessWidget implements CollapsibleCard {
                       horizontal: 32.0,
                     ),
                     child: Text(
-                      "${DateFormat.MMMM('${Localizations.localeOf(context).languageCode}').format(dateTime)} ${goal!.year}",
+                      "${DateFormat.MMMM('${Localizations.localeOf(context).languageCode}').format(_dateTime)} ${widget.goal!.year}",
                       textAlign: TextAlign.center,
                       style: LitTextStyles.sansSerif.copyWith(
                         fontSize: 16.5,
-                        color: darkMode! ? Colors.white : Colors.black45,
+                        color: widget.darkMode! ? Colors.white : Colors.black45,
                       ),
                     ),
                   ),
@@ -89,14 +104,14 @@ class GoalPreviewCard extends StatelessWidget implements CollapsibleCard {
                 Align(
                   alignment: Alignment.topRight,
                   child: GoalPreviewCardActionButton(
-                      goal: goal,
-                      darkMode: darkMode,
-                      textEditingController: textEditingController,
-                      saveGoalCallback: saveGoalCallback),
+                      goal: widget.goal,
+                      darkMode: widget.darkMode,
+                      textEditingController: widget.textEditingController,
+                      saveGoalCallback: widget.saveGoalCallback),
                 ),
               ],
             ),
-            child: goal!.id == 0
+            child: widget.goal!.id == 0
                 ? Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
@@ -110,12 +125,14 @@ class GoalPreviewCard extends StatelessWidget implements CollapsibleCard {
                         style: LitTextStyles.sansSerif.copyWith(
                           fontSize: 24.0,
                           fontWeight: FontWeight.w700,
-                          color: darkMode! ? Colors.white : Colors.black45,
+                          color:
+                              widget.darkMode! ? Colors.white : Colors.black45,
                         ),
                       ),
                     ),
                   )
-                : goal!.id == lifetimeController!.lifeExpectancyInMonths - 1
+                : widget.goal!.id ==
+                        widget.lifetimeController!.lifeExpectancyInMonths - 1
                     ? Align(
                         alignment: Alignment.topLeft,
                         child: Padding(
@@ -129,7 +146,7 @@ class GoalPreviewCard extends StatelessWidget implements CollapsibleCard {
                             style: LitTextStyles.sansSerif.copyWith(
                               fontSize: 24.0,
                               fontWeight: FontWeight.w700,
-                              color: darkMode!
+                              color: widget.darkMode!
                                   ? Colors.white
                                   : LitColors.mediumGrey,
                             ),
@@ -145,14 +162,17 @@ class GoalPreviewCard extends StatelessWidget implements CollapsibleCard {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                blurRadius: darkMode! ? 16.0 : 14.0,
-                                color:
-                                    darkMode! ? Colors.black45 : Colors.black12,
-                                spreadRadius: darkMode! ? 10.0 : 4.0,
-                                offset: darkMode! ? Offset(1, 1) : Offset(2, 2),
+                                blurRadius: widget.darkMode! ? 16.0 : 14.0,
+                                color: widget.darkMode!
+                                    ? Colors.black45
+                                    : Colors.black12,
+                                spreadRadius: widget.darkMode! ? 10.0 : 4.0,
+                                offset: widget.darkMode!
+                                    ? Offset(1, 1)
+                                    : Offset(2, 2),
                               )
                             ],
-                            color: darkMode!
+                            color: widget.darkMode!
                                 ? LitColors.lightPink
                                     .withOpacity(0.1)
                                     .withOpacity(0.6)
@@ -160,23 +180,24 @@ class GoalPreviewCard extends StatelessWidget implements CollapsibleCard {
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: TextField(
-                            controller: textEditingController,
-                            focusNode: focusNode,
+                            controller: widget.textEditingController,
+                            focusNode: widget.focusNode,
                             maxLines: 4,
                             style: LitTextStyles.sansSerif.copyWith(
                               fontSize: 18.0,
-                              color: darkMode!
+                              color: widget.darkMode!
                                   ? Colors.white
                                   : LitColors.mediumGrey,
                             ),
                             cursorColor: LitColors.mediumGrey,
                             decoration: InputDecoration(
-                              hintText: textEditingController!.text.isEmpty
+                              hintText: widget
+                                      .textEditingController!.text.isEmpty
                                   ? '${RemainingLifetimeLocalizations.of(context)!.addAnAchievement} ...'
                                   : '',
                               hintStyle: LitTextStyles.sansSerif.copyWith(
                                 fontSize: 16.0,
-                                color: darkMode!
+                                color: widget.darkMode!
                                     ? Colors.white60
                                     : LitColors.mediumGrey.withOpacity(0.4),
                               ),
@@ -190,7 +211,4 @@ class GoalPreviewCard extends StatelessWidget implements CollapsibleCard {
           )
         : SizedBox();
   }
-
-  @override
-  CollapsibleCardController get controller => this.collapsibleCardController!;
 }

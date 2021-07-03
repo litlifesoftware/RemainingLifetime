@@ -16,6 +16,7 @@ class LifetimeGrid extends StatefulWidget {
   final LitSnackbarController? customSnackBarController;
   final FocusNode? focusNode;
   final void Function(int index) handleTilePress;
+  final double tileWidth;
 
   /// Creates a [LifetimeGrid] [StatelessWidget].
   ///
@@ -32,6 +33,7 @@ class LifetimeGrid extends StatefulWidget {
     required this.customSnackBarController,
     required this.focusNode,
     required this.handleTilePress,
+    this.tileWidth = 64.0,
   }) : super(key: key);
 
   @override
@@ -94,65 +96,49 @@ class _LifetimeGridState extends State<LifetimeGrid>
 
   @override
   Widget build(BuildContext context) {
-    const double tileWidth = 46.0;
-    final double availableWidth = MediaQuery.of(context).size.width - 60.0;
-    final int portraitAxisCount = (availableWidth ~/ tileWidth);
-    final int landscapeAxisCount = (availableWidth ~/ tileWidth) - 1;
-    return OrientationBuilder(builder: (context, orientation) {
-      return Stack(
-        children: [
-          GridView.builder(
-            physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.only(
-              top: 40.0,
-              bottom: 115.0,
-              left: 15.0,
-              right: 15.0,
-            ),
-            itemCount: _totalMonths,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: orientation == Orientation.portrait
-                  ? portraitAxisCount
-                  : landscapeAxisCount,
-            ),
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: SizedBox(
-                  width: tileWidth,
-                  height: tileWidth,
-                  child: GestureDetector(
-                      onLongPressEnd: (details) => resetLongPressedId(),
-                      onLongPressStart: (details) => setLongPressedId(index),
-                      onTap: () => widget.handleTilePress(index),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          AnimatedBuilder(
-                              animation: _longPressedAnimation,
-                              builder: (context, child) {
-                                return Transform.scale(
-                                  scale: index == _longPressedId
-                                      ? (1 + _longPressedAnimation.value)
-                                      : 1.0,
-                                  child: LifetimeTile(
-                                    darkMode: widget.darkMode,
-                                    lifetimeController:
-                                        widget.lifetimeController,
-                                    index: index,
-                                    longPressedId: _longPressedId,
-                                    pastLifeTimeInMonths: _pastLifetimeInMonths,
-                                  ),
-                                );
-                              }),
-                        ],
-                      )),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: LayoutBuilder(builder: (context, constraints) {
+        final int portraitAxisCount =
+            (constraints.maxWidth ~/ widget.tileWidth);
+        final int landscapeAxisCount =
+            (constraints.maxWidth ~/ widget.tileWidth) - 1;
+        return OrientationBuilder(builder: (context, orientation) {
+          return Container(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: LitConstrainedSizedBox(
+                landscapeWidthFactor: 0.75,
+                child: GridView.builder(
+                  padding: const EdgeInsets.only(
+                    bottom: 128.0,
+                  ),
+                  physics: BouncingScrollPhysics(),
+                  itemCount: _totalMonths,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: orientation == Orientation.portrait
+                        ? portraitAxisCount
+                        : landscapeAxisCount,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    return LifetimeTile(
+                      darkMode: widget.darkMode,
+                      lifetimeController: widget.lifetimeController,
+                      index: index,
+                      longPressedId: _longPressedId,
+                      pastLifeTimeInMonths: _pastLifetimeInMonths,
+                      resetLongPressedId: resetLongPressedId,
+                      animation: _longPressedAnimation,
+                      handleTilePress: () => widget.handleTilePress(index),
+                      setLongPressedId: setLongPressedId,
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ],
-      );
-    });
+              ),
+            ),
+          );
+        });
+      }),
+    );
   }
 }
