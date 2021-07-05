@@ -96,50 +96,54 @@ class _LifetimeGridState extends State<LifetimeGrid>
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: LayoutBuilder(builder: (context, constraints) {
-        final int portraitAxisCount =
-            (constraints.maxWidth ~/ widget.tileWidth);
-        final int landscapeAxisCount =
-            (constraints.maxWidth ~/ widget.tileWidth) - 4;
-        return OrientationBuilder(builder: (context, orientation) {
-          return Container(
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: LitConstrainedSizedBox(
-                landscapeWidthFactor: 0.75,
-                child: GridView.builder(
-                  padding: const EdgeInsets.only(
-                    bottom: 128.0,
-                    top: 16.0,
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: LayoutBuilder(builder: (context, constraints) {
+            final int portraitAxisCount =
+                (constraints.maxWidth ~/ widget.tileWidth);
+            final int landscapeAxisCount =
+                (constraints.maxWidth ~/ widget.tileWidth) - 4;
+            return OrientationBuilder(builder: (context, orientation) {
+              return Container(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: LitConstrainedSizedBox(
+                    landscapeWidthFactor: 0.75,
+                    child: GridView.builder(
+                      padding: const EdgeInsets.only(
+                        bottom: 128.0,
+                        top: 16.0,
+                      ),
+                      physics: BouncingScrollPhysics(),
+                      itemCount: _totalMonths,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: orientation == Orientation.portrait
+                            ? portraitAxisCount
+                            : landscapeAxisCount,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        return LifetimeTile(
+                          darkMode: widget.darkMode,
+                          lifetimeController: widget.lifetimeController,
+                          index: index,
+                          longPressedId: _longPressedId,
+                          pastLifeTimeInMonths: _pastLifetimeInMonths,
+                          resetLongPressedId: resetLongPressedId,
+                          animation: _longPressedAnimation,
+                          handleTilePress: () => widget.handleTilePress(index),
+                          setLongPressedId: setLongPressedId,
+                        );
+                      },
+                    ),
                   ),
-                  physics: BouncingScrollPhysics(),
-                  itemCount: _totalMonths,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: orientation == Orientation.portrait
-                        ? portraitAxisCount
-                        : landscapeAxisCount,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    return LifetimeTile(
-                      darkMode: widget.darkMode,
-                      lifetimeController: widget.lifetimeController,
-                      index: index,
-                      longPressedId: _longPressedId,
-                      pastLifeTimeInMonths: _pastLifetimeInMonths,
-                      resetLongPressedId: resetLongPressedId,
-                      animation: _longPressedAnimation,
-                      handleTilePress: () => widget.handleTilePress(index),
-                      setLongPressedId: setLongPressedId,
-                    );
-                  },
                 ),
-              ),
-            ),
-          );
-        });
-      }),
+              );
+            });
+          }),
+        )
+      ],
     );
   }
 }

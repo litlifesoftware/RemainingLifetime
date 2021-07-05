@@ -47,10 +47,24 @@ class LifetimeTile extends StatefulWidget {
 
 class _LifetimeTileState extends State<LifetimeTile> {
   /// The month value of the tile.
-  int? tileMonth;
+  int get _tileMonth {
+    return DateTime.fromMillisecondsSinceEpoch(widget
+            .lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
+        .add(Duration(
+            milliseconds: widget.index *
+                widget.lifetimeController!.millisecondsPerMonth.toInt()))
+        .month;
+  }
 
   /// The year value of the tile.
-  int? tileYear;
+  int get _tileYear {
+    return DateTime.fromMillisecondsSinceEpoch(widget
+            .lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
+        .add(Duration(
+            milliseconds: widget.index *
+                widget.lifetimeController!.millisecondsPerMonth.toInt()))
+        .year;
+  }
 
   /// State whether or not this [LifetimeTile] has
   /// already been spent.
@@ -58,21 +72,40 @@ class _LifetimeTileState extends State<LifetimeTile> {
     return widget.pastLifeTimeInMonths! >= widget.index;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    tileMonth = DateTime.fromMillisecondsSinceEpoch(widget
-            .lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
-        .add(Duration(
-            milliseconds: widget.index *
-                widget.lifetimeController!.millisecondsPerMonth.toInt()))
-        .month;
-    tileYear = DateTime.fromMillisecondsSinceEpoch(widget
-            .lifetimeController!.dayOfBirthDateTime.millisecondsSinceEpoch)
-        .add(Duration(
-            milliseconds: widget.index *
-                widget.lifetimeController!.millisecondsPerMonth.toInt()))
-        .year;
+  bool get currentTile {
+    int currentMonth = DateTime.now().month;
+    int currentYear = DateTime.now().year;
+    return _tileMonth == currentMonth && _tileYear == currentYear;
+  }
+
+  Color get _backgroundColor {
+    return isPast
+        ? Color(0xff5f5f5f)
+        : currentTile
+            ? LitColors.lightGrey
+            : Color(0xff576770);
+  }
+
+  Color get _color {
+    return currentTile ? LitColors.mediumGrey : Color(0xFFFFF4dc);
+  }
+
+  List<BoxShadow> get _textShadow {
+    return currentTile
+        ? [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 4.0,
+              spreadRadius: -2.0,
+            ),
+          ]
+        : [
+            BoxShadow(
+              color: Colors.white38,
+              blurRadius: 4.0,
+              spreadRadius: -2.0,
+            ),
+          ];
   }
 
   @override
@@ -83,50 +116,48 @@ class _LifetimeTileState extends State<LifetimeTile> {
         width: widget.width,
         height: widget.height,
         child: GestureDetector(
-            onLongPressEnd: (details) => widget.resetLongPressedId(),
-            onLongPressStart: (details) =>
-                widget.setLongPressedId(widget.index),
-            onTap: widget.handleTilePress,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                AnimatedBuilder(
-                    animation: widget.animation,
-                    builder: (context, child) {
-                      return Transform.scale(
-                          scale: widget.index == widget.longPressedId
-                              ? (1 + widget.animation.value)
-                              : 1.0,
-                          child: Container(
-                            margin: const EdgeInsets.all(3.0),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(widget.width / 3),
-                                color: isPast
-                                    ? widget.darkMode!
-                                        ? LitColors.mediumGrey.withOpacity(0.55)
-                                        : LitColors.lightRed.withOpacity(0.35)
-                                    : Colors.grey.withOpacity(0.2)),
-                            child: Center(
-                              child: Text(
-                                widget.index == widget.longPressedId
-                                    ? "$tileMonth\n$tileYear"
-                                    // Increase the index by one to display the month number.
-                                    : "${widget.index + 1}",
-                                style: LitTextStyles.sansSerif.copyWith(
-                                  color: isPast
-                                      ? Colors.white.withOpacity(0.3)
-                                      : Colors.white.withOpacity(0.8),
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ));
-                    }),
-              ],
-            )),
+          onLongPressEnd: (details) => widget.resetLongPressedId(),
+          onLongPressStart: (details) => widget.setLongPressedId(widget.index),
+          onTap: widget.handleTilePress,
+          child: AnimatedBuilder(
+            animation: widget.animation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: widget.index == widget.longPressedId
+                    ? (1 + widget.animation.value)
+                    : 1.0,
+                child: Container(
+                  margin: const EdgeInsets.all(3.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(widget.width / 3),
+                      color: _backgroundColor,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 3.0,
+                          color: Colors.black38,
+                          offset: Offset(-2.0, 2.0),
+                          spreadRadius: 0.0,
+                        )
+                      ]),
+                  child: Center(
+                    child: Text(
+                      widget.index == widget.longPressedId
+                          ? "$_tileMonth\n$_tileYear"
+                          // Increase the index by one to display the month number.
+                          : "${widget.index + 1}",
+                      style: LitSansSerifStyles.body.copyWith(
+                        color: _color,
+                        fontWeight: FontWeight.w800,
+                        shadows: _textShadow,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
