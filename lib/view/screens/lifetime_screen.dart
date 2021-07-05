@@ -359,6 +359,20 @@ class _LifetimeScreenState extends State<LifetimeScreen>
                 Stack(
                   children: [
                     LitStarfieldContainer(),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          colors: [
+                            Colors.white38,
+                            Color(0x1edc9f9f),
+                          ],
+                        ),
+                      ),
+                    ),
                     LifetimeGrid(
                       handleTilePress: handleTilePress,
                       focusNode: _editingFocus,

@@ -97,12 +97,12 @@ class _LifetimeGridState extends State<LifetimeGrid>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: LayoutBuilder(builder: (context, constraints) {
         final int portraitAxisCount =
             (constraints.maxWidth ~/ widget.tileWidth);
         final int landscapeAxisCount =
-            (constraints.maxWidth ~/ widget.tileWidth) - 1;
+            (constraints.maxWidth ~/ widget.tileWidth) - 4;
         return OrientationBuilder(builder: (context, orientation) {
           return Container(
             child: Align(
@@ -112,6 +112,7 @@ class _LifetimeGridState extends State<LifetimeGrid>
                 child: GridView.builder(
                   padding: const EdgeInsets.only(
                     bottom: 128.0,
+                    top: 16.0,
                   ),
                   physics: BouncingScrollPhysics(),
                   itemCount: _totalMonths,
