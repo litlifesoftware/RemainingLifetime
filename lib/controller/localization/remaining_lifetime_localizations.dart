@@ -167,4 +167,16 @@ class RemainingLifetimeLocalizations {
   String? get introduction {
     return localizedStrings!['introduction'][locale.languageCode];
   }
+
+  String get yourAge {
+    return localizedStrings!['your_age'][locale.languageCode];
+  }
+
+  String get yourColor {
+    return localizedStrings!['your_color'][locale.languageCode];
+  }
+
+  String get change {
+    return localizedStrings!['change'][locale.languageCode];
+  }
 }

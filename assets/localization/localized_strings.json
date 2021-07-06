@@ -163,5 +163,20 @@
         "en": "Introduction",
         "de": "Einführung",
         "ru": "Вступление"
+    },
+    "your_age": {
+        "en": "Your Age",
+        "de": "Dein Alter",
+        "ru": "Ваш возраст"
+    },
+    "your_color": {
+        "en": "Your Color",
+        "de": "Deine Farbe",
+        "ru": "Ваш цвет"
+    },
+    "change": {
+        "en": "Change",
+        "de": "Ändern",
+        "ru": "Изменить"
     }
 }
