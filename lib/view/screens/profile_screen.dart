@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:lit_ui_kit/lit_ui_kit.dart';
 import 'package:remaining_lifetime/controller/hive_db_service.dart';
 import 'package:remaining_lifetime/controller/localization/remaining_lifetime_localizations.dart';
+import 'package:remaining_lifetime/controller/user_data_controller.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -15,10 +16,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   Color get _userColor {
     return Colors.red;
-  }
-
-  String get _userIconLabel {
-    return "24";
   }
 
   @override
@@ -54,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: 32.0,
               ),
               LitUserIcon(
-                username: _userIconLabel,
+                username: "${UserDataController(userData).age}",
                 primaryColor: _userColor,
               ),
               _UserColorCard(),
@@ -122,7 +119,7 @@ class __StatisticsSliderState extends State<_StatisticsSlider>
   void initState() {
     _indicatorAnimation = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 5400),
+      duration: Duration(milliseconds: 2000),
     );
     _indicatorAnimation.repeat(reverse: true);
     super.initState();
@@ -155,27 +152,15 @@ class __StatisticsSliderState extends State<_StatisticsSlider>
                         height: 96.0,
                         width: 32.0,
                         decoration: BoxDecoration(
-                          color: LitColors.lightGrey,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              16.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: (widget.relValue * 96.0) + 16.0,
-                        width: 32.0,
-                        decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
                             stops: [
                               0.5 * _indicatorAnimation.value,
                               0.5 + 0.5 * _indicatorAnimation.value,
                             ],
                             colors: [
-                              LitColors.lightGrey,
+                              LitColors.lightGrey.withOpacity(0.45),
                               Color.lerp(
                                   Colors.white,
                                   widget.relValue > 0.5
@@ -191,16 +176,37 @@ class __StatisticsSliderState extends State<_StatisticsSlider>
                           ),
                         ),
                       ),
+                      Container(
+                        height: (widget.relValue * 96.0) + 16.0,
+                        width: 32.0,
+                        decoration: BoxDecoration(
+                          color: LitColors.lightGrey,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              16.0,
+                            ),
+                          ),
+                        ),
+                      ),
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Padding(
                           padding: EdgeInsets.only(
-                              bottom: (widget.relValue * (96.0 - 32.0))),
+                            bottom: (widget.relValue * (96.0 - 32.0)),
+                          ),
                           child: Container(
                             height: 32.0,
                             width: 32.0,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 4.0,
+                                  color: Colors.black26,
+                                  offset: Offset(-1.0, 1.0),
+                                  spreadRadius: -1.0,
+                                )
+                              ],
+                              color: LitColors.lightGrey,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(
                                   16.0,
