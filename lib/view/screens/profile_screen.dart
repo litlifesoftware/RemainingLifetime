@@ -29,6 +29,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : DefaultUserData.defaultColor;
   }
 
+  Color _getBackgroundColor(UserData userData) {
+    Color userDataColor = Color(userData.color!);
+    Color desatColor = Color.fromARGB(
+      (userDataColor.alpha * 0.01).toInt(),
+      (userDataColor.red * 0.95).toInt(),
+      (userDataColor.green * 0.95).toInt(),
+      (userDataColor.blue * 0.95).toInt(),
+    );
+    return userData.color != null ? desatColor : Color(0xFFFFE9E9);
+  }
+
+  void _setUserColor(Color color, UserData userData, Box<dynamic> userDataBox) {
+    userDataBox.putAt(
+      0,
+      UserData(
+        color: color.value,
+        dayOfBirth: userData.dayOfBirth,
+      ),
+    );
+  }
+
   @override
   void initState() {
     _settingsPanelController = LitSettingsPanelController()
@@ -38,7 +59,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void dispose() {
-    _settingsPanelController.dispose();
     super.dispose();
   }
 
@@ -56,14 +76,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               settingsPanel: LitSettingsPanel(
                 controller: _settingsPanelController,
                 darkMode: appSettings.darkMode!,
-                title:
-                    "${RemainingLifetimeLocalizations.of(context)!.settings}",
+                title: RemainingLifetimeLocalizations.of(context)!.settings!,
                 settingsTiles: [
                   LitSettingsPanelTile(
                     disabledLabel:
-                        "${RemainingLifetimeLocalizations.of(context)!.turnedOff}",
+                        RemainingLifetimeLocalizations.of(context)!.turnedOff!,
                     enabledLabel:
-                        "${RemainingLifetimeLocalizations.of(context)!.turnedOn}",
+                        RemainingLifetimeLocalizations.of(context)!.turnedOn!,
                     iconData: LitIcons.animation,
                     onValueToggled: (toggledValue) {
                       appSettingsBox.putAt(
@@ -76,15 +95,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     },
                     optionName:
-                        "${RemainingLifetimeLocalizations.of(context)!.animations}",
+                        RemainingLifetimeLocalizations.of(context)!.animations!,
                     darkMode: appSettings.darkMode!,
                     enabled: appSettings.animated!,
                   ),
                   LitSettingsPanelTile(
                     disabledLabel:
-                        "${RemainingLifetimeLocalizations.of(context)!.turnedOff}",
+                        RemainingLifetimeLocalizations.of(context)!.turnedOff!,
                     enabledLabel:
-                        "${RemainingLifetimeLocalizations.of(context)!.turnedOn}",
+                        RemainingLifetimeLocalizations.of(context)!.turnedOn!,
                     onValueToggled: (toggledValue) {
                       appSettingsBox.putAt(
                         0,
@@ -98,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     darkMode: appSettings.darkMode!,
                     enabled: appSettings.darkMode!,
                     optionName:
-                        "${RemainingLifetimeLocalizations.of(context)!.darkMode}",
+                        RemainingLifetimeLocalizations.of(context)!.darkMode!,
                     iconData: LitIcons.moon,
                   ),
                 ],
@@ -110,9 +129,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
+                    stops: [0.05, 0.95],
                     colors: [
-                      Color(0xFFFFE9E9),
-                      Color(0xFFDDDDDD),
+                      _getBackgroundColor(userData),
+                      Color(0xFFFFFFFF),
                     ],
                   ),
                 ),
@@ -133,7 +153,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       username: "${UserDataController(userData).age}",
                       primaryColor: _getUserColor(userData),
                     ),
-                    _UserColorCard(),
+                    _UserColorCard(
+                      userData: userData,
+                      onApplyColor: (color) =>
+                          _setUserColor(color, userData, userDataBox),
+                    ),
                     _StatisticsCard(
                       userData: userData,
                     ),
@@ -428,7 +452,13 @@ class __StatisticsCardState extends State<_StatisticsCard> {
 }
 
 class _UserColorCard extends StatelessWidget {
-  const _UserColorCard({Key? key}) : super(key: key);
+  final UserData userData;
+  final void Function(Color color) onApplyColor;
+  const _UserColorCard({
+    Key? key,
+    required this.userData,
+    required this.onApplyColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -460,7 +490,13 @@ class _UserColorCard extends StatelessWidget {
                   color: Color(0xff8a8a8a),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                LitRouteController(context).showDialogWidget(
+                  LitColorPickerDialog(
+                      initialColor: Color(userData.color!),
+                      onApplyColor: onApplyColor),
+                );
+              },
             ),
           ],
         ),
