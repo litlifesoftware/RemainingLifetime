@@ -8,8 +8,10 @@ part 'user_data.g.dart';
 class UserData {
   @HiveField(0)
   final int? dayOfBirth;
-
+  @HiveField(1)
+  final int? color;
   UserData({
     required this.dayOfBirth,
+    required this.color,
   });
 }

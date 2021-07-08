@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:lit_ui_kit/lit_ui_kit.dart';
 import 'package:remaining_lifetime/controller/hive_db_service.dart';
 import 'package:remaining_lifetime/controller/lifetime_controller.dart';
-import 'package:remaining_lifetime/controller/localization/remaining_lifetime_localizations.dart';
+import 'package:remaining_lifetime/data/default_user_data.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/home_screen.dart';
@@ -50,6 +50,7 @@ class _DatabaseInterfaceWidgetState extends State<DatabaseInterfaceWidget>
   void createUserData(DateTime age, Box<dynamic> userDataBox) {
     UserData userData = UserData(
       dayOfBirth: age.millisecondsSinceEpoch,
+      color: DefaultUserData.defaultColor.value,
     );
     userDataBox.add(userData);
     setLifetimeController(userData.dayOfBirth);

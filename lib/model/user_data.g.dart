@@ -18,15 +18,18 @@ class UserDataAdapter extends TypeAdapter<UserData> {
     };
     return UserData(
       dayOfBirth: fields[0] as int?,
+      color: fields[1] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserData obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.dayOfBirth);
+      ..write(obj.dayOfBirth)
+      ..writeByte(1)
+      ..write(obj.color);
   }
 
   @override

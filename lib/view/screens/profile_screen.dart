@@ -22,8 +22,11 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   late LitSettingsPanelController _settingsPanelController;
-  Color get _userColor {
-    return DefaultUserData.defaultColor;
+
+  Color _getUserColor(UserData userData) {
+    return userData.color != null
+        ? Color(userData.color!)
+        : DefaultUserData.defaultColor;
   }
 
   @override
@@ -128,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     LitUserIcon(
                       username: "${UserDataController(userData).age}",
-                      primaryColor: _userColor,
+                      primaryColor: _getUserColor(userData),
                     ),
                     _UserColorCard(),
                     _StatisticsCard(
