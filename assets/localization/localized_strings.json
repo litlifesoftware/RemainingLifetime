@@ -1,182 +1,192 @@
 {
-    "spent": {
-        "en": "spent",
-        "de": "verbracht",
-        "ru": "потрачено"
-    },
-    "remaining": {
-        "en": "remaining",
-        "de": "verbleibend",
-        "ru": "осталось"
-    },
-    "my_date_of_birth": {
-        "en": "My day of birth",
-        "de": "Mein Geburtstag",
-        "ru": "Моя дата рождения"
-    },
-    "add_an_achievement_on": {
-        "en": "Add an achievement",
-        "de": "Füge eine Errungenschaft hinzu",
-        "ru": "Добавить достижение на"
-    },
-    "might_be_your_last_month": {
-        "en": "Might be your last month",
-        "de": "Dies könnte dein letzter Monat sein",
-        "ru": "Может быть, твой последний месяц"
-    },
-    "settings": {
-        "en": "Settings",
-        "de": "Einstellungen",
-        "ru": "Настройки"
-    },
-    "animations": {
-        "en": "Animations",
-        "de": "Animationen",
-        "ru": "Анимации"
-    },
-    "dark_mode": {
-        "en": "Dark Mode",
-        "de": "Dark Mode",
-        "ru": "Темный режим"
-    },
-    "about_this_app": {
-        "en": "About this app",
-        "de": "Über diese App",
-        "ru": "Об этом приложении"
-    },
-    "licenses": {
-        "en": "Licenses",
-        "de": "Lizenzen",
-        "ru": "Лицензии"
-    },
-    "privacy": {
-        "en": "Privacy",
-        "de": "Privatsphäre",
-        "ru": "Конфиденциальность"
-    },
-    "privacy_description": {
-        "en": "Remaining Lifetime does store your data locally without sending it to a server. Your data will stay on your device. No other user will be able to view your created content. LitLifeSoftware or any other third party will not be able to access it. You are not required to register nor to sign in using an existing account. Please keep in mind that we are not able to make any backups of your data.\n\nMore information and the Privacy Policy are available on litlifesoftware.github.io.",
-        "de": "Remaining Lifetime speichert deine Daten lokal und sendet diese nicht an einen Server. Deine Daten bleiben auf deinem Gerät. Kein anderer Nutzer wird deine erstellten Inhalte sehen können. LitLifeSoftware oder andere Dritte werden auf diese keinen Zugriff haben. Eine Registrierung oder eine Anmeldung über ein bereits bestehendes Konto werden nicht benötigt. Bitte beachte, dass wir keine Backups deiner Daten anfertigen können.\n\nMehr Informationen und die Datenschutzerklärung sind auf litlifesoftware.github.io verfügbar.",
-        "ru": "Remaining Lifetime хранит ваши данные локально, не отправляя их на сервер. Ваши данные останутся на вашем устройстве. Ни один другой пользователь не сможет просматривать созданный вами контент. LitLifeSoftware или любое другое третье лицо не сможет получить к нему доступ. Вам не требуется ни регистрироваться, ни входить в систему, используя существующую учетную запись. Помните, что мы не можем делать резервные копии ваших данных.\n\nДополнительная информация и Политика конфиденциальности доступны на сайте litlifesoftware.github.io."
-    },
-    "i_agree": {
-        "en": "I agree",
-        "de": "Ich stimme zu",
-        "ru": "Согласен"
-    },
-    "turned_on": {
-        "en": "on",
-        "de": "an",
-        "ru": "включил"
-    },
-    "turned_off": {
-        "en": "off",
-        "de": "aus",
-        "ru": "Выключил"
-    },
-    "achievement_saved": {
-        "en": "Achievement saved",
-        "de": "Errungenschaft gespeichert",
-        "ru": "Достижение сохранено"
-    },
-    "set_your_day_of_birth": {
-        "en": "Set your day of birth",
-        "de": "Gib dein Geburtsdatum ein",
-        "ru": "Установите свой день рождения"
-    },
-    "month": {
-        "en": "Month",
-        "de": "Monat",
-        "ru": "Месяц"
-    },
-    "year": {
-        "en": "Year",
-        "de": "Jahr",
-        "ru": "Год"
-    },
-    "continue_with_this_day_of_birth": {
-        "en": "Continue with this day of birth",
-        "de": "Mit diesem Gebursdatum fortfahren",
-        "ru": "Продолжить с этой даты рождения"
-    },
-    "you_are_not_old_enough_to_use_this_app": {
-        "en": "You are not old enough to use this app.",
-        "de": "Du bist nicht alt genug um diese App zu nutzen.",
-        "ru": "Вы еще недостаточно взрослые, чтобы использовать это приложение."
-    },
-    "change_the_month_to_apply_this_date": {
-        "en": "Change the month to apply this date.",
-        "de": "Ändere den Monat um dieses Datum auszuwählen.",
-        "ru": "Измените месяц, чтобы применить эту дату."
-    },
-    "visualize": {
-        "en": "Visualize",
-        "de": "Überblicken",
-        "ru": "Видеть"
-    },
-    "visualize_description": {
-        "en": "Visualize all of the remaining and spent months of your life.",
-        "de": "Erhalte einen Überblick auf all deine bereits verbrachten und bevorstehenden Monate deines Lebens.",
-        "ru": "Визуализируйте все оставшиеся и потраченные месяцы своей жизни."
-    },
-    "keep_track": {
-        "en": "Keep track",
-        "de": "Bleib dran",
-        "ru": "Отслеживать"
-    },
-    "keep_track_description": {
-        "en": "View achievements you made each month of your life and motivate yourself to make every month a personal achievement.",
-        "de": "Siehe dir Erfolge an, welche du jeden Monat deines Lebens verwirklicht hast. Motiviere dich selbst, um jeden Monat zu einem Erfolg zu machen.",
-        "ru": "Просматривайте достижения, которых вы добились за каждый месяц своей жизни, и мотивируйте себя делать каждый месяц личным достижением."
-    },
-    "start": {
-        "en": "Start",
-        "de": "Starten",
-        "ru": "Начало"
-    },
-    "start_description": {
-        "en": "Enter your day of birth and you are ready to start.",
-        "de": "Gib dein Geburtsdatum ein und du kannst loslegen.",
-        "ru": "Введите свой день рождения, и все готово."
-    },
-    "get_me_started": {
-        "en": "Get Me Started!",
-        "de": "Leg los!",
-        "ru": "Начни меня!"
-    },
-    "this_is": {
-        "en": "This is",
-        "de": "Das ist",
-        "ru": "Это"
-    },
-    "private": {
-        "en": "Private",
-        "de": "Privat",
-        "ru": "Частный"
-    },
-    "no_sign_up": {
-        "en": "No sign up",
-        "de": "Keine Anmeldung",
-        "ru": "Нет регистрации"
-    },
-    "introduction": {
-        "en": "Introduction",
-        "de": "Einführung",
-        "ru": "Вступление"
-    },
-    "your_age": {
-        "en": "Your Age",
-        "de": "Dein Alter",
-        "ru": "Ваш возраст"
-    },
-    "your_color": {
-        "en": "Your Color",
-        "de": "Deine Farbe",
-        "ru": "Ваш цвет"
-    },
-    "change": {
-        "en": "Change",
-        "de": "Ändern",
-        "ru": "Изменить"
-    }
+  "spent": {
+    "en": "spent",
+    "de": "verbracht",
+    "ru": "потрачено"
+  },
+  "remaining": {
+    "en": "remaining",
+    "de": "verbleibend",
+    "ru": "осталось"
+  },
+  "my_date_of_birth": {
+    "en": "My day of birth",
+    "de": "Mein Geburtstag",
+    "ru": "Моя дата рождения"
+  },
+  "add_an_achievement_on": {
+    "en": "Add an achievement",
+    "de": "Füge eine Errungenschaft hinzu",
+    "ru": "Добавить достижение на"
+  },
+  "might_be_your_last_month": {
+    "en": "Might be your last month",
+    "de": "Dies könnte dein letzter Monat sein",
+    "ru": "Может быть, твой последний месяц"
+  },
+  "settings": {
+    "en": "Settings",
+    "de": "Einstellungen",
+    "ru": "Настройки"
+  },
+  "animations": {
+    "en": "Animations",
+    "de": "Animationen",
+    "ru": "Анимации"
+  },
+  "dark_mode": {
+    "en": "Dark Mode",
+    "de": "Dark Mode",
+    "ru": "Темный режим"
+  },
+  "about_this_app": {
+    "en": "About this app",
+    "de": "Über diese App",
+    "ru": "Об этом приложении"
+  },
+  "licenses": {
+    "en": "Licenses",
+    "de": "Lizenzen",
+    "ru": "Лицензии"
+  },
+  "privacy": {
+    "en": "Privacy",
+    "de": "Privatsphäre",
+    "ru": "Конфиденциальность"
+  },
+  "privacy_description": {
+    "en": "Remaining Lifetime does store your data locally without sending it to a server. Your data will stay on your device. No other user will be able to view your created content. LitLifeSoftware or any other third party will not be able to access it. You are not required to register nor to sign in using an existing account. Please keep in mind that we are not able to make any backups of your data.\n\nMore information and the Privacy Policy are available on litlifesoftware.github.io.",
+    "de": "Remaining Lifetime speichert deine Daten lokal und sendet diese nicht an einen Server. Deine Daten bleiben auf deinem Gerät. Kein anderer Nutzer wird deine erstellten Inhalte sehen können. LitLifeSoftware oder andere Dritte werden auf diese keinen Zugriff haben. Eine Registrierung oder eine Anmeldung über ein bereits bestehendes Konto werden nicht benötigt. Bitte beachte, dass wir keine Backups deiner Daten anfertigen können.\n\nMehr Informationen und die Datenschutzerklärung sind auf litlifesoftware.github.io verfügbar.",
+    "ru": "Remaining Lifetime хранит ваши данные локально, не отправляя их на сервер. Ваши данные останутся на вашем устройстве. Ни один другой пользователь не сможет просматривать созданный вами контент. LitLifeSoftware или любое другое третье лицо не сможет получить к нему доступ. Вам не требуется ни регистрироваться, ни входить в систему, используя существующую учетную запись. Помните, что мы не можем делать резервные копии ваших данных.\n\nДополнительная информация и Политика конфиденциальности доступны на сайте litlifesoftware.github.io."
+  },
+  "i_agree": {
+    "en": "I agree",
+    "de": "Ich stimme zu",
+    "ru": "Согласен"
+  },
+  "turned_on": {
+    "en": "on",
+    "de": "an",
+    "ru": "включил"
+  },
+  "turned_off": {
+    "en": "off",
+    "de": "aus",
+    "ru": "Выключил"
+  },
+  "achievement_saved": {
+    "en": "Achievement saved",
+    "de": "Errungenschaft gespeichert",
+    "ru": "Достижение сохранено"
+  },
+  "set_your_day_of_birth": {
+    "en": "Set your day of birth",
+    "de": "Gib dein Geburtsdatum ein",
+    "ru": "Установите свой день рождения"
+  },
+  "month": {
+    "en": "Month",
+    "de": "Monat",
+    "ru": "Месяц"
+  },
+  "year": {
+    "en": "Year",
+    "de": "Jahr",
+    "ru": "Год"
+  },
+  "continue_with_this_day_of_birth": {
+    "en": "Continue with this day of birth",
+    "de": "Mit diesem Gebursdatum fortfahren",
+    "ru": "Продолжить с этой даты рождения"
+  },
+  "you_are_not_old_enough_to_use_this_app": {
+    "en": "You are not old enough to use this app.",
+    "de": "Du bist nicht alt genug um diese App zu nutzen.",
+    "ru": "Вы еще недостаточно взрослые, чтобы использовать это приложение."
+  },
+  "change_the_month_to_apply_this_date": {
+    "en": "Change the month to apply this date.",
+    "de": "Ändere den Monat um dieses Datum auszuwählen.",
+    "ru": "Измените месяц, чтобы применить эту дату."
+  },
+  "visualize": {
+    "en": "Visualize",
+    "de": "Überblicken",
+    "ru": "Видеть"
+  },
+  "visualize_description": {
+    "en": "Visualize all of the remaining and spent months of your life.",
+    "de": "Erhalte einen Überblick auf all deine bereits verbrachten und bevorstehenden Monate deines Lebens.",
+    "ru": "Визуализируйте все оставшиеся и потраченные месяцы своей жизни."
+  },
+  "keep_track": {
+    "en": "Keep track",
+    "de": "Bleib dran",
+    "ru": "Отслеживать"
+  },
+  "keep_track_description": {
+    "en": "View achievements you made each month of your life and motivate yourself to make every month a personal achievement.",
+    "de": "Siehe dir Erfolge an, welche du jeden Monat deines Lebens verwirklicht hast. Motiviere dich selbst, um jeden Monat zu einem Erfolg zu machen.",
+    "ru": "Просматривайте достижения, которых вы добились за каждый месяц своей жизни, и мотивируйте себя делать каждый месяц личным достижением."
+  },
+  "start": {
+    "en": "Start",
+    "de": "Starten",
+    "ru": "Начало"
+  },
+  "start_description": {
+    "en": "Enter your day of birth and you are ready to start.",
+    "de": "Gib dein Geburtsdatum ein und du kannst loslegen.",
+    "ru": "Введите свой день рождения, и все готово."
+  },
+  "get_me_started": {
+    "en": "Get Me Started!",
+    "de": "Leg los!",
+    "ru": "Начни меня!"
+  },
+  "this_is": {
+    "en": "This is",
+    "de": "Das ist",
+    "ru": "Это"
+  },
+  "private": {
+    "en": "Private",
+    "de": "Privat",
+    "ru": "Частный"
+  },
+  "no_sign_up": {
+    "en": "No sign up",
+    "de": "Keine Anmeldung",
+    "ru": "Нет регистрации"
+  },
+  "introduction": {
+    "en": "Introduction",
+    "de": "Einführung",
+    "ru": "Вступление"
+  },
+  "your_age": {
+    "en": "Your Age",
+    "de": "Dein Alter",
+    "ru": "Ваш возраст"
+  },
+  "your_color": {
+    "en": "Your Color",
+    "de": "Deine Farbe",
+    "ru": "Ваш цвет"
+  },
+  "change": {
+    "en": "Change",
+    "de": "Ändern",
+    "ru": "Изменить"
+  },
+  "months_spent": {
+    "en": "Months Spent",
+    "de": "Verbrachte Monate",
+    "ru": "Проведенные месяцы"
+  },
+  "months_remaining": {
+    "en": "Months Remaining",
+    "de": "Verbleibende Monate",
+    "ru": "Оставшиеся месяцы"
+  }
 }

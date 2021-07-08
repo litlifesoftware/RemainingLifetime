@@ -293,7 +293,8 @@ class __StatisticsCardState extends State<_StatisticsCard> {
                 Column(
                   children: [
                     _StatisticsItem(
-                      label: "Months Spent",
+                      label: RemainingLifetimeLocalizations.of(context)!
+                          .monthsSpent,
                       value: "$_monthsSpent",
                     ),
                     _StatisticsIndicator(
@@ -304,7 +305,8 @@ class __StatisticsCardState extends State<_StatisticsCard> {
                 Column(
                   children: [
                     _StatisticsItem(
-                      label: "Months Remaining",
+                      label: RemainingLifetimeLocalizations.of(context)!
+                          .monthsRemaining,
                       value: "$_monthsRemaining",
                     ),
                     _StatisticsIndicator(

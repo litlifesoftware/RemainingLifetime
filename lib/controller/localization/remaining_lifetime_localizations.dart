@@ -179,4 +179,12 @@ class RemainingLifetimeLocalizations {
   String get change {
     return localizedStrings!['change'][locale.languageCode];
   }
+
+  String get monthsRemaining {
+    return localizedStrings!['months_remaining'][locale.languageCode];
+  }
+
+  String get monthsSpent {
+    return localizedStrings!['months_spent'][locale.languageCode];
+  }
 }
