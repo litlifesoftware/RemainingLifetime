@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:lit_ui_kit/lit_ui_kit.dart';
 import 'package:remaining_lifetime/controller/hive_db_service.dart';
+import 'package:remaining_lifetime/controller/lifetime_controller.dart';
 import 'package:remaining_lifetime/controller/localization/remaining_lifetime_localizations.dart';
 import 'package:remaining_lifetime/controller/user_data_controller.dart';
+import 'package:remaining_lifetime/data/default_user_data.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -15,7 +17,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   Color get _userColor {
-    return Colors.red;
+    return DefaultUserData.defaultColor;
   }
 
   @override
@@ -55,7 +57,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 primaryColor: _userColor,
               ),
               _UserColorCard(),
-              _StatisticsCard(),
+              _StatisticsCard(
+                userData: userData,
+              ),
               SizedBox(
                 height: 128.0,
               ),
@@ -100,18 +104,18 @@ class _StatisticsItem extends StatelessWidget {
   }
 }
 
-class _StatisticsSlider extends StatefulWidget {
+class _StatisticsIndicator extends StatefulWidget {
   final double relValue;
-  const _StatisticsSlider({
+  const _StatisticsIndicator({
     Key? key,
     required this.relValue,
   }) : super(key: key);
 
   @override
-  __StatisticsSliderState createState() => __StatisticsSliderState();
+  _StatisticsIndicatorState createState() => _StatisticsIndicatorState();
 }
 
-class __StatisticsSliderState extends State<_StatisticsSlider>
+class _StatisticsIndicatorState extends State<_StatisticsIndicator>
     with TickerProviderStateMixin {
   late AnimationController _indicatorAnimation;
 
@@ -153,8 +157,12 @@ class __StatisticsSliderState extends State<_StatisticsSlider>
                         width: 32.0,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
+                            begin: widget.relValue > 0.5
+                                ? Alignment.bottomCenter
+                                : Alignment.topCenter,
+                            end: widget.relValue > 0.5
+                                ? Alignment.topCenter
+                                : Alignment.bottomCenter,
                             stops: [
                               0.5 * _indicatorAnimation.value,
                               0.5 + 0.5 * _indicatorAnimation.value,
@@ -162,25 +170,13 @@ class __StatisticsSliderState extends State<_StatisticsSlider>
                             colors: [
                               LitColors.lightGrey.withOpacity(0.45),
                               Color.lerp(
-                                  Colors.white,
+                                  Color(0xFFE2E2E2),
                                   widget.relValue > 0.5
                                       ? LitColors.lightBlue
                                       : LitColors.lightPink,
                                   _indicatorAnimation.value)!,
                             ],
                           ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              16.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: (widget.relValue * 96.0) + 16.0,
-                        width: 32.0,
-                        decoration: BoxDecoration(
-                          color: LitColors.lightGrey,
                           borderRadius: BorderRadius.all(
                             Radius.circular(
                               16.0,
@@ -245,8 +241,44 @@ class __StatisticsSliderState extends State<_StatisticsSlider>
   }
 }
 
-class _StatisticsCard extends StatelessWidget {
-  const _StatisticsCard({Key? key}) : super(key: key);
+class _StatisticsCard extends StatefulWidget {
+  final UserData userData;
+  const _StatisticsCard({
+    Key? key,
+    required this.userData,
+  }) : super(key: key);
+
+  @override
+  __StatisticsCardState createState() => __StatisticsCardState();
+}
+
+class __StatisticsCardState extends State<_StatisticsCard> {
+  late LifetimeController _lifetimeController;
+
+  double get _monthsSpentRel {
+    return _lifetimeController.pastLifeTimeInMonths /
+        _lifetimeController.lifeExpectancyInMonths;
+  }
+
+  int get _monthsSpent {
+    return _lifetimeController.pastLifeTimeInMonths;
+  }
+
+  double get _monthsRemainingRel {
+    return _lifetimeController.remainingLifeTimeInMonths /
+        _lifetimeController.lifeExpectancyInMonths;
+  }
+
+  int get _monthsRemaining {
+    return _lifetimeController.remainingLifeTimeInMonths;
+  }
+
+  @override
+  void initState() {
+    _lifetimeController =
+        LifetimeController(dayOfBirthTimestamp: widget.userData.dayOfBirth);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -262,10 +294,10 @@ class _StatisticsCard extends StatelessWidget {
                   children: [
                     _StatisticsItem(
                       label: "Months Spent",
-                      value: "123",
+                      value: "$_monthsSpent",
                     ),
-                    _StatisticsSlider(
-                      relValue: 0.25,
+                    _StatisticsIndicator(
+                      relValue: _monthsSpentRel,
                     )
                   ],
                 ),
@@ -273,10 +305,10 @@ class _StatisticsCard extends StatelessWidget {
                   children: [
                     _StatisticsItem(
                       label: "Months Remaining",
-                      value: "402",
+                      value: "$_monthsRemaining",
                     ),
-                    _StatisticsSlider(
-                      relValue: 0.5,
+                    _StatisticsIndicator(
+                      relValue: _monthsRemainingRel,
                     )
                   ],
                 )
