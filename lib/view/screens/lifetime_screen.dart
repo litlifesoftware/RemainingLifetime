@@ -41,7 +41,6 @@ class _LifetimeScreenState extends State<LifetimeScreen>
   /// required to enable the user to input text.
   late AnimationController _bottomBarAnimation;
   late LitSnackbarController _customSnackBarController;
-  late LitSettingsPanelController _settingsPanelController;
   late CollapsibleCardController _collapsibleCardController;
 
   /// [TextEditingController] to controller the user input required to create or
@@ -151,7 +150,6 @@ class _LifetimeScreenState extends State<LifetimeScreen>
   void initState() {
     super.initState();
     _editingFocus = FocusNode();
-    _settingsPanelController = LitSettingsPanelController();
     _customSnackBarController = LitSnackbarController();
     _collapsibleCardController = CollapsibleCardController();
     _goalTitleController = TextEditingController(text: "");
@@ -206,145 +204,6 @@ class _LifetimeScreenState extends State<LifetimeScreen>
           iconData: LitIcons.check,
         )
       ],
-      settingsPanel: LitSettingsPanel(
-        controller: _settingsPanelController,
-        darkMode: appSettings.darkMode!,
-        title: "${RemainingLifetimeLocalizations.of(context)!.settings}",
-        settingsTiles: [
-          LitSettingsPanelTile(
-            disabledLabel:
-                "${RemainingLifetimeLocalizations.of(context)!.turnedOff}",
-            enabledLabel:
-                "${RemainingLifetimeLocalizations.of(context)!.turnedOn}",
-            iconData: LitIcons.animation,
-            onValueToggled: (toggledValue) {
-              widget.appSettingsBox.putAt(
-                0,
-                AppSettings(
-                  agreedPrivacy: appSettings.agreedPrivacy,
-                  darkMode: appSettings.darkMode,
-                  animated: toggledValue,
-                ),
-              );
-            },
-            optionName:
-                "${RemainingLifetimeLocalizations.of(context)!.animations}",
-            darkMode: appSettings.darkMode!,
-            enabled: appSettings.animated!,
-          ),
-          LitSettingsPanelTile(
-            disabledLabel:
-                "${RemainingLifetimeLocalizations.of(context)!.turnedOff}",
-            enabledLabel:
-                "${RemainingLifetimeLocalizations.of(context)!.turnedOn}",
-            onValueToggled: (toggledValue) {
-              widget.appSettingsBox.putAt(
-                0,
-                AppSettings(
-                  agreedPrivacy: appSettings.agreedPrivacy,
-                  darkMode: toggledValue,
-                  animated: appSettings.animated,
-                ),
-              );
-            },
-            darkMode: appSettings.darkMode!,
-            enabled: appSettings.darkMode!,
-            optionName:
-                "${RemainingLifetimeLocalizations.of(context)!.darkMode}",
-            iconData: LitIcons.moon,
-          ),
-        ],
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: LitRoundedFlatButton(
-              color: LitColors.lightBlue.withOpacity(0.7),
-              child: Text(
-                "${RemainingLifetimeLocalizations.of(context)!.licenses}",
-                style: LitTextStyles.sansSerif.copyWith(
-                  color: Colors.white,
-                  fontSize: 14.0,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ApplicationLicensesScreen(
-                      darkMode: appSettings.darkMode!,
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: LitRoundedFlatButton(
-              color: LitColors.lightBlue.withOpacity(0.7),
-              child: Text(
-                "${RemainingLifetimeLocalizations.of(context)!.privacy}",
-                style: LitTextStyles.sansSerif.copyWith(
-                  color: Colors.white,
-                  fontSize: 14.0,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              onPressed: () => print("privacy"),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 8.0,
-            ),
-            child: LitRoundedOutlinedButton(
-              strokeWidth: 3.0,
-              borderColor: appSettings.darkMode!
-                  ? Colors.white.withOpacity(0.7)
-                  : LitColors.mediumGrey.withOpacity(0.6),
-              child: Text(
-                "${RemainingLifetimeLocalizations.of(context)!.aboutThisApp}",
-                style: LitTextStyles.sansSerif.copyWith(
-                  color: appSettings.darkMode!
-                      ? Colors.white.withOpacity(0.7)
-                      : LitColors.mediumGrey.withOpacity(0.8),
-                  fontSize: 14.0,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              onPressed: () => showCustomAboutDialog(appSettings.darkMode),
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(
-          //     vertical: 8.0,
-          //   ),
-          //   child: LitRoundedOutlinedButton(
-          //     strokeWidth: 3.0,
-          //     borderColor: appSettings.darkMode
-          //         ? Colors.white.withOpacity(0.7)
-          //         : LitColors.mediumGrey.withOpacity(0.6),
-          //     child: Text(
-          //       "${RemainingLifetimeLocalizations.of(context).introduction}",
-          //       style: LitTextStyles.sansSerif.copyWith(
-          //         color: appSettings.darkMode
-          //             ? Colors.white.withOpacity(0.7)
-          //             : LitColors.mediumGrey.withOpacity(0.8),
-          //         fontSize: 14.0,
-          //       ),
-          //       textAlign: TextAlign.center,
-          //     ),
-          //     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-          //         builder: (BuildContext context) =>
-          //             IntroductionToRemainingLifetimeScreen(
-          //               handleOnStart: () {
-          //                 Navigator.pop(context);
-          //               },
-          //             ))),
-          //   ),
-          // ),
-        ],
-      ),
       body: AnimatedBuilder(
         animation: _appearAnimation,
         builder: (context, child) {

@@ -6,18 +6,37 @@ import 'package:remaining_lifetime/controller/lifetime_controller.dart';
 import 'package:remaining_lifetime/controller/localization/remaining_lifetime_localizations.dart';
 import 'package:remaining_lifetime/controller/user_data_controller.dart';
 import 'package:remaining_lifetime/data/default_user_data.dart';
+import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  final void Function() toggleHideNavigationBar;
+  const ProfileScreen({
+    Key? key,
+    required this.toggleHideNavigationBar,
+  }) : super(key: key);
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  late LitSettingsPanelController _settingsPanelController;
   Color get _userColor {
     return DefaultUserData.defaultColor;
+  }
+
+  @override
+  void initState() {
+    _settingsPanelController = LitSettingsPanelController()
+      ..addListener(widget.toggleHideNavigationBar);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _settingsPanelController.dispose();
+    super.dispose();
   }
 
   @override
@@ -26,45 +45,127 @@ class _ProfileScreenState extends State<ProfileScreen> {
       valueListenable: HiveDBService().getUserData(),
       builder: (context, Box<dynamic> userDataBox, _) {
         UserData userData = userDataBox.getAt(0)!;
-        return Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFFFFE9E9),
-                Color(0xFFDDDDDD),
-              ],
-            ),
-          ),
-          child: ScrollableColumn(
-            children: [
-              SizedBox(
-                height: 64.0,
+        return ValueListenableBuilder(
+          valueListenable: HiveDBService().getAppSettings(),
+          builder: (context, Box<dynamic> appSettingsBox, _) {
+            AppSettings appSettings = appSettingsBox.getAt(0)!;
+            return LitScaffold(
+              settingsPanel: LitSettingsPanel(
+                controller: _settingsPanelController,
+                darkMode: appSettings.darkMode!,
+                title:
+                    "${RemainingLifetimeLocalizations.of(context)!.settings}",
+                settingsTiles: [
+                  LitSettingsPanelTile(
+                    disabledLabel:
+                        "${RemainingLifetimeLocalizations.of(context)!.turnedOff}",
+                    enabledLabel:
+                        "${RemainingLifetimeLocalizations.of(context)!.turnedOn}",
+                    iconData: LitIcons.animation,
+                    onValueToggled: (toggledValue) {
+                      appSettingsBox.putAt(
+                        0,
+                        AppSettings(
+                          agreedPrivacy: appSettings.agreedPrivacy,
+                          darkMode: appSettings.darkMode,
+                          animated: toggledValue,
+                        ),
+                      );
+                    },
+                    optionName:
+                        "${RemainingLifetimeLocalizations.of(context)!.animations}",
+                    darkMode: appSettings.darkMode!,
+                    enabled: appSettings.animated!,
+                  ),
+                  LitSettingsPanelTile(
+                    disabledLabel:
+                        "${RemainingLifetimeLocalizations.of(context)!.turnedOff}",
+                    enabledLabel:
+                        "${RemainingLifetimeLocalizations.of(context)!.turnedOn}",
+                    onValueToggled: (toggledValue) {
+                      appSettingsBox.putAt(
+                        0,
+                        AppSettings(
+                          agreedPrivacy: appSettings.agreedPrivacy,
+                          darkMode: toggledValue,
+                          animated: appSettings.animated,
+                        ),
+                      );
+                    },
+                    darkMode: appSettings.darkMode!,
+                    enabled: appSettings.darkMode!,
+                    optionName:
+                        "${RemainingLifetimeLocalizations.of(context)!.darkMode}",
+                    iconData: LitIcons.moon,
+                  ),
+                ],
               ),
-              Text(
-                RemainingLifetimeLocalizations.of(context)!.yourAge,
-                textAlign: TextAlign.center,
-                style: LitSansSerifStyles.header6,
+              body: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      Color(0xFFFFE9E9),
+                      Color(0xFFDDDDDD),
+                    ],
+                  ),
+                ),
+                child: ScrollableColumn(
+                  children: [
+                    SizedBox(
+                      height: 64.0,
+                    ),
+                    Text(
+                      RemainingLifetimeLocalizations.of(context)!.yourAge,
+                      textAlign: TextAlign.center,
+                      style: LitSansSerifStyles.header6,
+                    ),
+                    SizedBox(
+                      height: 32.0,
+                    ),
+                    LitUserIcon(
+                      username: "${UserDataController(userData).age}",
+                      primaryColor: _userColor,
+                    ),
+                    _UserColorCard(),
+                    _StatisticsCard(
+                      userData: userData,
+                    ),
+                    SizedBox(
+                      height: 64.0,
+                    ),
+                    LitSettingsFooter(
+                      children: [
+                        LitPlainLabelButton(
+                            label: "Advanced",
+                            onPressed: () {
+                              _settingsPanelController.showSettingsPanel();
+                            }),
+                        LitPlainLabelButton(label: "Privacy", onPressed: () {}),
+                        LitPlainLabelButton(label: "About", onPressed: () {}),
+                        LitPlainLabelButton(label: "Tour", onPressed: () {}),
+                        LitPlainLabelButton(
+                          label: "Licenses",
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ApplicationLicensesScreen(
+                                  darkMode: appSettings.darkMode!,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(
-                height: 32.0,
-              ),
-              LitUserIcon(
-                username: "${UserDataController(userData).age}",
-                primaryColor: _userColor,
-              ),
-              _UserColorCard(),
-              _StatisticsCard(
-                userData: userData,
-              ),
-              SizedBox(
-                height: 128.0,
-              ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
