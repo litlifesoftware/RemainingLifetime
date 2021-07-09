@@ -181,9 +181,7 @@ class _LifetimeScreenState extends State<LifetimeScreen>
     /// Initialize with null if null, if no user data is found.
     /// The object should be declared in the build method to
     /// ensure the latest database entry is returned everytime.
-    AppSettings appSettings = widget.appSettingsBox.length != 0
-        ? widget.appSettingsBox.getAt(0)
-        : null;
+    AppSettings appSettings = widget.appSettingsBox.getAt(0);
 
     return LitScaffold(
       collapsibleCard: GoalPreviewCard(
@@ -196,7 +194,6 @@ class _LifetimeScreenState extends State<LifetimeScreen>
         textEditingController: _goalTitleController,
         darkMode: appSettings.darkMode,
       ),
-      //TODO IMplement lit snackbar
       snackbars: [
         LitIconSnackbar(
           snackBarController: _customSnackBarController,
@@ -217,7 +214,9 @@ class _LifetimeScreenState extends State<LifetimeScreen>
               children: [
                 Stack(
                   children: [
-                    LitStarfieldContainer(),
+                    LitStarfieldContainer(
+                      animated: appSettings.animated!,
+                    ),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
