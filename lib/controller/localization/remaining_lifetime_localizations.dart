@@ -187,4 +187,12 @@ class RemainingLifetimeLocalizations {
   String get monthsSpent {
     return localizedStrings!['months_spent'][locale.languageCode];
   }
+
+  String get tour {
+    return localizedStrings!['tour'][locale.languageCode];
+  }
+
+  String get advanced {
+    return localizedStrings!['advanced'][locale.languageCode];
+  }
 }

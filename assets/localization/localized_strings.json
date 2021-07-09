@@ -40,9 +40,9 @@
     "ru": "Темный режим"
   },
   "about_this_app": {
-    "en": "About this app",
+    "en": "About",
     "de": "Über diese App",
-    "ru": "Об этом приложении"
+    "ru": "Об приложении"
   },
   "licenses": {
     "en": "Licenses",
@@ -188,5 +188,15 @@
     "en": "Months Remaining",
     "de": "Verbleibende Monate",
     "ru": "Оставшиеся месяцы"
+  },
+  "tour": {
+    "en": "Tour",
+    "de": "Tour",
+    "ru": "Экскурсия"
+  },
+  "advanced": {
+    "en": "Advanced",
+    "de": "Erweitert",
+    "ru": "Передовой"
   }
 }

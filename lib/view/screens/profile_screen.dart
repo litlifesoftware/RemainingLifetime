@@ -165,17 +165,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 64.0,
                     ),
                     LitSettingsFooter(
+                      title:
+                          RemainingLifetimeLocalizations.of(context)!.settings!,
                       children: [
                         LitPlainLabelButton(
-                            label: "Advanced",
+                            label: RemainingLifetimeLocalizations.of(context)!
+                                .advanced,
                             onPressed: () {
                               _settingsPanelController.showSettingsPanel();
                             }),
-                        LitPlainLabelButton(label: "Privacy", onPressed: () {}),
-                        LitPlainLabelButton(label: "About", onPressed: () {}),
-                        LitPlainLabelButton(label: "Tour", onPressed: () {}),
                         LitPlainLabelButton(
-                          label: "Licenses",
+                          label: RemainingLifetimeLocalizations.of(context)!
+                              .privacy!,
+                          onPressed: () {},
+                        ),
+                        LitPlainLabelButton(
+                          label: RemainingLifetimeLocalizations.of(context)!
+                              .aboutThisApp!,
+                          onPressed: () {},
+                        ),
+                        LitPlainLabelButton(
+                            label: RemainingLifetimeLocalizations.of(context)!
+                                .tour,
+                            onPressed: () {}),
+                        LitPlainLabelButton(
+                          label: RemainingLifetimeLocalizations.of(context)!
+                              .licenses!,
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
