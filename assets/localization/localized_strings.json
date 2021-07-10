@@ -203,5 +203,10 @@
     "en": "Advanced",
     "de": "Erweitert",
     "ru": "Передовой"
+  },
+  "next": {
+    "en": "Next",
+    "de": "Vor",
+    "ru": "Следующий"
   }
 }

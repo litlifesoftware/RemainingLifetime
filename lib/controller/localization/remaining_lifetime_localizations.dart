@@ -199,4 +199,8 @@ class RemainingLifetimeLocalizations {
   String get advanced {
     return localizedStrings!['advanced'][locale.languageCode];
   }
+
+  String get next {
+    return localizedStrings!['next'][locale.languageCode];
+  }
 }

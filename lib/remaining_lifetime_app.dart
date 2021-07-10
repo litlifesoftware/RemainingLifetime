@@ -29,6 +29,7 @@ class _RemainingLifetimeAppState extends State<RemainingLifetimeApp> {
       "assets/images/Lit_Life_Software_Light_No_Spacing.png",
       "assets/images/Meteoroid.png",
       "assets/images/Planet.png",
+      "assets/images/Launcher_Icon_Static_Rounded_2.png"
     ];
     ImageCacheController(
       context: context,

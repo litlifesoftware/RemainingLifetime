@@ -8,6 +8,9 @@ import 'package:remaining_lifetime/controller/user_data_controller.dart';
 import 'package:remaining_lifetime/data/default_user_data.dart';
 import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
+import 'package:remaining_lifetime/view/screens/privacy_screen.dart';
+import 'package:remaining_lifetime/view/screens/tour_screen.dart';
+import 'package:remaining_lifetime/view/widgets/about_this_app_dialog.dart';
 
 class ProfileScreen extends StatefulWidget {
   final void Function() toggleHideNavigationBar;
@@ -164,45 +167,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(
                       height: 64.0,
                     ),
-                    LitSettingsFooter(
-                      title:
-                          RemainingLifetimeLocalizations.of(context)!.settings!,
-                      children: [
-                        LitPlainLabelButton(
-                            label: RemainingLifetimeLocalizations.of(context)!
-                                .advanced,
-                            onPressed: () {
-                              _settingsPanelController.showSettingsPanel();
-                            }),
-                        LitPlainLabelButton(
-                          label: RemainingLifetimeLocalizations.of(context)!
-                              .privacy!,
-                          onPressed: () {},
-                        ),
-                        LitPlainLabelButton(
-                          label: RemainingLifetimeLocalizations.of(context)!
-                              .aboutThisApp!,
-                          onPressed: () {},
-                        ),
-                        LitPlainLabelButton(
-                            label: RemainingLifetimeLocalizations.of(context)!
-                                .tour,
-                            onPressed: () {}),
-                        LitPlainLabelButton(
-                          label: RemainingLifetimeLocalizations.of(context)!
-                              .licenses!,
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ApplicationLicensesScreen(
-                                  darkMode: appSettings.darkMode!,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                    _Footer(
+                      appSettings: appSettings,
+                      settingsPanelController: _settingsPanelController,
+                    )
                   ],
                 ),
               ),
@@ -210,6 +178,80 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
         );
       },
+    );
+  }
+}
+
+class _Footer extends StatefulWidget {
+  final LitSettingsPanelController settingsPanelController;
+  final AppSettings appSettings;
+  const _Footer({
+    Key? key,
+    required this.settingsPanelController,
+    required this.appSettings,
+  }) : super(key: key);
+
+  @override
+  __FooterState createState() => __FooterState();
+}
+
+class __FooterState extends State<_Footer> {
+  void _onLicensesPressed() {
+    LitRouteController(context).pushMaterialWidget(
+      ApplicationLicensesScreen(
+        darkMode: widget.appSettings.darkMode!,
+      ),
+    );
+  }
+
+  void _onPressedAdvanced() {
+    widget.settingsPanelController.showSettingsPanel();
+  }
+
+  void _onPressedPrivacy() {
+    LitRouteController(context).pushMaterialWidget(
+      PrivacyScreen(),
+    );
+  }
+
+  void _onPressedAbout() {
+    LitRouteController(context).showDialogWidget(
+      AboutThisAppDialog(),
+    );
+  }
+
+  void _onPressedTour() {
+    LitRouteController(context).pushMaterialWidget(
+      OnboardingScreen(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LitSettingsFooter(
+      title: RemainingLifetimeLocalizations.of(context)!.settings!,
+      children: [
+        LitPlainLabelButton(
+          label: RemainingLifetimeLocalizations.of(context)!.advanced,
+          onPressed: _onPressedAdvanced,
+        ),
+        LitPlainLabelButton(
+          label: RemainingLifetimeLocalizations.of(context)!.tour,
+          onPressed: _onPressedTour,
+        ),
+        LitPlainLabelButton(
+          label: RemainingLifetimeLocalizations.of(context)!.aboutThisApp!,
+          onPressed: _onPressedAbout,
+        ),
+        LitPlainLabelButton(
+          label: RemainingLifetimeLocalizations.of(context)!.privacy!,
+          onPressed: _onPressedPrivacy,
+        ),
+        LitPlainLabelButton(
+          label: RemainingLifetimeLocalizations.of(context)!.licenses!,
+          onPressed: _onLicensesPressed,
+        ),
+      ],
     );
   }
 }
@@ -508,8 +550,9 @@ class _UserColorCard extends StatelessWidget {
               onPressed: () {
                 LitRouteController(context).showDialogWidget(
                   LitColorPickerDialog(
-                      initialColor: Color(userData.color!),
-                      onApplyColor: onApplyColor),
+                    initialColor: Color(userData.color!),
+                    onApplyColor: onApplyColor,
+                  ),
                 );
               },
             ),
