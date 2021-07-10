@@ -302,16 +302,16 @@ packages:
       name: lit_starfield
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.1"
   lit_ui_kit:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c639ae22478ba0a7f88328a69efd9e8a00034fa5
+      resolved-ref: "902679aa74d21df01ee99fc7c25232cbe19c1ebc"
       url: "https://github.com/litlifesoftware/lit_ui_kit.git"
     source: git
-    version: "1.0.5"
+    version: "1.1.0"
   logging:
     dependency: transitive
     description:

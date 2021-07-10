@@ -36,13 +36,13 @@ dependencies:
   flutter_launcher_icons: ^0.9.0
 
   lit_ui_kit: 
-    # ^1.0.5
+    # ^1.1.0
     # Specify alternative lit_ui_kit locations
     git: 
       url: https://github.com/litlifesoftware/lit_ui_kit.git
     # path: ../lit_ui_kit/
 
-  lit_starfield: ^0.1.0
+  lit_starfield: ^0.1.1
 
 dev_dependencies:
   # flutter_test:
@@ -67,15 +67,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/Lit_Life_Software_Dark.png
-    - assets/images/Lit_Life_Software_Light.png
-    - assets/images/Lit_Life_Software_Dark_No_Spacing.png
-    - assets/images/Lit_Life_Software_Light_No_Spacing.png
-    - assets/images/Remaining_Lifetime_App_Launcher_Icon_Rounded.png
-    - assets/images/Remaining_Lifetime_App_Launcher_Icon_Adaptive.png
-    - assets/images/Meteoroid.png
-    - assets/images/Planet.png
-    - assets/localization/localized_strings.json
+    - assets/images/
+    - assets/localization/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
