@@ -160,6 +160,10 @@ class RemainingLifetimeLocalizations {
     return localizedStrings!['private'][locale.languageCode];
   }
 
+  String? get offline {
+    return localizedStrings!['offline'][locale.languageCode];
+  }
+
   String? get noSignUp {
     return localizedStrings!['no_sign_up'][locale.languageCode];
   }

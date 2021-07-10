@@ -154,6 +154,11 @@
     "de": "Privat",
     "ru": "Частный"
   },
+  "offline": {
+    "en": "Offline",
+    "de": "Offline",
+    "ru": "Не в сети"
+  },
   "no_sign_up": {
     "en": "No sign up",
     "de": "Keine Anmeldung",
