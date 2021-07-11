@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:lit_ui_kit/lit_ui_kit.dart';
+import 'package:remaining_lifetime/config/config.dart';
 import 'package:remaining_lifetime/controller/hive_db_service.dart';
 import 'package:remaining_lifetime/controller/lifetime_controller.dart';
 import 'package:remaining_lifetime/controller/localization/remaining_lifetime_localizations.dart';
 import 'package:remaining_lifetime/controller/user_data_controller.dart';
-import 'package:remaining_lifetime/data/default_user_data.dart';
 import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/privacy_screen.dart';
