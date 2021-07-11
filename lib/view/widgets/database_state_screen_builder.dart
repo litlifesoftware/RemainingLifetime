@@ -4,11 +4,11 @@ import 'package:lit_ui_kit/lit_ui_kit.dart';
 import 'package:remaining_lifetime/config/config.dart';
 import 'package:remaining_lifetime/controller/hive_db_service.dart';
 import 'package:remaining_lifetime/controller/lifetime_controller.dart';
+import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/home_screen.dart';
 import 'package:remaining_lifetime/view/screens/loading_screen.dart';
-import 'package:remaining_lifetime/view/screens/initial_start_screen.dart';
 
 /// A [StatefulWidget] to retrieve data from the [Hive] database and to
 /// provided it to the corresponding screen [Widget]s.
@@ -54,6 +54,58 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
     );
     userDataBox.add(userData);
     setLifetimeController(userData.dayOfBirth);
+  }
+
+  final Duration titleScreenDuration = Duration(milliseconds: 3000);
+  late AnimationController _onStartAnimationController;
+  late bool skippedInstructions;
+  void createAppSettings(Box<dynamic> appSettingsBox) {
+    AppSettings appSettings =
+        AppSettings(agreedPrivacy: true, animated: true, darkMode: false);
+    appSettingsBox.add(appSettings);
+  }
+
+  void initAnimation() {
+    _onStartAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 500,
+      ),
+    );
+  }
+
+  void disposeAnimation() {
+    _onStartAnimationController.dispose();
+  }
+
+  void handleOnStart() {
+    _onStartAnimationController.forward().then(
+          (value) => setState(
+            () {
+              skippedInstructions = true;
+            },
+          ),
+        );
+  }
+
+  Future<bool> handleOnPop() async {
+    setState(() {
+      skippedInstructions = false;
+    });
+    return false;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    skippedInstructions = false;
+    initAnimation();
+  }
+
+  @override
+  void dispose() {
+    disposeAnimation();
+    super.dispose();
   }
 
   @override
@@ -148,9 +200,68 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
                                   );
                           },
                         )
-                      : InitialStartInformation(
-                          appSettingsBox: appSettingsBox,
-                        );
+                      : skippedInstructions
+                          ? WillPopScope(
+                              onWillPop: handleOnPop,
+                              child:
+
+                                  //TODO implement privacy screen
+                                  // PrivacyAgreementScreen(
+                                  //   agreeLabel:
+                                  //       "${RemainingLifetimeLocalizations.of(context).iAgree}",
+                                  //   privacyText:
+                                  //       "${RemainingLifetimeLocalizations.of(context).privacyDescription}",
+                                  //   title: "${RemainingLifetimeLocalizations.of(context).privacy}",
+                                  //   privacyTags: [
+                                  //     PrivacyTag(
+                                  //         text: RemainingLifetimeLocalizations.of(context).private,
+                                  //         isConform: true),
+                                  //     PrivacyTag(
+                                  //         text: RemainingLifetimeLocalizations.of(context).noSignUp,
+                                  //         isConform: true),
+                                  //   ],
+                                  //   launcherIconImageUrl:
+                                  //       "assets/images/Remaining_Lifetime_App_Launcher_Icon_Rounded.png",
+                                  //   onAgreeCallback: () => createAppSettings(widget.appSettingsBox),
+                                  // ),
+                                  Scaffold(
+                                body: Center(
+                                  child: ElevatedButton(
+                                    child: Text("Accept privacy"),
+                                    onPressed: () =>
+                                        createAppSettings(appSettingsBox),
+                                  ),
+                                ),
+                              ))
+                          : FutureBuilder(
+                              future: Future.delayed(titleScreenDuration),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<dynamic> snapshot) {
+                                return snapshot.connectionState ==
+                                        ConnectionState.done
+                                    ?
+
+                                    // IntroductionToRemainingLifetimeScreen(
+                                    //     handleOnStart: handleOnStart,
+                                    //     onStartAnimationController: _onStartAnimationController,
+                                    //   )
+                                    //TODO Make Instruction screen accessible from profile screen
+                                    Scaffold(
+                                        body: Center(
+                                          child: ElevatedButton(
+                                            onPressed: handleOnStart,
+                                            child: Text("Continue"),
+                                          ),
+                                        ),
+                                      )
+                                    : TitleScreen(
+                                        animationDuration: titleScreenDuration,
+                                        titleImageName:
+                                            "assets/images/Lit_Life_Software_Light_No_Spacing.png",
+                                        credits: "a product of LitLifeSoftware",
+                                      );
+                              },
+                            );
                 });
           }
         } else {
