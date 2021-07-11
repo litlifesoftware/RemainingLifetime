@@ -12,13 +12,13 @@ import 'package:remaining_lifetime/view/screens/initial_start_screen.dart';
 
 /// A [StatefulWidget] to retrieve data from the [Hive] database and to
 /// provided it to the corresponding screen [Widget]s.
-class DatabaseInterfaceWidget extends StatefulWidget {
+class DatabaseStateScreenBuilder extends StatefulWidget {
   @override
-  _DatabaseInterfaceWidgetState createState() =>
-      _DatabaseInterfaceWidgetState();
+  _DatabaseStateScreenBuilderState createState() =>
+      _DatabaseStateScreenBuilderState();
 }
 
-class _DatabaseInterfaceWidgetState extends State<DatabaseInterfaceWidget>
+class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
     with TickerProviderStateMixin {
   LifetimeController? _lifetimeController;
 

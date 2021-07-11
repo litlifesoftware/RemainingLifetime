@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
-import 'package:remaining_lifetime/view/widgets/database_interface_widget.dart';
+import 'package:remaining_lifetime/view/widgets/database_state_screen_builder.dart';
 import 'package:lit_ui_kit/lit_ui_kit.dart';
 
 import 'controller/localization/remaining_lifetime_localizations_delegate.dart';
@@ -59,7 +59,7 @@ class _RemainingLifetimeAppState extends State<RemainingLifetimeApp> {
         // Russian (no contry code)
         const Locale('ru', ''),
       ],
-      home: DatabaseInterfaceWidget(),
+      home: DatabaseStateScreenBuilder(),
       theme: ThemeData(
         accentColor: Colors.white,
       ),
