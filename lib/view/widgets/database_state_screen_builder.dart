@@ -4,14 +4,15 @@ import 'package:lit_ui_kit/lit_ui_kit.dart';
 import 'package:remaining_lifetime/config/config.dart';
 import 'package:remaining_lifetime/controller/hive_db_service.dart';
 import 'package:remaining_lifetime/controller/lifetime_controller.dart';
+import 'package:remaining_lifetime/controller/localization/remaining_lifetime_localizations.dart';
 import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/home_screen.dart';
 import 'package:remaining_lifetime/view/screens/loading_screen.dart';
 
-/// A [StatefulWidget] to retrieve data from the [Hive] database and to
-/// provided it to the corresponding screen [Widget]s.
+/// A widget to retrieve data objects from local storage (Hive database) and to
+/// provide these to the corresponding screen [Widget]s.
 class DatabaseStateScreenBuilder extends StatefulWidget {
   @override
   _DatabaseStateScreenBuilderState createState() =>
@@ -20,9 +21,24 @@ class DatabaseStateScreenBuilder extends StatefulWidget {
 
 class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
     with TickerProviderStateMixin {
-  LifetimeController? _lifetimeController;
+  /// The controller to calculate the user's lifetime months.
+  late LifetimeController? _lifetimeController;
 
-  void setLifetimeController(int? dateOfBirthTimestamp) {
+  /// The startup screen's animation duration.
+  final Duration _startupAnimationDuration = const Duration(
+    milliseconds: 6000,
+  );
+
+  /// States whether to show the starup screen at launch. This should be set to
+  /// `true` once the initial starup has been detected.
+  bool _shouldShowStartupScreen = false;
+
+  /// States whether it's the initial startup of the app. The value should be
+  /// set to `true` once the initial starup has been detected.
+  bool _initalStartup = false;
+
+  /// Initializes the lifetime controller using the provided birth timestamp.
+  void initLifetimeController(int? dateOfBirthTimestamp) {
     print("lifetime controller set");
     _lifetimeController =
         LifetimeController(dayOfBirthTimestamp: dateOfBirthTimestamp);
@@ -34,240 +50,161 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
   /// expected lifetime month.
   void initializeGoalsBoxContent(goalsBox) {
     for (int i = 0; i < _lifetimeController!.lifeExpectancyInMonths; i++) {
-      // print(
-      //     "goal date ${widget.lifetimeController.convertTotalMonthToDateTime(i)}");
-      goalsBox.add(
-        Goal(
-            // Increase the index by one to create the id.
-            id: i,
-            title: "",
-            month: _lifetimeController!.convertTotalMonthToDateTime(i).month,
-            year: _lifetimeController!.convertTotalMonthToDateTime(i).year),
+      final Goal goal = Goal(
+        // Increase the index by one to create the id.
+        id: i,
+        title: "",
+        month: _lifetimeController!.convertTotalMonthToDateTime(i).month,
+        year: _lifetimeController!.convertTotalMonthToDateTime(i).year,
       );
+      goalsBox.add(goal);
     }
   }
 
+  /// Creates the user data entry on the database.
   void createUserData(DateTime age, Box<dynamic> userDataBox) {
     UserData userData = UserData(
-      dayOfBirth: age.millisecondsSinceEpoch,
-      color: DefaultUserData.defaultColor.value,
-    );
+        dayOfBirth: age.millisecondsSinceEpoch,
+        color: DefaultUserData.defaultColor.value);
     userDataBox.add(userData);
-    setLifetimeController(userData.dayOfBirth);
+    initLifetimeController(userData.dayOfBirth);
   }
 
-  final Duration titleScreenDuration = Duration(milliseconds: 3000);
-  late AnimationController _onStartAnimationController;
-  late bool skippedInstructions;
-  void createAppSettings(Box<dynamic> appSettingsBox) {
-    AppSettings appSettings =
-        AppSettings(agreedPrivacy: true, animated: true, darkMode: false);
+  /// Handles the actions required to be performed after the user has agreed to
+  /// the privacy policy.
+  void _onPrivacyAgreed(Box<dynamic> appSettingsBox, Box<dynamic> userDataBox) {
+    AppSettings appSettings = AppSettings(
+      agreedPrivacy: true,
+      animated: true,
+      darkMode: false,
+    );
     appSettingsBox.add(appSettings);
-  }
-
-  void initAnimation() {
-    _onStartAnimationController = AnimationController(
-      vsync: this,
-      duration: Duration(
-        milliseconds: 500,
+    LitRouteController(context).pushCupertinoWidget(
+      ConfirmAgeScreen(
+        onSubmit: (age) {
+          createUserData(age, userDataBox);
+          LitRouteController(context).pop();
+        },
       ),
     );
   }
 
-  void disposeAnimation() {
-    _onStartAnimationController.dispose();
-  }
-
-  void handleOnStart() {
-    _onStartAnimationController.forward().then(
-          (value) => setState(
-            () {
-              skippedInstructions = true;
-            },
-          ),
-        );
-  }
-
-  Future<bool> handleOnPop() async {
+  /// Toggles the [_shouldShowStartupScreen] state value.
+  void _toggleShouldShowStartupScreen() {
     setState(() {
-      skippedInstructions = false;
+      _shouldShowStartupScreen = !_shouldShowStartupScreen;
     });
-    return false;
+  }
+
+  /// Shows the startup screen if required.
+  void _showStartupScreen() {
+    _toggleShouldShowStartupScreen();
+    Future.delayed(
+      _startupAnimationDuration,
+    ).then((_) {
+      if (_initalStartup & !AppConfig.DEBUG) {
+        _toggleShouldShowStartupScreen();
+      }
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    skippedInstructions = false;
-    initAnimation();
+    _showStartupScreen();
   }
 
   @override
   void dispose() {
-    disposeAnimation();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    const Text errorText =
-        Text("Something unexpected happed. Please restart this app.");
     return FutureBuilder(
       future: HiveDBService().openBoxes(),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snap) {
         if (snap.connectionState == ConnectionState.done) {
           if (snap.hasError) {
-            return errorText;
+            return _ErrorText();
           } else {
             return ValueListenableBuilder(
-                valueListenable: HiveDBService().getAppSettings(),
-                builder: (BuildContext context, Box<dynamic> appSettingsBox,
-                    Widget? child) {
-                  return appSettingsBox.isNotEmpty
-                      ? ValueListenableBuilder(
-                          valueListenable: HiveDBService().getUserData(),
-                          builder: (BuildContext context,
-                              Box<dynamic> userDataBox, Widget? child) {
-                            if (userDataBox.isNotEmpty) {
-                              UserData userData = userDataBox.getAt(0);
-                              setLifetimeController(userData.dayOfBirth);
-                            }
-                            return userDataBox.isNotEmpty
-                                ? ValueListenableBuilder(
-                                    valueListenable: HiveDBService().getGoals(),
-                                    builder: (BuildContext context,
-                                        Box<dynamic> goalsBox, Widget? child) {
-                                      if (goalsBox.length == 0) {
-                                        initializeGoalsBoxContent(goalsBox);
-                                      }
-                                      return HomeScreen(
-                                          goalsBox: goalsBox,
-                                          appSettingsBox: appSettingsBox,
-                                          lifetimeController:
-                                              _lifetimeController);
-                                    })
-                                :
-                                // AgeConfirmationScreen(
-                                //     titleLabel:
-                                //         RemainingLifetimeLocalizations.of(
-                                //                 context)
-                                //             .setYourDayOfBirth,
-                                //     submitButtonLabel:
-                                //         RemainingLifetimeLocalizations.of(
-                                //                 context)
-                                //             .continueWithThisDayOfBirth,
-                                //     notOldEnoughLabel:
-                                //         RemainingLifetimeLocalizations.of(
-                                //                 context)
-                                //             .youAreNotOldEnoughToUseThisApp,
-                                //     changeTheMonthLabel:
-                                //         RemainingLifetimeLocalizations.of(
-                                //                 context)
-                                //             .changeTheMonthToApplyThisDate,
-                                //     monthLabel:
-                                //         RemainingLifetimeLocalizations.of(
-                                //                 context)
-                                //             .month,
-                                //     yearLabel:
-                                //         RemainingLifetimeLocalizations.of(
-                                //                 context)
-                                //             .year,
-                                //     onSubmitCallback: (DateTime age) {
-                                //       createUserData(age, userDataBox);
-                                //     },
-                                //   );
-                                //TODO: Implement confirm age screen
-                                Scaffold(
-                                    body: Center(
-                                      child: ElevatedButton(
-                                        child: Text("Set day of birth"),
-                                        onPressed: () {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return LitDatePickerDialog(
-                                                    onBackCallback:
-                                                        Navigator.of(context)
-                                                            .pop,
-                                                    onSubmit: (age) {
-                                                      createUserData(
-                                                          age, userDataBox);
-                                                    });
-                                              });
-                                        },
-                                      ),
-                                    ),
-                                  );
-                          },
-                        )
-                      : skippedInstructions
-                          ? WillPopScope(
-                              onWillPop: handleOnPop,
-                              child:
+              valueListenable: HiveDBService().getAppSettings(),
+              builder: (BuildContext context, Box<dynamic> appSettingsBox,
+                  Widget? child) {
+                return ValueListenableBuilder(
+                  valueListenable: HiveDBService().getUserData(),
+                  builder: (BuildContext context, Box<dynamic> userDataBox,
+                      Widget? _) {
+                    if (userDataBox.isNotEmpty) {
+                      UserData userData = userDataBox.getAt(0);
+                      initLifetimeController(userData.dayOfBirth);
 
-                                  //TODO implement privacy screen
-                                  // PrivacyAgreementScreen(
-                                  //   agreeLabel:
-                                  //       "${RemainingLifetimeLocalizations.of(context).iAgree}",
-                                  //   privacyText:
-                                  //       "${RemainingLifetimeLocalizations.of(context).privacyDescription}",
-                                  //   title: "${RemainingLifetimeLocalizations.of(context).privacy}",
-                                  //   privacyTags: [
-                                  //     PrivacyTag(
-                                  //         text: RemainingLifetimeLocalizations.of(context).private,
-                                  //         isConform: true),
-                                  //     PrivacyTag(
-                                  //         text: RemainingLifetimeLocalizations.of(context).noSignUp,
-                                  //         isConform: true),
-                                  //   ],
-                                  //   launcherIconImageUrl:
-                                  //       "assets/images/Remaining_Lifetime_App_Launcher_Icon_Rounded.png",
-                                  //   onAgreeCallback: () => createAppSettings(widget.appSettingsBox),
-                                  // ),
-                                  Scaffold(
-                                body: Center(
-                                  child: ElevatedButton(
-                                    child: Text("Accept privacy"),
-                                    onPressed: () =>
-                                        createAppSettings(appSettingsBox),
-                                  ),
-                                ),
-                              ))
-                          : FutureBuilder(
-                              future: Future.delayed(titleScreenDuration),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<dynamic> snapshot) {
-                                return snapshot.connectionState ==
-                                        ConnectionState.done
-                                    ?
-
-                                    // IntroductionToRemainingLifetimeScreen(
-                                    //     handleOnStart: handleOnStart,
-                                    //     onStartAnimationController: _onStartAnimationController,
-                                    //   )
-                                    //TODO Make Instruction screen accessible from profile screen
-                                    Scaffold(
-                                        body: Center(
-                                          child: ElevatedButton(
-                                            onPressed: handleOnStart,
-                                            child: Text("Continue"),
-                                          ),
-                                        ),
-                                      )
-                                    : TitleScreen(
-                                        animationDuration: titleScreenDuration,
-                                        titleImageName:
-                                            "assets/images/Lit_Life_Software_Light_No_Spacing.png",
-                                        credits: "a product of LitLifeSoftware",
-                                      );
-                              },
+                      return ValueListenableBuilder(
+                        valueListenable: HiveDBService().getGoals(),
+                        builder: (BuildContext context, Box<dynamic> goalsBox,
+                            Widget? child) {
+                          if (goalsBox.isEmpty) {
+                            initializeGoalsBoxContent(goalsBox);
+                          }
+                          return HomeScreen(
+                            goalsBox: goalsBox,
+                            appSettingsBox: appSettingsBox,
+                            lifetimeController: _lifetimeController,
+                          );
+                        },
+                      );
+                    } else {
+                      return Builder(
+                        builder: (context) {
+                          _initalStartup = true;
+                          // Show the startup screen only on the first app start.
+                          if (_shouldShowStartupScreen && !AppConfig.DEBUG) {
+                            return LitStartupScreen(
+                              animationDuration: _startupAnimationDuration,
                             );
-                });
+                          } else {
+                            return LitOfflineAppDisclaimerScreen(
+                              confirmButtonLabel:
+                                  RemainingLifetimeLocalizations.of(context)!
+                                      .iAgree!,
+                              titleText:
+                                  RemainingLifetimeLocalizations.of(context)!
+                                      .privacy!,
+                              descriptionText:
+                                  RemainingLifetimeLocalizations.of(context)!
+                                      .privacyDescription!,
+                              onConfirm: () =>
+                                  _onPrivacyAgreed(appSettingsBox, userDataBox),
+                            );
+                          }
+                        },
+                      );
+                    }
+                  },
+                );
+              },
+            );
           }
         } else {
           return LoadingScreen();
         }
       },
+    );
+  }
+}
+
+/// A widget displaying a default error text (if fetching from local storage
+/// has failed).
+class _ErrorText extends StatelessWidget {
+  const _ErrorText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        "Something unexpected happed. Please restart this app.",
+      ),
     );
   }
 }
