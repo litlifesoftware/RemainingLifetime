@@ -38,17 +38,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       title: RemainingLifetimeLocalizations.of(context)!.introduction!,
       nextButtonLabel: RemainingLifetimeLocalizations.of(context)!.next,
       textItems: [
-        OnboardingText(
+        TextPageContent(
           text:
               RemainingLifetimeLocalizations.of(context)!.visualizeDescription!,
           title: RemainingLifetimeLocalizations.of(context)!.visualize!,
         ),
-        OnboardingText(
+        TextPageContent(
           text:
               RemainingLifetimeLocalizations.of(context)!.keepTrackDescription!,
           title: RemainingLifetimeLocalizations.of(context)!.keepTrack!,
         ),
-        OnboardingText(
+        TextPageContent(
           text: RemainingLifetimeLocalizations.of(context)!.startDescription!,
           title: RemainingLifetimeLocalizations.of(context)!.start!,
         ),

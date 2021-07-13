@@ -308,7 +308,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "902679aa74d21df01ee99fc7c25232cbe19c1ebc"
+      resolved-ref: "1c5737e7611ce79d88968590be915df8776b896b"
       url: "https://github.com/litlifesoftware/lit_ui_kit.git"
     source: git
     version: "1.1.0"
