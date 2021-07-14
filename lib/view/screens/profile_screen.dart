@@ -524,6 +524,10 @@ class _UserColorCard extends StatelessWidget {
         horizontal: 16.0,
         vertical: 32.0,
       ),
+      colors: [
+        Color(0xFFFFFFFF),
+        Color(userData.color!),
+      ],
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16.0,
@@ -534,7 +538,11 @@ class _UserColorCard extends StatelessWidget {
           children: [
             Text(
               RemainingLifetimeLocalizations.of(context)!.yourColor,
-              style: LitSansSerifStyles.body,
+              style: LitSansSerifStyles.body.copyWith(
+                  color: Color(userData.color!).applyColorByContrast(
+                Colors.white,
+                LitColors.mediumGrey,
+              )),
             ),
             LitPushedThroughButton(
               backgroundColor: Color(0xFFFFF0F0),
