@@ -77,8 +77,20 @@ class RemainingLifetimeLocalizations {
     return localizedStrings!['privacy'][locale.languageCode];
   }
 
-  String? get privacyDescription {
-    return localizedStrings!['privacy_description'][locale.languageCode];
+  String? get privacyDescriptionOne {
+    return localizedStrings!['privacy_description_one'][locale.languageCode];
+  }
+
+  String? get privacyDescriptionTwo {
+    return localizedStrings!['privacy_description_two'][locale.languageCode];
+  }
+
+  String? get privacyDescriptionThree {
+    return localizedStrings!['privacy_description_three'][locale.languageCode];
+  }
+
+  String? get yourDataIsSafe {
+    return localizedStrings!['your_data_is_safe'][locale.languageCode];
   }
 
   String? get iAgree {

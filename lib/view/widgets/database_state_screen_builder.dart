@@ -4,12 +4,12 @@ import 'package:lit_ui_kit/lit_ui_kit.dart';
 import 'package:remaining_lifetime/config/config.dart';
 import 'package:remaining_lifetime/controller/hive_db_service.dart';
 import 'package:remaining_lifetime/controller/lifetime_controller.dart';
-import 'package:remaining_lifetime/controller/localization/remaining_lifetime_localizations.dart';
 import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/home_screen.dart';
 import 'package:remaining_lifetime/view/screens/loading_screen.dart';
+import 'package:remaining_lifetime/view/screens/privacy_screen.dart';
 
 /// A widget to retrieve data objects from local storage (Hive database) and to
 /// provide these to the corresponding screen [Widget]s.
@@ -164,18 +164,11 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
                               animationDuration: _startupAnimationDuration,
                             );
                           } else {
-                            return LitOfflineAppDisclaimerScreen(
-                              confirmButtonLabel:
-                                  RemainingLifetimeLocalizations.of(context)!
-                                      .iAgree!,
-                              titleText:
-                                  RemainingLifetimeLocalizations.of(context)!
-                                      .privacy!,
-                              descriptionText:
-                                  RemainingLifetimeLocalizations.of(context)!
-                                      .privacyDescription!,
-                              onConfirm: () =>
-                                  _onPrivacyAgreed(appSettingsBox, userDataBox),
+                            return PrivacyScreen(
+                              onConfirm: () => _onPrivacyAgreed(
+                                appSettingsBox,
+                                userDataBox,
+                              ),
                             );
                           }
                         },

@@ -54,10 +54,25 @@
     "de": "Privatsphäre",
     "ru": "Конфиденциальность"
   },
-  "privacy_description": {
-    "en": "Remaining Lifetime does store your data locally without sending it to a server. Your data will stay on your device. No other user will be able to view your created content. LitLifeSoftware or any other third party will not be able to access it. You are not required to register nor to sign in using an existing account. Please keep in mind that we are not able to make any backups of your data.\n\nMore information and the Privacy Policy are available on litlifesoftware.github.io.",
-    "de": "Remaining Lifetime speichert deine Daten lokal und sendet diese nicht an einen Server. Deine Daten bleiben auf deinem Gerät. Kein anderer Nutzer wird deine erstellten Inhalte sehen können. LitLifeSoftware oder andere Dritte werden auf diese keinen Zugriff haben. Eine Registrierung oder eine Anmeldung über ein bereits bestehendes Konto werden nicht benötigt. Bitte beachte, dass wir keine Backups deiner Daten anfertigen können.\n\nMehr Informationen und die Datenschutzerklärung sind auf litlifesoftware.github.io verfügbar.",
-    "ru": "Remaining Lifetime хранит ваши данные локально, не отправляя их на сервер. Ваши данные останутся на вашем устройстве. Ни один другой пользователь не сможет просматривать созданный вами контент. LitLifeSoftware или любое другое третье лицо не сможет получить к нему доступ. Вам не требуется ни регистрироваться, ни входить в систему, используя существующую учетную запись. Помните, что мы не можем делать резервные копии ваших данных.\n\nДополнительная информация и Политика конфиденциальности доступны на сайте litlifesoftware.github.io."
+  "privacy_description_one": {
+    "en": "Remaining Lifetime does store your data locally without sending it to a server. Your data will stay on your device. No other user will be able to view your created content.",
+    "de": "Remaining Lifetime speichert deine Daten lokal und sendet diese nicht an einen Server. Deine Daten bleiben auf deinem Gerät. Kein anderer Nutzer wird deine erstellten Inhalte sehen können.",
+    "ru": "Remaining Lifetime хранит ваши данные локально, не отправляя их на сервер. Ваши данные останутся на вашем устройстве. Ни один другой пользователь не сможет просматривать созданный вами контент."
+  },
+  "privacy_description_two": {
+    "en": "LitLifeSoftware or any other third party will not be able to access it. You are not required to register nor to sign in using an existing account.",
+    "de": "LitLifeSoftware oder andere Dritte werden auf diese keinen Zugriff haben. Eine Registrierung oder eine Anmeldung über ein bereits bestehendes Konto werden nicht benötigt.",
+    "ru": "LitLifeSoftware или любое другое третье лицо не сможет получить к нему доступ. Вам не требуется ни регистрироваться, ни входить в систему, используя существующую учетную запись."
+  },
+  "privacy_description_three": {
+    "en": "Please keep in mind that we are not able to make any backups of your data. More information and the Privacy Policy are available on litlifesoftware.github.io.",
+    "de": "Bitte beachte, dass wir keine Backups deiner Daten anfertigen können. Mehr Informationen und die Datenschutzerklärung sind auf litlifesoftware.github.io verfügbar.",
+    "ru": "Помните, что мы не можем делать резервные копии ваших данных.Дополнительная информация и Политика конфиденциальности доступны на сайте litlifesoftware.github.io."
+  },
+  "your_data_is_safe": {
+    "en": "Your Data is safe",
+    "de": "Deine Daten sind sicher",
+    "ru": "Ваши данные в безопасности"
   },
   "i_agree": {
     "en": "I agree",
