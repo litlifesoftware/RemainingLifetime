@@ -31,7 +31,7 @@ class _LifetimeScreenState extends State<LifetimeScreen>
     with TickerProviderStateMixin {
   /// The [FocusNode] used on the [TextField] corresponding to the goals
   /// title input.
-  FocusNode? _editingFocus;
+  late FocusNode _editingFocus;
 
   /// [AnimatinonController] used to animate the appear animatinon on start of the
   /// displayed [Widgets] on start of the app.
@@ -45,7 +45,7 @@ class _LifetimeScreenState extends State<LifetimeScreen>
 
   /// [TextEditingController] to controller the user input required to create or
   /// edit a [Goal].
-  TextEditingController? _goalTitleController;
+  late TextEditingController _goalTitleController;
 
   /// The currently selected [Goal] object on the [LifetimeGrid].
   Goal? _selectedGoal;
@@ -92,7 +92,7 @@ class _LifetimeScreenState extends State<LifetimeScreen>
         _selectedGoal!.id!,
         Goal(
             id: _selectedGoal!.id,
-            title: _goalTitleController!.text,
+            title: _goalTitleController.text,
             month: _selectedGoal!.month,
             year: _selectedGoal!.year));
     resetPressedGoal();

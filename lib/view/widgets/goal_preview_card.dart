@@ -17,8 +17,8 @@ class GoalPreviewCard extends StatefulWidget implements CollapsibleCard {
   final Goal? goal;
   final void Function() onCloseCallback;
   final void Function() saveGoalCallback;
-  final FocusNode? focusNode;
-  final TextEditingController? textEditingController;
+  final FocusNode focusNode;
+  final TextEditingController textEditingController;
   final bool? darkMode;
 
   /// Creates a [GoalPreviewCard].
@@ -40,7 +40,6 @@ class GoalPreviewCard extends StatefulWidget implements CollapsibleCard {
   _GoalPreviewCardState createState() => _GoalPreviewCardState();
 
   @override
-  // TODO: implement controller
   CollapsibleCardController get controller => collapsibleCardController;
 }
 
@@ -54,33 +53,43 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
         : DateTime.now();
   }
 
+  Color get _closedButtonColor {
+    return widget.darkMode! ? Colors.white : LitColors.lightRed;
+  }
+
+  Color get _backgroundColor {
+    return widget.darkMode! ? LitColors.darkBlue : Colors.white;
+  }
+
+  Color get _closeButtonBorderColor {
+    return widget.darkMode! ? LitColors.lightGrey : LitColors.lightRed;
+  }
+
+  Color get _topBarColor {
+    return widget.darkMode! ? LitColors.mediumGrey : LitColors.lightGrey;
+  }
+
+  String get _title {
+    String langCode = Localizations.localeOf(context).languageCode;
+    String monthFormat = DateFormat.MMMM(langCode).format(_dateTime);
+    return "$monthFormat ${widget.goal!.year}";
+  }
+
+  Color get _textColor {
+    return widget.darkMode! ? Colors.white : Colors.black45;
+  }
+
   @override
   Widget build(BuildContext context) {
     // Ensure the provided Goal is initialized.
     return widget.goal != null
         ? TitledCollapsibleCard(
             collapsibleCardController: widget.collapsibleCardController,
-            closeButtonBorderColor:
-                widget.darkMode! ? LitColors.mintGreen : LitColors.lightRed,
-            closeButtonColor: widget.darkMode!
-                ? Colors.white
-                : LitColors.lightRed.withOpacity(0.8),
-            backgroundColor: widget.goal!.id == 0
-                ? widget.darkMode!
-                    ? LitColors.darkBeige
-                    : LitColors.beigeGrey
-                : widget.goal!.id ==
-                        widget.lifetimeController!.lifeExpectancyInMonths - 1
-                    ? widget.darkMode!
-                        ? LitColors.darkOliveGreen
-                        : LitColors.lightPink
-                    : widget.darkMode!
-                        ? LitColors.darkBlue
-                        : Colors.white,
+            closeButtonBorderColor: _closeButtonBorderColor,
+            closeButtonColor: _closedButtonColor,
+            backgroundColor: _backgroundColor,
             onCloseCallback: widget.onCloseCallback,
-            topBarColor: widget.darkMode!
-                ? LitColors.mediumGrey
-                : LitColors.lightMintGreen.withOpacity(0.5),
+            topBarColor: _topBarColor,
             title: Stack(
               alignment: Alignment.center,
               children: [
@@ -92,11 +101,10 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
                       horizontal: 32.0,
                     ),
                     child: Text(
-                      "${DateFormat.MMMM('${Localizations.localeOf(context).languageCode}').format(_dateTime)} ${widget.goal!.year}",
+                      _title,
                       textAlign: TextAlign.center,
-                      style: LitTextStyles.sansSerif.copyWith(
-                        fontSize: 16.5,
-                        color: widget.darkMode! ? Colors.white : Colors.black45,
+                      style: LitSansSerifStyles.header5.copyWith(
+                        color: _textColor,
                       ),
                     ),
                   ),
@@ -111,104 +119,87 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
                 ),
               ],
             ),
-            child: widget.goal!.id == 0
-                ? Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 16.0,
-                        horizontal: 32.0,
-                      ),
-                      child: Text(
-                        "${RemainingLifetimeLocalizations.of(context)!.myDateOfBirth} \u{1F973}\u{1F389}\u{1F389}",
-                        textAlign: TextAlign.left,
-                        style: LitTextStyles.sansSerif.copyWith(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.w700,
-                          color:
-                              widget.darkMode! ? Colors.white : Colors.black45,
-                        ),
-                      ),
-                    ),
-                  )
-                : widget.goal!.id ==
-                        widget.lifetimeController!.lifeExpectancyInMonths - 1
-                    ? Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 16.0,
-                            horizontal: 32.0,
-                          ),
-                          child: Text(
-                            "${RemainingLifetimeLocalizations.of(context)!.mightBeYourLastMonth}...",
-                            textAlign: TextAlign.left,
-                            style: LitTextStyles.sansSerif.copyWith(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.w700,
-                              color: widget.darkMode!
-                                  ? Colors.white
-                                  : LitColors.mediumGrey,
-                            ),
-                          ),
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16.0,
-                          horizontal: 32.0,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: widget.darkMode! ? 16.0 : 14.0,
-                                color: widget.darkMode!
-                                    ? Colors.black45
-                                    : Colors.black12,
-                                spreadRadius: widget.darkMode! ? 10.0 : 4.0,
-                                offset: widget.darkMode!
-                                    ? Offset(1, 1)
-                                    : Offset(2, 2),
-                              )
-                            ],
-                            color: widget.darkMode!
-                                ? LitColors.lightPink
-                                    .withOpacity(0.1)
-                                    .withOpacity(0.6)
-                                : LitColors.mintGreen.withOpacity(0.8),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: TextField(
-                            controller: widget.textEditingController,
-                            focusNode: widget.focusNode,
-                            maxLines: 4,
-                            style: LitTextStyles.sansSerif.copyWith(
-                              fontSize: 18.0,
-                              color: widget.darkMode!
-                                  ? Colors.white
-                                  : LitColors.mediumGrey,
-                            ),
-                            cursorColor: LitColors.mediumGrey,
-                            decoration: InputDecoration(
-                              hintText: widget
-                                      .textEditingController!.text.isEmpty
-                                  ? '${RemainingLifetimeLocalizations.of(context)!.addAnAchievement} ...'
-                                  : '',
-                              hintStyle: LitTextStyles.sansSerif.copyWith(
-                                fontSize: 16.0,
-                                color: widget.darkMode!
-                                    ? Colors.white60
-                                    : LitColors.mediumGrey.withOpacity(0.4),
-                              ),
-                              focusColor: LitColors.mediumGrey,
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.all(20),
-                            ),
-                          ),
-                        ),
-                      ),
+            child: _CardContent(
+              darkMode: widget.darkMode!,
+              focusNode: widget.focusNode,
+              textEditingController: widget.textEditingController,
+            ),
           )
         : SizedBox();
+  }
+}
+
+class _CardContent extends StatefulWidget {
+  final TextEditingController textEditingController;
+  final FocusNode focusNode;
+  final bool darkMode;
+  final List<BoxShadow> boxShadow;
+  final EdgeInsets padding;
+  const _CardContent({
+    Key? key,
+    required this.darkMode,
+    required this.textEditingController,
+    required this.focusNode,
+    this.boxShadow = const [
+      const BoxShadow(
+        blurRadius: 4.0,
+        color: Colors.black26,
+        spreadRadius: -1.0,
+        offset: Offset(-2.0, 2.0),
+      )
+    ],
+    this.padding = const EdgeInsets.symmetric(
+      vertical: 16.0,
+      horizontal: 32.0,
+    ),
+  }) : super(key: key);
+
+  @override
+  __CardContentState createState() => __CardContentState();
+}
+
+class __CardContentState extends State<_CardContent> {
+  Color get _innerCardBackgroundColor {
+    return widget.darkMode ? Color(0xFF204a62).withOpacity(0.5) : Colors.white;
+  }
+
+  Color get _textColor {
+    return widget.darkMode ? Colors.white : LitColors.mediumGrey;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: widget.padding,
+      child: Container(
+        decoration: BoxDecoration(
+          boxShadow: widget.boxShadow,
+          color: _innerCardBackgroundColor,
+          borderRadius: BorderRadius.circular(22.0),
+        ),
+        child: TextField(
+          controller: widget.textEditingController,
+          focusNode: widget.focusNode,
+          maxLines: 5,
+          style: LitSansSerifStyles.body.copyWith(
+            color: _textColor,
+          ),
+          cursorColor: LitColors.mediumGrey,
+          decoration: InputDecoration(
+            hintText: widget.textEditingController.text.isEmpty
+                ? RemainingLifetimeLocalizations.of(context)!
+                        .addAnAchievement! +
+                    " ..."
+                : '',
+            hintStyle: LitSansSerifStyles.body.copyWith(
+              color: _textColor.withOpacity(0.65),
+            ),
+            focusColor: LitColors.mediumGrey,
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(20),
+          ),
+        ),
+      ),
+    );
   }
 }
