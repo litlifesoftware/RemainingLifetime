@@ -10,6 +10,7 @@ import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/home_screen.dart';
 import 'package:remaining_lifetime/view/screens/loading_screen.dart';
 import 'package:remaining_lifetime/view/screens/privacy_screen.dart';
+import 'package:remaining_lifetime/view/screens/confirm_age_screen.dart';
 
 /// A widget to retrieve data objects from local storage (Hive database) and to
 /// provide these to the corresponding screen [Widget]s.

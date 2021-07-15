@@ -223,5 +223,35 @@
     "en": "Next",
     "de": "Vor",
     "ru": "Следующий"
+  },
+  "confirm_your_age": {
+    "en": "Confirm your Age",
+    "de": "Bestätige dein Alter",
+    "ru": "Подтвердите свой возраст"
+  },
+  "confirm_your_age_subtitle": {
+    "en": "Are you older than 13 years?",
+    "de": "Bist du älter als 13 Jahre?",
+    "ru": "Вам больше 13 лет?"
+  },
+  "valid": {
+    "en": "Valid",
+    "de": "Valide",
+    "ru": "Действительный"
+  },
+  "submit": {
+    "en": "Submit",
+    "de": "Bestätigen",
+    "ru": "Подтвердить"
+  },
+  "choose_date": {
+    "en": "Choose date",
+    "de": "Datum wählen",
+    "ru": "Выберите дату"
+  },
+  "set": {
+    "en": "Set",
+    "de": "Wählen",
+    "ru": "Набор"
   }
 }

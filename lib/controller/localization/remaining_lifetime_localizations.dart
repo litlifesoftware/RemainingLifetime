@@ -215,4 +215,28 @@ class RemainingLifetimeLocalizations {
   String get next {
     return localizedStrings!['next'][locale.languageCode];
   }
+
+  String get confirmYourAge {
+    return localizedStrings!['confirm_your_age'][locale.languageCode];
+  }
+
+  String get confirmYourAgeSubtitle {
+    return localizedStrings!['confirm_your_age_subtitle'][locale.languageCode];
+  }
+
+  String get valid {
+    return localizedStrings!['valid'][locale.languageCode];
+  }
+
+  String get submit {
+    return localizedStrings!['submit'][locale.languageCode];
+  }
+
+  String get chooseDate {
+    return localizedStrings!['choose_date'][locale.languageCode];
+  }
+
+  String get set {
+    return localizedStrings!['set'][locale.languageCode];
+  }
 }
