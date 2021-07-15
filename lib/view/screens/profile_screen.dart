@@ -526,7 +526,7 @@ class _UserColorCard extends StatelessWidget {
       ),
       colors: [
         Color(0xFFFFFFFF),
-        Color(userData.color!),
+        Color(userData.color!).withAlpha(255),
       ],
       child: Padding(
         padding: const EdgeInsets.symmetric(
