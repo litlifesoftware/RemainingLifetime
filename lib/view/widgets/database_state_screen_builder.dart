@@ -8,7 +8,6 @@ import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/home_screen.dart';
-import 'package:remaining_lifetime/view/screens/loading_screen.dart';
 import 'package:remaining_lifetime/view/screens/privacy_screen.dart';
 import 'package:remaining_lifetime/view/screens/confirm_age_screen.dart';
 
@@ -23,7 +22,7 @@ class DatabaseStateScreenBuilder extends StatefulWidget {
 class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
     with TickerProviderStateMixin {
   /// The controller to calculate the user's lifetime months.
-  late LifetimeController? _lifetimeController;
+  late LifetimeController _lifetimeController;
 
   /// The startup screen's animation duration.
   final Duration _startupAnimationDuration = const Duration(
@@ -49,13 +48,13 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
   /// The [LifetimeController] will be used to add one entry for each
   /// expected lifetime month.
   void initializeGoalsBoxContent(goalsBox) {
-    for (int i = 0; i < _lifetimeController!.lifeExpectancyInMonths; i++) {
+    for (int i = 0; i < _lifetimeController.lifeExpectancyInMonths; i++) {
       final Goal goal = Goal(
         // Increase the index by one to create the id.
         id: i,
         title: "",
-        month: _lifetimeController!.convertTotalMonthToDateTime(i).month,
-        year: _lifetimeController!.convertTotalMonthToDateTime(i).year,
+        month: _lifetimeController.convertTotalMonthToDateTime(i).month,
+        year: _lifetimeController.convertTotalMonthToDateTime(i).year,
       );
       goalsBox.add(goal);
     }
@@ -148,8 +147,6 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
                             initializeGoalsBoxContent(goalsBox);
                           }
                           return HomeScreen(
-                            goalsBox: goalsBox,
-                            appSettingsBox: appSettingsBox,
                             lifetimeController: _lifetimeController,
                           );
                         },
@@ -180,7 +177,7 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
             );
           }
         } else {
-          return LoadingScreen();
+          return LitStaticLoadingScreen();
         }
       },
     );
