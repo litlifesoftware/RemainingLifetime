@@ -15,7 +15,7 @@ class UserDataController {
     int ageTimestamp =
         now.millisecondsSinceEpoch - birth.millisecondsSinceEpoch;
     int ageYears = Duration(milliseconds: ageTimestamp).inDays ~/ 365;
-    print(DateTime.fromMillisecondsSinceEpoch(ageYears));
+
     return ageYears;
   }
 }

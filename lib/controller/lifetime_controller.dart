@@ -79,9 +79,6 @@ class LifetimeController {
   /// The total months passed of the user's lifetime calculated using the user provided
   /// [dayOfBirthDateTime]. To ensure only completed months are counting, floor the result.
   int get pastLifeTimeInMonths {
-    print((now.millisecondsSinceEpoch -
-            dayOfBirthDateTime.millisecondsSinceEpoch) /
-        millisecondsPerMonth);
     return ((now.millisecondsSinceEpoch -
                 dayOfBirthDateTime.millisecondsSinceEpoch) /
             millisecondsPerMonth)

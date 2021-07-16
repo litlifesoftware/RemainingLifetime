@@ -40,7 +40,6 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
 
   /// Initializes the lifetime controller using the provided birth timestamp.
   void initLifetimeController(int? dateOfBirthTimestamp) {
-    print("lifetime controller set");
     _lifetimeController =
         LifetimeController(dayOfBirthTimestamp: dateOfBirthTimestamp);
   }
