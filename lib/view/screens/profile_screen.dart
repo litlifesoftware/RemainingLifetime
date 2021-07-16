@@ -10,7 +10,7 @@ import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/privacy_screen.dart';
 import 'package:remaining_lifetime/view/screens/tour_screen.dart';
-import 'package:remaining_lifetime/view/widgets/about_this_app_dialog.dart';
+import 'package:remaining_lifetime/view/widgets/about_dialog.dart';
 
 class ProfileScreen extends StatefulWidget {
   final void Function() toggleHideNavigationBar;
@@ -216,7 +216,7 @@ class __FooterState extends State<_Footer> {
 
   void _onPressedAbout() {
     LitRouteController(context).showDialogWidget(
-      AboutThisAppDialog(),
+      AboutAppDialog(),
     );
   }
 
@@ -322,7 +322,6 @@ class _StatisticsIndicatorState extends State<_StatisticsIndicator>
 
   @override
   Widget build(BuildContext context) {
-    print(_indicatorAnimation.value);
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 8.0,
