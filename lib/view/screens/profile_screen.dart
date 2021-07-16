@@ -222,7 +222,7 @@ class __FooterState extends State<_Footer> {
 
   void _onPressedTour() {
     LitRouteController(context).pushMaterialWidget(
-      OnboardingScreen(),
+      TourScreen(),
     );
   }
 

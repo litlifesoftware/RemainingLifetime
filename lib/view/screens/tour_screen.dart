@@ -4,14 +4,14 @@ import 'package:lit_ui_kit/screens.dart';
 import 'package:remaining_lifetime/controller/localization/remaining_lifetime_localizations.dart';
 import 'package:remaining_lifetime/view/widgets/launcher_image.dart';
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+class TourScreen extends StatefulWidget {
+  const TourScreen({Key? key}) : super(key: key);
 
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  _TourScreenState createState() => _TourScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _TourScreenState extends State<TourScreen> {
   void _onExit() {
     LitRouteController(context).navigateBack();
   }
