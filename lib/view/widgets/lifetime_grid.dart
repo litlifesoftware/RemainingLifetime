@@ -10,8 +10,6 @@ import 'package:remaining_lifetime/view/widgets/lifetime_tile.dart';
 class LifetimeGrid extends StatefulWidget {
   final LifetimeController? lifetimeController;
   final bool? darkMode;
-  final void Function() showBottomBar;
-  final void Function() dismissBottomBar;
   final Box<dynamic> goalsBox;
   final LitSnackbarController? customSnackBarController;
   final FocusNode? focusNode;
@@ -27,8 +25,6 @@ class LifetimeGrid extends StatefulWidget {
     Key? key,
     required this.lifetimeController,
     required this.darkMode,
-    required this.showBottomBar,
-    required this.dismissBottomBar,
     required this.goalsBox,
     required this.customSnackBarController,
     required this.focusNode,
