@@ -57,7 +57,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   /// Updates the [UserData] in regard of the new provided [color] while other
   /// members will not be affected.
-  void _setUserColor(Color color, UserData userData, Box<dynamic> userDataBox) {
+  void _setUserColor(
+    Color color,
+    UserData userData,
+    Box<dynamic> userDataBox,
+  ) {
     userDataBox.putAt(
       0,
       UserData(

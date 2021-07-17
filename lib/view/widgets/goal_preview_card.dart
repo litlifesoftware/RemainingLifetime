@@ -4,7 +4,7 @@ import 'package:lit_ui_kit/lit_ui_kit.dart';
 import 'package:remaining_lifetime/controller/lifetime_controller.dart';
 import 'package:remaining_lifetime/controller/localization/remaining_lifetime_localizations.dart';
 import 'package:remaining_lifetime/model/goal.dart';
-import 'package:remaining_lifetime/view/widgets/goal_preview_card_action_button.dart';
+import 'package:remaining_lifetime/view/widgets/goal_card_action_button.dart';
 
 /// A [StatelessWidget] to extend the [CollapsibleCard] in order to implement
 /// a custom style.
@@ -111,11 +111,12 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: GoalPreviewCardActionButton(
-                      goal: widget.goal,
-                      darkMode: widget.darkMode,
-                      textEditingController: widget.textEditingController,
-                      saveGoalCallback: widget.saveGoalCallback),
+                  child: GoalCardActionButton(
+                    goal: widget.goal!,
+                    darkMode: widget.darkMode!,
+                    textEditingController: widget.textEditingController,
+                    saveGoalCallback: widget.saveGoalCallback,
+                  ),
                 ),
               ],
             ),

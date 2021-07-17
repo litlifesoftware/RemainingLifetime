@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:lit_ui_kit/lit_ui_kit.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 
-class GoalPreviewCardActionButton extends StatefulWidget {
+class GoalCardActionButton extends StatefulWidget {
   final Goal? goal;
   final bool? darkMode;
   final TextEditingController? textEditingController;
   final void Function() saveGoalCallback;
 
-  /// Create a [GoalPreviewCardActionButton] used to conditionally render the
+  /// Create a [GoalCardActionButton] used to conditionally render the
   /// action button on the [GoalPreviewCard].
   ///
   /// If the provided [Goal] title and the currently entered text are different,
   /// allow the User to save his input.
-  const GoalPreviewCardActionButton({
+  const GoalCardActionButton({
     Key? key,
     required this.goal,
     required this.darkMode,
@@ -22,12 +22,11 @@ class GoalPreviewCardActionButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _GoalPreviewCardActionButtonState createState() =>
-      _GoalPreviewCardActionButtonState();
+  _GoalCardActionButtonState createState() => _GoalCardActionButtonState();
 }
 
-class _GoalPreviewCardActionButtonState
-    extends State<GoalPreviewCardActionButton> with TickerProviderStateMixin {
+class _GoalCardActionButtonState extends State<GoalCardActionButton>
+    with TickerProviderStateMixin {
   late AnimationController _saveButtonAnimation;
 
   @override
