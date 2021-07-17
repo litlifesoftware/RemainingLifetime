@@ -6,20 +6,38 @@ import 'package:remaining_lifetime/controller/localization/remaining_lifetime_lo
 import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/view/widgets/goal_card_action_button.dart';
 
-/// A [StatelessWidget] to extend the [CollapsibleCard] in order to implement
-/// a custom style.
+/// A widget displaying a custom [CollapsibleCard] to allow to view and change
+/// the provided [Goal].
 ///
 /// The [GoalPreviewCard] allows the user to create an [Goal] or to view and
 /// edit an existing [Goal].
 class GoalPreviewCard extends StatefulWidget implements CollapsibleCard {
+  /// Controlls the [CollapsibleCard].
   final CollapsibleCardController collapsibleCardController;
+
+  /// Provides information about the user's lifetime.
   final LifetimeController? lifetimeController;
+
+  /// The viewed [Goal].
   final Goal? goal;
-  final void Function() onCloseCallback;
-  final void Function() saveGoalCallback;
+
+  /// Controlls the input focus.
   final FocusNode focusNode;
+
+  /// Controlls the text input.
   final TextEditingController textEditingController;
+
+  /// States whether to apply the `darkMode` styling.
   final bool? darkMode;
+
+  /// Specifies the top bar's padding.
+  final EdgeInsets topBarPadding;
+
+  /// Specifies what the 'close' action should perform.
+  final void Function() onClose;
+
+  /// Specifies what the 'save' action should perform.
+  final void Function() onSave;
 
   /// Creates a [GoalPreviewCard].
   ///
@@ -29,11 +47,15 @@ class GoalPreviewCard extends StatefulWidget implements CollapsibleCard {
     required this.collapsibleCardController,
     required this.lifetimeController,
     required this.goal,
-    required this.onCloseCallback,
-    required this.saveGoalCallback,
+    required this.onClose,
+    required this.onSave,
     required this.focusNode,
     required this.textEditingController,
     required this.darkMode,
+    this.topBarPadding = const EdgeInsets.symmetric(
+      vertical: 16.0,
+      horizontal: 32.0,
+    ),
   }) : super(key: key);
 
   @override
@@ -44,6 +66,7 @@ class GoalPreviewCard extends StatefulWidget implements CollapsibleCard {
 }
 
 class _GoalPreviewCardState extends State<GoalPreviewCard> {
+  /// Returns a [DateTime] based on the [Goal]'s year and month.
   DateTime get _dateTime {
     return widget.goal != null
         ? DateTime(
@@ -53,28 +76,34 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
         : DateTime.now();
   }
 
+  /// Returns which color the 'close'-button should be display with.
   Color get _closedButtonColor {
     return widget.darkMode! ? Colors.white : LitColors.lightRed;
   }
 
+  /// Returns which background color should be displayed.
   Color get _backgroundColor {
     return widget.darkMode! ? LitColors.darkBlue : Colors.white;
   }
 
+  /// Returns which color the 'close'-button border should be display with.
   Color get _closeButtonBorderColor {
     return widget.darkMode! ? LitColors.lightGrey : LitColors.lightRed;
   }
 
+  /// Returns the top bar's background color.
   Color get _topBarColor {
     return widget.darkMode! ? LitColors.mediumGrey : LitColors.lightGrey;
   }
 
+  /// Returns the card's title.
   String get _title {
     String langCode = Localizations.localeOf(context).languageCode;
     String monthFormat = DateFormat.MMMM(langCode).format(_dateTime);
     return "$monthFormat ${widget.goal!.year}";
   }
 
+  /// Returns the text color of the card's title.
   Color get _textColor {
     return widget.darkMode! ? Colors.white : Colors.black45;
   }
@@ -88,7 +117,7 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
             closeButtonBorderColor: _closeButtonBorderColor,
             closeButtonColor: _closedButtonColor,
             backgroundColor: _backgroundColor,
-            onCloseCallback: widget.onCloseCallback,
+            onCloseCallback: widget.onClose,
             topBarColor: _topBarColor,
             title: Stack(
               alignment: Alignment.center,
@@ -96,10 +125,7 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
                 Align(
                   alignment: Alignment.center,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 16.0,
-                      horizontal: 32.0,
-                    ),
+                    padding: widget.topBarPadding,
                     child: Text(
                       _title,
                       textAlign: TextAlign.center,
@@ -115,7 +141,7 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
                     goal: widget.goal!,
                     darkMode: widget.darkMode!,
                     textEditingController: widget.textEditingController,
-                    saveGoalCallback: widget.saveGoalCallback,
+                    saveGoalCallback: widget.onSave,
                   ),
                 ),
               ],
@@ -130,6 +156,7 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
   }
 }
 
+/// A widget displaying the card's content.
 class _CardContent extends StatefulWidget {
   final TextEditingController textEditingController;
   final FocusNode focusNode;

@@ -142,10 +142,10 @@ class _LifetimeScreenState extends State<LifetimeScreen>
             return LitScaffold(
               collapsibleCard: GoalPreviewCard(
                 lifetimeController: widget.lifetimeController,
-                saveGoalCallback: () => handleGoalSave(goalsBox),
+                onSave: () => handleGoalSave(goalsBox),
                 collapsibleCardController: _collapsibleCardCon,
                 goal: _selectedGoal,
-                onCloseCallback: resetPressedGoal,
+                onClose: resetPressedGoal,
                 focusNode: _editingFocus,
                 textEditingController: _goalEditingController,
                 darkMode: appSettings.darkMode,
