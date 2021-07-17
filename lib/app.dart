@@ -6,15 +6,15 @@ import 'package:lit_ui_kit/lit_ui_kit.dart';
 
 import 'controller/localization/remaining_lifetime_localizations_delegate.dart';
 
-/// Creates an [RemainingLifetimeApp].
+/// Creates an [App].
 ///
 /// It will be the entry point of this application.
-class RemainingLifetimeApp extends StatefulWidget {
+class App extends StatefulWidget {
   @override
-  _RemainingLifetimeAppState createState() => _RemainingLifetimeAppState();
+  _AppState createState() => _AppState();
 }
 
-class _RemainingLifetimeAppState extends State<RemainingLifetimeApp> {
+class _AppState extends State<App> {
   /// The set of [Image]s used throughout the app.
   late List<String> assetImages;
 
