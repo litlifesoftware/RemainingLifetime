@@ -7,30 +7,41 @@ import 'package:remaining_lifetime/controller/lifetime_controller.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/view/widgets/lifetime_tile.dart';
 
+/// A widget displaying all remaining months of the user on a [GridView].
+///
+/// This grid enables the user to select a specific month in order to edit
+/// the corresponding [Goal] object.
 class LifetimeGrid extends StatefulWidget {
-  final LifetimeController? lifetimeController;
-  final bool? darkMode;
-  final Box<dynamic> goalsBox;
-  final LitSnackbarController? customSnackBarController;
-  final FocusNode? focusNode;
-  final void Function(int index) handleTilePress;
-  final double tileWidth;
-
-  /// Creates a [LifetimeGrid] [StatelessWidget].
-  ///
-  /// Its main purpose is to display all remaining months of the user as
-  /// a [GridView]. This will enable the user to select a specific month
-  /// in order to edit the corresponding [Goal] object.
+  /// Creates a [LifetimeGrid].
   const LifetimeGrid({
     Key? key,
     required this.lifetimeController,
     required this.darkMode,
     required this.goalsBox,
-    required this.customSnackBarController,
+    required this.snackBarController,
     required this.focusNode,
     required this.handleTilePress,
-    this.tileWidth = 64.0,
+    this.tileSize = 64.0,
   }) : super(key: key);
+
+  /// Provides details about the user's lifetime.
+  final LifetimeController? lifetimeController;
+
+  /// States whether to apply the `darkMode` style.
+  final bool? darkMode;
+
+  /// The box storing the [Goal] objects.
+  final Box<dynamic> goalsBox;
+
+  /// Controlls the [LitSnackbar].
+  final LitSnackbarController snackBarController;
+
+  /// Focuses on the input field.
+  final FocusNode? focusNode;
+
+  /// Specifies the size of each tile.
+  final double tileSize;
+  final void Function(int index) handleTilePress;
 
   @override
   _LifetimeGridState createState() => _LifetimeGridState();
@@ -45,23 +56,47 @@ class _LifetimeGridState extends State<LifetimeGrid>
   /// index.
   int? _longPressedId;
 
-  int? _pastLifetimeInMonths;
-  int? _totalMonths;
-  void initGoals(Box<Goal> goalsBox) {}
+  /// Returns the user's past months.
+  int get _pastLifetimeInMonths {
+    return widget.lifetimeController!.pastLifeTimeInMonths;
+  }
+
+  /// Returns the user's total months.
+  int get _totalMonths {
+    return widget.lifetimeController!.lifeExpectancyInMonths;
+  }
 
   /// Set the index value of the long pressed [Goal].
   void setLongPressedId(int value) {
     setState(() {
       _longPressedId = value;
     });
+
     _longPressedAnimation.forward(from: 0.0);
   }
 
   /// Reset the index value of the long pressed [Goal].
   void resetLongPressedId() {
-    _longPressedAnimation.reverse(from: 1.0).then((value) => setState(() {
-          _longPressedId = null;
-        }));
+    _longPressedAnimation.reverse(from: 1.0).then(
+          (value) => setState(
+            () {
+              _longPressedId = null;
+            },
+          ),
+        );
+  }
+
+  /// Calculates the grid's cross axis count based on the provided [constraints]
+  /// and [orientation].
+  int _calcCrossAxisCount(
+    BoxConstraints constraints,
+    Orientation orientation,
+  ) {
+    int portraitAxisCount = (constraints.maxWidth ~/ widget.tileSize);
+    int landscapeAxisCount = (constraints.maxWidth ~/ widget.tileSize) - 4;
+    return orientation == Orientation.portrait
+        ? portraitAxisCount
+        : landscapeAxisCount;
   }
 
   @override
@@ -69,18 +104,18 @@ class _LifetimeGridState extends State<LifetimeGrid>
     super.initState();
 
     _longPressedAnimation = AnimationController(
-        vsync: this,
-        duration: Duration(
-          milliseconds: 200,
-        ));
-    _pressedAnimation = AnimationController(
-        vsync: this,
-        duration: Duration(
-          milliseconds: 500,
-        ));
+      vsync: this,
+      duration: Duration(
+        milliseconds: 200,
+      ),
+    );
 
-    _pastLifetimeInMonths = widget.lifetimeController!.pastLifeTimeInMonths;
-    _totalMonths = widget.lifetimeController!.lifeExpectancyInMonths;
+    _pressedAnimation = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 500,
+      ),
+    );
   }
 
   @override
@@ -92,16 +127,12 @@ class _LifetimeGridState extends State<LifetimeGrid>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: LayoutBuilder(builder: (context, constraints) {
-            final int portraitAxisCount =
-                (constraints.maxWidth ~/ widget.tileWidth);
-            final int landscapeAxisCount =
-                (constraints.maxWidth ~/ widget.tileWidth) - 4;
-            return OrientationBuilder(builder: (context, orientation) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return OrientationBuilder(
+            builder: (context, orientation) {
               return Container(
                 child: Align(
                   alignment: Alignment.topCenter,
@@ -115,9 +146,10 @@ class _LifetimeGridState extends State<LifetimeGrid>
                       physics: BouncingScrollPhysics(),
                       itemCount: _totalMonths,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: orientation == Orientation.portrait
-                            ? portraitAxisCount
-                            : landscapeAxisCount,
+                        crossAxisCount: _calcCrossAxisCount(
+                          constraints,
+                          orientation,
+                        ),
                       ),
                       itemBuilder: (BuildContext context, int index) {
                         return LifetimeTile(
@@ -136,10 +168,10 @@ class _LifetimeGridState extends State<LifetimeGrid>
                   ),
                 ),
               );
-            });
-          }),
-        )
-      ],
+            },
+          );
+        },
+      ),
     );
   }
 }

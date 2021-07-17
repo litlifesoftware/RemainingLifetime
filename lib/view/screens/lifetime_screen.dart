@@ -194,7 +194,7 @@ class _LifetimeScreenState extends State<LifetimeScreen>
                                 goalsBox,
                               ),
                               focusNode: _editingFocus,
-                              customSnackBarController: _snackBarController,
+                              snackBarController: _snackBarController,
                               goalsBox: goalsBox,
                               lifetimeController: widget.lifetimeController,
                               darkMode: appSettings.darkMode,
