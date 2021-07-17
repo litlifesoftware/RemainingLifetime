@@ -124,8 +124,6 @@ class _LifetimeScreenState extends State<LifetimeScreen>
   @override
   void dispose() {
     _appearAnimation.dispose();
-    //_bottomBarAnimation.dispose();
-
     super.dispose();
   }
 

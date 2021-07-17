@@ -12,26 +12,38 @@ import 'package:remaining_lifetime/view/screens/privacy_screen.dart';
 import 'package:remaining_lifetime/view/screens/tour_screen.dart';
 import 'package:remaining_lifetime/view/widgets/about_dialog.dart';
 
+/// A screen widget allowing the user to view interact with his personal data.
+///
+/// It displays basic analytics and provides options to change app specific
+/// settings.
 class ProfileScreen extends StatefulWidget {
-  final void Function() toggleHideNavigationBar;
+  /// Creates a [ProfileScreen].
   const ProfileScreen({
     Key? key,
     required this.toggleHideNavigationBar,
   }) : super(key: key);
+
+  /// Callback to notify the parent widget that the navigation bar should be
+  /// hidden or shown.
+  final void Function() toggleHideNavigationBar;
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late LitSettingsPanelController _settingsPanelController;
+  /// Controlls the [LitSettingsPanel] instance.
+  late LitSettingsPanelController _settingsPanelCon;
 
+  /// Returns the provided [UserData]'s user color member value.
   Color _getUserColor(UserData userData) {
     return userData.color != null
         ? Color(userData.color!)
         : DefaultUserData.defaultColor;
   }
 
+  /// Returns an altered user color value to create a more desaturated
+  /// background color.
   Color _getBackgroundColor(UserData userData) {
     Color userDataColor = Color(userData.color!);
     Color desatColor = Color.fromARGB(
@@ -43,6 +55,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return userData.color != null ? desatColor : Color(0xFFFFE9E9);
   }
 
+  /// Updates the [UserData] in regard of the new provided [color] while other
+  /// members will not be affected.
   void _setUserColor(Color color, UserData userData, Box<dynamic> userDataBox) {
     userDataBox.putAt(
       0,
@@ -55,14 +69,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    _settingsPanelController = LitSettingsPanelController()
+    _settingsPanelCon = LitSettingsPanelController()
       ..addListener(widget.toggleHideNavigationBar);
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
@@ -77,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             AppSettings appSettings = appSettingsBox.getAt(0)!;
             return LitScaffold(
               settingsPanel: LitSettingsPanel(
-                controller: _settingsPanelController,
+                controller: _settingsPanelCon,
                 darkMode: appSettings.darkMode!,
                 title: RemainingLifetimeLocalizations.of(context)!.settings!,
                 settingsTiles: [
@@ -169,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     _Footer(
                       appSettings: appSettings,
-                      settingsPanelController: _settingsPanelController,
+                      settingsPanelController: _settingsPanelCon,
                     )
                   ],
                 ),
