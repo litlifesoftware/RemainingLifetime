@@ -79,10 +79,10 @@ class _LifetimeTileState extends State<LifetimeTile> {
   }
 
   Color get _backgroundColor {
-    return isPast
-        ? Color(0xff5f5f5f)
-        : currentTile
-            ? LitColors.lightGrey
+    return currentTile
+        ? LitColors.lightGrey
+        : isPast
+            ? Color(0xff5f5f5f)
             : Color(0xff576770);
   }
 
@@ -129,16 +129,10 @@ class _LifetimeTileState extends State<LifetimeTile> {
                 child: Container(
                   margin: const EdgeInsets.all(3.0),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(widget.width / 3),
-                      color: _backgroundColor,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 3.0,
-                          color: Colors.black38,
-                          offset: Offset(-2.0, 2.0),
-                          spreadRadius: 0.0,
-                        )
-                      ]),
+                    borderRadius: BorderRadius.circular(widget.width / 3),
+                    color: _backgroundColor,
+                    boxShadow: LitBoxShadows.md,
+                  ),
                   child: Center(
                     child: Text(
                       widget.index == widget.longPressedId
