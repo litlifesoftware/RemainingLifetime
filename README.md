@@ -1,5 +1,7 @@
 # Remaining Lifetime
 
+## ![History of Me Feature Graphic](assets/misc/Feature_Graphic_2021_Compressed.jpg "History of Me Feature Graphic")
+
 **Make every month count.**
 
 Remaining Lifetime allows you to visualize your entire life and motivates you to make every month count. Set your day of birth to create a grid of all your months on this planet, whether they are already spent or forthcoming. Set one goal each month and try to occupy all of your available tiles.
@@ -12,9 +14,9 @@ Now available on the Play Store.
 
 ## Screenshots
 
-| Visualize your achievements                                                           | Dark mode included                                                                    | Make every month count                                                                |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| ![Screenshot 1](assets/screenshots/Remaining_Lifetime_Screenshot_Artwork_1_EN-01.png) | ![Screenshot 2](assets/screenshots/Remaining_Lifetime_Screenshot_Artwork_2_EN-01.png) | ![Screenshot 3](assets/screenshots/Remaining_Lifetime_Screenshot_Artwork_3_EN-01.png) |
+| Visualize your achievements                          | Add your achievments                                 | Choose your Favorite Color                           | Overview where You Are Now                           |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| ![Screenshot 1](assets/screenshots/Screenshot_1.jpg) | ![Screenshot 2](assets/screenshots/Screenshot_2.jpg) | ![Screenshot 3](assets/screenshots/Screenshot_3.jpg) | ![Screenshot 4](assets/screenshots/Screenshot_4.jpg) |
 
 ## Build from Source
 
