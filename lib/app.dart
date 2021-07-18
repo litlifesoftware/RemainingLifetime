@@ -21,16 +21,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    assetImages = [
-      "assets/images/Remaining_Lifetime_App_Launcher_Icon_Rounded.png",
-      "assets/images/Lit_Life_Software_Dark.png",
-      "assets/images/Lit_Life_Software_Light.png",
-      "assets/images/Lit_Life_Software_Dark_No_Spacing.png",
-      "assets/images/Lit_Life_Software_Light_No_Spacing.png",
-      "assets/images/Meteoroid.png",
-      "assets/images/Planet.png",
-      "assets/images/Launcher_Icon_Static_Rounded_2.png"
-    ];
+    assetImages = ["assets/images/Launcher_Icon_Static_Rounded_2.png"];
     ImageCacheController(
       context: context,
       assetImages: assetImages,
