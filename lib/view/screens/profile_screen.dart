@@ -42,19 +42,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : DefaultUserData.defaultColor;
   }
 
-  /// Returns an altered user color value to create a more desaturated
-  /// background color.
-  Color _getBackgroundColor(UserData userData) {
-    Color userDataColor = Color(userData.color!);
-    Color desatColor = Color.fromARGB(
-      (userDataColor.alpha * 0.01).toInt(),
-      (userDataColor.red * 0.95).toInt(),
-      (userDataColor.green * 0.95).toInt(),
-      (userDataColor.blue * 0.95).toInt(),
-    );
-    return userData.color != null ? desatColor : Color(0xFFFFE9E9);
-  }
-
   /// Updates the [UserData] in regard of the new provided [color] while other
   /// members will not be affected.
   void _setUserColor(
@@ -145,9 +132,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
-                    stops: [0.05, 0.95],
+                    stops: [0.1, 0.99],
                     colors: [
-                      _getBackgroundColor(userData),
+                      Colors.white,
                       Color(0xFFFFFFFF),
                     ],
                   ),
@@ -160,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Text(
                       RemainingLifetimeLocalizations.of(context)!.yourAge,
                       textAlign: TextAlign.center,
-                      style: LitSansSerifStyles.header6,
+                      style: LitSansSerifStyles.h6,
                     ),
                     SizedBox(
                       height: 32.0,
@@ -284,7 +271,7 @@ class _StatisticsItem extends StatelessWidget {
       children: [
         Text(
           value,
-          style: LitSansSerifStyles.header6.copyWith(
+          style: LitSansSerifStyles.h6.copyWith(
             color: Colors.white,
             shadows: [
               BoxShadow(
@@ -296,7 +283,7 @@ class _StatisticsItem extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.0),
-        Text(label, style: LitSansSerifStyles.body),
+        Text(label, style: LitSansSerifStyles.body2),
       ],
     );
   }
@@ -550,7 +537,7 @@ class _UserColorCard extends StatelessWidget {
           children: [
             Text(
               RemainingLifetimeLocalizations.of(context)!.yourColor,
-              style: LitSansSerifStyles.body.copyWith(
+              style: LitSansSerifStyles.body2.copyWith(
                   color: Color(userData.color!).applyColorByContrast(
                 Colors.white,
                 LitColors.mediumGrey,
