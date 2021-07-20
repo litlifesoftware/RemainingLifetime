@@ -37,19 +37,19 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
       nextButtonLabel: RemainingLifetimeLocalizations.of(context)!.next,
       textItems: [
         TextPageContent(
-          title: RemainingLifetimeLocalizations.of(context)!.privacy!,
+          title: RemainingLifetimeLocalizations.of(context)!.offline!,
           subtitle: RemainingLifetimeLocalizations.of(context)!.yourDataIsSafe!,
           text: RemainingLifetimeLocalizations.of(context)!
               .privacyDescriptionOne!,
         ),
         TextPageContent(
-          title: RemainingLifetimeLocalizations.of(context)!.privacy!,
+          title: RemainingLifetimeLocalizations.of(context)!.private!,
           subtitle: RemainingLifetimeLocalizations.of(context)!.yourDataIsSafe!,
           text: RemainingLifetimeLocalizations.of(context)!
               .privacyDescriptionTwo!,
         ),
         TextPageContent(
-          title: RemainingLifetimeLocalizations.of(context)!.privacy!,
+          title: RemainingLifetimeLocalizations.of(context)!.info,
           subtitle: RemainingLifetimeLocalizations.of(context)!.yourDataIsSafe!,
           text: RemainingLifetimeLocalizations.of(context)!
               .privacyDescriptionThree!,

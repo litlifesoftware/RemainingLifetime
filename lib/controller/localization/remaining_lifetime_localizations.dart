@@ -239,4 +239,8 @@ class RemainingLifetimeLocalizations {
   String get set {
     return localizedStrings!['set'][locale.languageCode];
   }
+
+  String get info {
+    return localizedStrings!['info'][locale.languageCode];
+  }
 }

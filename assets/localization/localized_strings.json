@@ -253,5 +253,10 @@
     "en": "Set",
     "de": "Wählen",
     "ru": "Набор"
+  },
+  "info": {
+    "en": "Information",
+    "de": "Infos",
+    "ru": "Информация"
   }
 }
