@@ -139,9 +139,8 @@ class _LifetimeTileState extends State<LifetimeTile> {
                           ? "$_tileMonth\n$_tileYear"
                           // Increase the index by one to display the month number.
                           : "${widget.index + 1}",
-                      style: LitSansSerifStyles.body.copyWith(
+                      style: LitSansSerifStyles.body2.copyWith(
                         color: _color,
-                        fontWeight: FontWeight.w800,
                         shadows: _textShadow,
                       ),
                       textAlign: TextAlign.center,
