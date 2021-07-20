@@ -129,7 +129,7 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
                     child: Text(
                       _title,
                       textAlign: TextAlign.center,
-                      style: LitSansSerifStyles.header5.copyWith(
+                      style: LitSansSerifStyles.h5.copyWith(
                         color: _textColor,
                       ),
                     ),
@@ -209,7 +209,7 @@ class __CardContentState extends State<_CardContent> {
           controller: widget.textEditingController,
           focusNode: widget.focusNode,
           maxLines: 5,
-          style: LitSansSerifStyles.body.copyWith(
+          style: LitSansSerifStyles.body2.copyWith(
             color: _textColor,
           ),
           cursorColor: LitColors.mediumGrey,
@@ -219,7 +219,7 @@ class __CardContentState extends State<_CardContent> {
                         .addAnAchievement! +
                     " ..."
                 : '',
-            hintStyle: LitSansSerifStyles.body.copyWith(
+            hintStyle: LitSansSerifStyles.body2.copyWith(
               color: _textColor.withOpacity(0.65),
             ),
             focusColor: LitColors.mediumGrey,
