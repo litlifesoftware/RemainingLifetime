@@ -8,7 +8,7 @@ import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/home_screen.dart';
-import 'package:remaining_lifetime/view/screens/privacy_screen.dart';
+import 'package:remaining_lifetime/view/screens/privacy_disclaimer_screen.dart';
 import 'package:remaining_lifetime/view/screens/confirm_age_screen.dart';
 
 /// A widget to retrieve data objects from local storage (Hive database) and to
@@ -161,7 +161,7 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
                               animationDuration: _startupAnimationDuration,
                             );
                           } else {
-                            return PrivacyScreen(
+                            return PrivacyDisclaimerScreen(
                               onConfirm: () => _onPrivacyAgreed(
                                 appSettingsBox,
                                 userDataBox,
