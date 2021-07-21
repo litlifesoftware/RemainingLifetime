@@ -19,7 +19,10 @@ class _TourScreenState extends State<TourScreen> {
   @override
   Widget build(BuildContext context) {
     return LitOnboardingScreen(
-      cardPadding: const EdgeInsets.only(top: 192.0),
+      cardPadding: const EdgeInsets.only(
+        top: 192.0,
+        bottom: 64.0,
+      ),
       art: Padding(
         padding: const EdgeInsets.only(bottom: 64.0),
         child: LauncherImage(size: 180.0),
