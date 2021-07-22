@@ -6,7 +6,7 @@ class LauncherImage extends StatelessWidget {
   /// Creates a [LauncherImage].
   const LauncherImage({
     Key? key,
-    this.launcherPath = "assets/images/Launcher_Icon_Static_Rounded_2.png",
+    this.launcherPath = "assets/images/Launcher_Icon_Static_Rounded_25per.png",
     this.size = 128.0,
   }) : super(key: key);
 

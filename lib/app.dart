@@ -21,7 +21,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    assetImages = ["assets/images/Launcher_Icon_Static_Rounded_2.png"];
+    assetImages = ["assets/images/Launcher_Icon_Static_Rounded_25per.png"];
     ImageCacheController(
       context: context,
       assetImages: assetImages,
