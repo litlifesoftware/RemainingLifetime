@@ -8,15 +8,41 @@ Remaining Lifetime allows you to visualize your entire life and motivates you to
 
 Start your journey today with Remaining Lifetime.
 
-Now available on the Play Store.
+<p align="center">Now available on Google Play.</p>
 
-<a href='https://play.google.com/store/apps/details?id=com.litlifesoftware.remaining_lifetime'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='80px'/></a>
+<p align="center"><a href='https://play.google.com/store/apps/details?id=com.litlifesoftware.remaining_lifetime'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='80px'/></a> </p>
 
 ## Screenshots
 
-| Visualize your achievements                          | Add your achievments                                 | Choose your Favorite Color                           | Overview where You Are Now                           |
-| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| ![Screenshot 1](assets/screenshots/Screenshot_1.jpg) | ![Screenshot 2](assets/screenshots/Screenshot_2.jpg) | ![Screenshot 3](assets/screenshots/Screenshot_3.jpg) | ![Screenshot 4](assets/screenshots/Screenshot_4.jpg) |
+<table >
+  <tr>
+    <th>
+    Visualize your achievements
+    </th>
+    <th>
+    Add your achievments
+    </th>
+    <th>
+    Choose your Favorite Color
+    </th>
+    <th>
+    Overview where You Are Now
+    </tr>
+  <tr>
+    <td>
+    <img alt="Screenshot 1" src="assets/screenshots/Screenshot_1.jpg"/>
+    </td>
+    <td>
+    <img alt="Screenshot 2" src="assets/screenshots/Screenshot_2.jpg"/>
+    </td>
+    <td>
+    <img alt="Screenshot 3" src="assets/screenshots/Screenshot_3.jpg"/>
+    </td>
+    <td>
+    <img alt="Screenshot 4" src="assets/screenshots/Screenshot_4.jpg"/>
+    </td>
+  </tr>
+</table>
 
 ## Build from Source
 
@@ -80,9 +106,9 @@ Remaining Lifetime uses the following Dart dependencies in order to implement ce
 features and functionality:
 
 - [lit_ui_kit](https://pub.dev/packages/lit_ui_kit) - [License](https://github.com/dart-lang/intl/blob/master/LICENSE)
-  > LitUIKit enables you to create unique user interfaces in less time. [More information](https://pub.dev/packages/lit_ui_kit)
+  > A collection of widgets and screens for Flutter implementing the Lit UI design language. [More information](https://pub.dev/packages/lit_ui_kit)
 - [lit_starfield](https://pub.dev/packages/lit_starfield) - [License](https://github.com/dart-lang/intl/blob/master/LICENSE)
-  > LitStarfield enables you to render an animated starfield to be used as a background for your parent widget. [More information](https://pub.dev/packages/lit_ui_kit)
+  > A Flutter plugin for rendering an animated and customizable starfield on a dark background. [More information](https://pub.dev/packages/lit_ui_kit)
 - [intl](https://pub.dev/packages/intl) - [License](https://github.com/dart-lang/intl/blob/master/LICENSE) (Used for localization)
 - [package_info](https://pub.dev/packages/package_info) - [License](https://github.com/flutter/plugins/blob/master/LICENSE) (Used to detect the platform)
 - [url_launcher](https://pub.dev/packages/url_launcher) - [License](https://github.com/flutter/plugins/blob/master/packages/url_launcher/url_launcher/LICENSE) (Used to
