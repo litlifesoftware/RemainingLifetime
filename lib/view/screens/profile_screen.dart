@@ -268,22 +268,22 @@ class _StatisticsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           value,
+          textAlign: TextAlign.center,
           style: LitSansSerifStyles.h6.copyWith(
             color: Colors.white,
-            shadows: [
-              BoxShadow(
-                offset: Offset(1, 1),
-                color: Colors.black12,
-                blurRadius: 4.0,
-              )
-            ],
+            shadows: LitBoxShadows.textSm,
           ),
         ),
         SizedBox(height: 8.0),
-        Text(label, style: LitSansSerifStyles.body2),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: LitSansSerifStyles.body2,
+        ),
       ],
     );
   }
@@ -469,38 +469,50 @@ class __StatisticsCardState extends State<_StatisticsCard> {
     return LitConstrainedSizedBox(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  children: [
-                    _StatisticsItem(
-                      label: RemainingLifetimeLocalizations.of(context)!
-                          .monthsSpent,
-                      value: "$_monthsSpent",
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: constraints.maxWidth / 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _StatisticsItem(
+                          label: RemainingLifetimeLocalizations.of(context)!
+                              .monthsSpent,
+                          value: "$_monthsSpent",
+                        ),
+                        _StatisticsIndicator(
+                          relValue: _monthsSpentRel,
+                        )
+                      ],
                     ),
-                    _StatisticsIndicator(
-                      relValue: _monthsSpentRel,
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    _StatisticsItem(
-                      label: RemainingLifetimeLocalizations.of(context)!
-                          .monthsRemaining,
-                      value: "$_monthsRemaining",
+                  ),
+                  SizedBox(
+                    width: constraints.maxWidth / 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _StatisticsItem(
+                          label: RemainingLifetimeLocalizations.of(context)!
+                              .monthsRemaining,
+                          value: "$_monthsRemaining",
+                        ),
+                        _StatisticsIndicator(
+                          relValue: _monthsRemainingRel,
+                        )
+                      ],
                     ),
-                    _StatisticsIndicator(
-                      relValue: _monthsRemainingRel,
-                    )
-                  ],
-                )
-              ],
-            ),
-          ],
+                  )
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
