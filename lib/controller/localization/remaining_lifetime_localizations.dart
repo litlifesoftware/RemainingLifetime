@@ -243,4 +243,8 @@ class RemainingLifetimeLocalizations {
   String get info {
     return localizedStrings!['info'][locale.languageCode];
   }
+
+  String get dateOnly {
+    return localizedStrings!['date_only'][locale.languageCode];
+  }
 }

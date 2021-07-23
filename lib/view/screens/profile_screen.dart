@@ -146,7 +146,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                     darkMode: appSettings.darkMode!,
                     enabled: appSettings.showDate ?? false,
-                    optionName: "Dates Only",
+                    optionName:
+                        RemainingLifetimeLocalizations.of(context)!.dateOnly,
                     iconData: LitIcons.plus,
                   ),
                 ],

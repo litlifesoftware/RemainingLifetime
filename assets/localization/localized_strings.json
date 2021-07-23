@@ -258,5 +258,10 @@
     "en": "Information",
     "de": "Infos",
     "ru": "Информация"
+  },
+  "date_only": {
+    "en": "Dates Only",
+    "de": "Nur Datum",
+    "ru": "только свидание"
   }
 }
