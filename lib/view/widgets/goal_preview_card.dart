@@ -129,7 +129,7 @@ class _GoalPreviewCardState extends State<GoalPreviewCard> {
                     child: Text(
                       _title,
                       textAlign: TextAlign.center,
-                      style: LitSansSerifStyles.h5.copyWith(
+                      style: LitSansSerifStyles.subtitle1.copyWith(
                         color: _textColor,
                       ),
                     ),

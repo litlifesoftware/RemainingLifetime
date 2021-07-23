@@ -119,7 +119,7 @@ class _LifetimeTileState extends State<LifetimeTile> {
             builder: (context, child) {
               return Transform.scale(
                 scale: widget.index == widget.longPressedId
-                    ? (1 + widget.animation.value)
+                    ? (1.0 + (widget.animation.value * 0.15))
                     : 1.0,
                 child: Container(
                   margin: const EdgeInsets.all(3.0),

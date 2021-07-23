@@ -100,8 +100,7 @@ class _GoalNumberLabel extends StatelessWidget {
           child: Text(
             // Increase the id by one to display the month number.
             "# ${goal.id! + 1}",
-            style: LitTextStyles.sansSerif.copyWith(
-              fontSize: 16.5,
+            style: LitSansSerifStyles.body2.copyWith(
               color: darkMode ? Colors.white : Colors.black45,
             ),
           ),
