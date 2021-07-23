@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 /// A controller class to handle the calculation of the user's lifetime and other
 /// operations using the provided [dayOfBirthTimestamp].
 class LifetimeController {

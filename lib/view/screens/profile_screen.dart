@@ -94,13 +94,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           agreedPrivacy: appSettings.agreedPrivacy,
                           darkMode: appSettings.darkMode,
                           animated: toggledValue,
+                          showDate: appSettings.showDate,
+                          tabIndex: appSettings.tabIndex,
                         ),
                       );
                     },
                     optionName:
                         RemainingLifetimeLocalizations.of(context)!.animations!,
                     darkMode: appSettings.darkMode!,
-                    enabled: appSettings.animated!,
+                    enabled: appSettings.animated ?? true,
                   ),
                   LitSettingsPanelTile(
                     disabledLabel:
@@ -114,14 +116,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           agreedPrivacy: appSettings.agreedPrivacy,
                           darkMode: toggledValue,
                           animated: appSettings.animated,
+                          showDate: appSettings.showDate,
+                          tabIndex: appSettings.tabIndex,
                         ),
                       );
                     },
                     darkMode: appSettings.darkMode!,
-                    enabled: appSettings.darkMode!,
+                    enabled: appSettings.darkMode ?? false,
                     optionName:
                         RemainingLifetimeLocalizations.of(context)!.darkMode!,
                     iconData: LitIcons.moon,
+                  ),
+                  LitSettingsPanelTile(
+                    disabledLabel:
+                        RemainingLifetimeLocalizations.of(context)!.turnedOff!,
+                    enabledLabel:
+                        RemainingLifetimeLocalizations.of(context)!.turnedOn!,
+                    onValueToggled: (toggledValue) {
+                      appSettingsBox.putAt(
+                        0,
+                        AppSettings(
+                          agreedPrivacy: appSettings.agreedPrivacy,
+                          darkMode: appSettings.darkMode,
+                          animated: appSettings.animated,
+                          showDate: toggledValue,
+                          tabIndex: appSettings.tabIndex,
+                        ),
+                      );
+                    },
+                    darkMode: appSettings.darkMode!,
+                    enabled: appSettings.showDate ?? false,
+                    optionName: "Dates Only",
+                    iconData: LitIcons.plus,
                   ),
                 ],
               ),

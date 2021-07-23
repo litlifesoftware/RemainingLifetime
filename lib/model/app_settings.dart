@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
 part 'app_settings.g.dart';
@@ -13,10 +12,16 @@ class AppSettings {
   final bool? darkMode;
   @HiveField(2)
   final bool? animated;
+  @HiveField(3)
+  final bool? showDate;
+  @HiveField(4)
+  final int? tabIndex;
 
   const AppSettings({
     required this.agreedPrivacy,
     required this.darkMode,
     required this.animated,
+    required this.showDate,
+    required this.tabIndex,
   });
 }

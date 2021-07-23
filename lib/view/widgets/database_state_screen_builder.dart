@@ -76,6 +76,8 @@ class _DatabaseStateScreenBuilderState extends State<DatabaseStateScreenBuilder>
       agreedPrivacy: true,
       animated: true,
       darkMode: false,
+      showDate: false,
+      tabIndex: 0,
     );
     appSettingsBox.add(appSettings);
     LitRouteController(context).pushCupertinoWidget(

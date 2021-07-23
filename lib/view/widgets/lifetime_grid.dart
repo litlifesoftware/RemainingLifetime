@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:lit_ui_kit/lit_ui_kit.dart';
 
 import 'package:remaining_lifetime/controller/lifetime_controller.dart';
+import 'package:remaining_lifetime/model/app_settings.dart';
 import 'package:remaining_lifetime/model/goal.dart';
 import 'package:remaining_lifetime/view/widgets/lifetime_tile.dart';
 
@@ -16,7 +17,7 @@ class LifetimeGrid extends StatefulWidget {
   const LifetimeGrid({
     Key? key,
     required this.lifetimeController,
-    required this.darkMode,
+    required this.appSettings,
     required this.goalsBox,
     required this.snackBarController,
     required this.focusNode,
@@ -27,8 +28,8 @@ class LifetimeGrid extends StatefulWidget {
   /// Provides details about the user's lifetime.
   final LifetimeController? lifetimeController;
 
-  /// States whether to apply the `darkMode` style.
-  final bool? darkMode;
+  /// Provides data to customize the styling.
+  final AppSettings appSettings;
 
   /// The box storing the [Goal] objects.
   final Box<dynamic> goalsBox;
@@ -153,7 +154,7 @@ class _LifetimeGridState extends State<LifetimeGrid>
                       ),
                       itemBuilder: (BuildContext context, int index) {
                         return LifetimeTile(
-                          darkMode: widget.darkMode,
+                          appSettings: widget.appSettings,
                           lifetimeController: widget.lifetimeController,
                           index: index,
                           longPressedId: _longPressedId,

@@ -20,19 +20,25 @@ class AppSettingsAdapter extends TypeAdapter<AppSettings> {
       agreedPrivacy: fields[0] as bool?,
       darkMode: fields[1] as bool?,
       animated: fields[2] as bool?,
+      showDate: fields[3] as bool?,
+      tabIndex: fields[4] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppSettings obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.agreedPrivacy)
       ..writeByte(1)
       ..write(obj.darkMode)
       ..writeByte(2)
-      ..write(obj.animated);
+      ..write(obj.animated)
+      ..writeByte(3)
+      ..write(obj.showDate)
+      ..writeByte(4)
+      ..write(obj.tabIndex);
   }
 
   @override
