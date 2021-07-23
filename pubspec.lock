@@ -301,12 +301,10 @@ packages:
   lit_ui_kit:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: a5c1af73e7419fa2b1da234ccaca0f4673b3391c
-      url: "https://github.com/litlifesoftware/lit_ui_kit.git"
-    source: git
-    version: "1.2.0"
+      name: lit_ui_kit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   logging:
     dependency: transitive
     description:

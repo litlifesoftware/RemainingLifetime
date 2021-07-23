@@ -27,8 +27,6 @@ dependencies:
     sdk: flutter
 
   intl: ^0.17.0
-  # package_info: ^0.4.1
-  # url_launcher: ^6.0.8
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   hive_generator: ^1.1.0
@@ -36,10 +34,10 @@ dependencies:
   flutter_launcher_icons: ^0.9.0
 
   lit_ui_kit: 
-    # ^1.1.0
+    ^1.3.0
     # Specify alternative lit_ui_kit locations
-    git: 
-      url: https://github.com/litlifesoftware/lit_ui_kit.git
+    # git: 
+    #   url: https://github.com/litlifesoftware/lit_ui_kit.git
     # path: ../lit_ui_kit/
 
   lit_starfield: ^0.1.1
