@@ -263,5 +263,25 @@
     "en": "Dates Only",
     "de": "Nur Datum",
     "ru": "только свидание"
+  },
+  "apply": {
+    "en": "Apply",
+    "de": "Anwenden",
+    "ru": "Применять"
+  },
+  "choose_color": {
+    "en": "Choose a color",
+    "de": "Farbe wählen",
+    "ru": "Выбери цвет"
+  },
+  "cancel": {
+    "en": "Cancel",
+    "de": "Abbrechen",
+    "ru": "Отмена"
+  },
+  "color_fully_transparent": {
+    "en": "Color is fully transparent!",
+    "de": "Deine Farbe ist transparent!",
+    "ru": "Цвет полностью прозрачный!"
   }
 }

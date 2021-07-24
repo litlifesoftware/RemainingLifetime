@@ -11,6 +11,7 @@ import 'package:remaining_lifetime/model/user_data.dart';
 import 'package:remaining_lifetime/view/screens/privacy_screen.dart';
 import 'package:remaining_lifetime/view/screens/tour_screen.dart';
 import 'package:remaining_lifetime/view/widgets/about_dialog.dart';
+import 'package:remaining_lifetime/view/widgets/color_picker_dialog.dart';
 
 /// A screen widget allowing the user to view interact with his personal data.
 ///
@@ -595,8 +596,8 @@ class _UserColorCard extends StatelessWidget {
               ),
               onPressed: () {
                 LitRouteController(context).showDialogWidget(
-                  LitColorPickerDialog(
-                    initialColor: Color(userData.color!),
+                  ColorPickerDialog(
+                    userData: userData,
                     onApplyColor: onApplyColor,
                   ),
                 );

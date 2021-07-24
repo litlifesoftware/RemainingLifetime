@@ -247,4 +247,20 @@ class RemainingLifetimeLocalizations {
   String get dateOnly {
     return localizedStrings!['date_only'][locale.languageCode];
   }
+
+  String get apply {
+    return localizedStrings!['apply'][locale.languageCode];
+  }
+
+  String get chooseColor {
+    return localizedStrings!['choose_color'][locale.languageCode];
+  }
+
+  String get cancel {
+    return localizedStrings!['cancel'][locale.languageCode];
+  }
+
+  String get colorFullyTransparent {
+    return localizedStrings!['color_fully_transparent'][locale.languageCode];
+  }
 }
