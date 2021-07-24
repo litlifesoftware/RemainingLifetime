@@ -36,6 +36,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   /// Controlls the [LitSettingsPanel] instance.
   late LitSettingsPanelController _settingsPanelCon;
 
+  Color _backgroundColor(AppSettings appSettings) {
+    return appSettings.darkMode! ? LitColors.darkGrey : Colors.white;
+  }
+
   /// Returns the provided [UserData]'s user color member value.
   Color _getUserColor(UserData userData) {
     return userData.color != null
@@ -157,15 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    stops: [0.1, 0.99],
-                    colors: [
-                      Colors.white,
-                      Color(0xFFFFFFFF),
-                    ],
-                  ),
+                  color: _backgroundColor(appSettings),
                 ),
                 child: ScrollableColumn(
                   children: [
@@ -183,14 +179,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     LitUserIcon(
                       username: "${UserDataController(userData).age}",
                       primaryColor: _getUserColor(userData),
+                      contrastColor: appSettings.darkMode!
+                          ? LitColors.darkGrey
+                          : Colors.white,
                     ),
                     _UserColorCard(
                       userData: userData,
+                      appSettings: appSettings,
                       onApplyColor: (color) =>
                           _setUserColor(color, userData, userDataBox),
                     ),
                     _StatisticsCard(
                       userData: userData,
+                      appSettings: appSettings,
                     ),
                     SizedBox(
                       height: 64.0,
@@ -224,6 +225,12 @@ class _Footer extends StatefulWidget {
 }
 
 class __FooterState extends State<_Footer> {
+  List<Color> get _gradientColors {
+    return widget.appSettings.darkMode!
+        ? LitFooterDefaultStyling.colorsDark
+        : LitFooterDefaultStyling.colorsLight;
+  }
+
   void _onLicensesPressed() {
     LitRouteController(context).pushMaterialWidget(
       ApplicationLicensesScreen(
@@ -257,6 +264,7 @@ class __FooterState extends State<_Footer> {
   @override
   Widget build(BuildContext context) {
     return LitSettingsFooter(
+      gradientColors: _gradientColors,
       title: RemainingLifetimeLocalizations.of(context)!.settings!,
       children: [
         LitPlainLabelButton(
@@ -319,9 +327,11 @@ class _StatisticsItem extends StatelessWidget {
 
 class _StatisticsIndicator extends StatefulWidget {
   final double relValue;
+  final bool darkMode;
   const _StatisticsIndicator({
     Key? key,
     required this.relValue,
+    required this.darkMode,
   }) : super(key: key);
 
   @override
@@ -431,7 +441,8 @@ class _StatisticsIndicatorState extends State<_StatisticsIndicator>
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: LitBadge(
-              backgroundColor: Color(0xFFf0F0f0),
+              backgroundColor:
+                  widget.darkMode ? LitColors.lightGrey : Color(0xFFf0F0f0),
               padding: const EdgeInsets.symmetric(
                 horizontal: 16.0,
                 vertical: 6.0,
@@ -455,9 +466,11 @@ class _StatisticsIndicatorState extends State<_StatisticsIndicator>
 
 class _StatisticsCard extends StatefulWidget {
   final UserData userData;
+  final AppSettings appSettings;
   const _StatisticsCard({
     Key? key,
     required this.userData,
+    required this.appSettings,
   }) : super(key: key);
 
   @override
@@ -517,6 +530,7 @@ class __StatisticsCardState extends State<_StatisticsCard> {
                         ),
                         _StatisticsIndicator(
                           relValue: _monthsSpentRel,
+                          darkMode: widget.appSettings.darkMode!,
                         )
                       ],
                     ),
@@ -533,6 +547,7 @@ class __StatisticsCardState extends State<_StatisticsCard> {
                         ),
                         _StatisticsIndicator(
                           relValue: _monthsRemainingRel,
+                          darkMode: widget.appSettings.darkMode!,
                         )
                       ],
                     ),
@@ -549,10 +564,12 @@ class __StatisticsCardState extends State<_StatisticsCard> {
 
 class _UserColorCard extends StatelessWidget {
   final UserData userData;
+  final AppSettings appSettings;
   final void Function(Color color) onApplyColor;
   const _UserColorCard({
     Key? key,
     required this.userData,
+    required this.appSettings,
     required this.onApplyColor,
   }) : super(key: key);
 
@@ -564,7 +581,7 @@ class _UserColorCard extends StatelessWidget {
         vertical: 32.0,
       ),
       colors: [
-        Color(0xFFFFFFFF),
+        appSettings.darkMode! ? LitColors.darkGrey : Colors.white,
         Color(userData.color!).withAlpha(255),
       ],
       child: Padding(
