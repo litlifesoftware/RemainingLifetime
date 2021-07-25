@@ -14,35 +14,13 @@ Start your journey today with Remaining Lifetime.
 
 ## Screenshots
 
-<table >
-  <tr>
-    <th>
-    Visualize your achievements
-    </th>
-    <th>
-    Add your achievments
-    </th>
-    <th>
-    Choose your Favorite Color
-    </th>
-    <th>
-    Overview where You Are Now
-    </tr>
-  <tr>
-    <td>
-    <img alt="Screenshot 1" src="assets/screenshots/Screenshot_1.jpg"/>
-    </td>
-    <td>
-    <img alt="Screenshot 2" src="assets/screenshots/Screenshot_2.jpg"/>
-    </td>
-    <td>
-    <img alt="Screenshot 3" src="assets/screenshots/Screenshot_3.jpg"/>
-    </td>
-    <td>
-    <img alt="Screenshot 4" src="assets/screenshots/Screenshot_4.jpg"/>
-    </td>
-  </tr>
-</table>
+| Visualize your achievements                              | Add your achievments                                     |
+| -------------------------------------------------------- | -------------------------------------------------------- |
+| ![1](assets/screenshots/Screenshot_1.jpg "Screenshot 1") | ![2](assets/screenshots/Screenshot_2.jpg "Screenshot 2") |
+
+| Choose your Favorite Color                               | Overview where You Are Now                               |
+| -------------------------------------------------------- | -------------------------------------------------------- |
+| ![3](assets/screenshots/Screenshot_3.jpg "Screenshot 3") | ![4](assets/screenshots/Screenshot_4.jpg "Screenshot 4") |
 
 ## Build from Source
 
