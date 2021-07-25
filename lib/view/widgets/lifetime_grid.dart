@@ -94,7 +94,8 @@ class _LifetimeGridState extends State<LifetimeGrid>
     Orientation orientation,
   ) {
     int portraitAxisCount = (constraints.maxWidth ~/ widget.tileSize);
-    int landscapeAxisCount = (constraints.maxWidth ~/ widget.tileSize) - 4;
+    // Constrain the grid width on landscape orientation.
+    int landscapeAxisCount = ((constraints.maxWidth * 0.7) ~/ widget.tileSize);
     return orientation == Orientation.portrait
         ? portraitAxisCount
         : landscapeAxisCount;
