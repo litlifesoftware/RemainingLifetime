@@ -202,16 +202,26 @@ class __TileLabelState extends State<_TileLabel> {
     return "${widget.tileMonth}\n${widget.tileYear}";
   }
 
+  String get _text {
+    bool isLongPressed = widget.index == widget.longPressedId;
+    bool showDate =
+        widget.appSettings.showDate != null && widget.appSettings.showDate!;
+    // Increase the index by one to compensate the index of `0` .
+    String monthCount = "${widget.index + 1}";
+
+    return isLongPressed
+        ? showDate
+            ? monthCount
+            : _dateLabel
+        : showDate
+            ? _dateLabel
+            : monthCount;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Text(
-      widget.index == widget.longPressedId
-          ? _dateLabel
-          : (widget.appSettings.showDate != null &&
-                  widget.appSettings.showDate!)
-              ? _dateLabel
-              // Increase the index by one to display the month number.
-              : "${widget.index + 1}",
+      _text,
       style: LitSansSerifStyles.subtitle2.copyWith(
         color: _color,
         shadows: _textShadow,
